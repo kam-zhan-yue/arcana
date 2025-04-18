@@ -11,6 +11,7 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private float maxRotation = 60f;
     [SerializeField] private float tiltSpeed = 20f;
 
+    private float _damage;
     private CardPopupItem _cardPopupItem;
     private Vector3 _movementDelta;
     private Vector3 _rotationDelta;
@@ -22,8 +23,9 @@ public abstract class Spell : MonoBehaviour
         _mainCamera = Camera.main;
     }
     
-    public void Init(CardPopupItem cardPopupItem)
+    public void Init(SpellConfig config, CardPopupItem cardPopupItem)
     {
+        _damage = config.damage;
         _cardPopupItem = cardPopupItem;
         _cardPopupItem.EndDrag += OnEndDrag;
     }
@@ -60,7 +62,6 @@ public abstract class Spell : MonoBehaviour
         {
             if (hit.transform.TryGetComponent(out ISpellTarget spellTarget))
             {
-                Debug.Log("Setting Target to " + spellTarget.GetTransform().gameObject.name);
                 _target = spellTarget;
             }
         }

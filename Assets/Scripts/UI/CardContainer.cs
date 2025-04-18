@@ -29,6 +29,8 @@ public class CardContainer : MonoBehaviour
         {
             Instantiate(cardSlotPrefab, transform);
         }
+
+        Card card = cardDatabase.GetCard(cardType);
         
         // Then, create a card and put it at the end of the card slot
         CardPopupItem cardPopupItem = Instantiate(cardPopupItemPrefab, transform.GetChild(transform.childCount - 1));
@@ -36,9 +38,9 @@ public class CardContainer : MonoBehaviour
         cardPopupItem.EndDrag += OnEndDrag;
         
         // Also, create a new visual card for the card
-        Spell spellPrefab = cardDatabase.GetCard(cardType).spell;
+        Spell spellPrefab = card.spell;
         Spell spell = Instantiate(spellPrefab, visualCardContainer.transform);
-        spell.Init(cardPopupItem);
+        spell.Init(card.spellConfig, cardPopupItem);
         _cards.Add(cardPopupItem);
     }
 
