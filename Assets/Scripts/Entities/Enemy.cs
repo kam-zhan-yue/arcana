@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     public void Init(EnemyConfig config)
     {
         _maxHealth = config.maxHealth;
+        _health = _maxHealth;
     }
 
     public void Activate()
@@ -96,6 +97,7 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     public void Damage(float damage)
     {
         _health -= damage;
+        Debug.Log($"Enemy Took Damage {damage}, Remaining Health is {_health}");
         if (_health <= 0f)
         {
             OnRelease?.Invoke();

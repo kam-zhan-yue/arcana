@@ -37,5 +37,6 @@ public class Fireball : Spell
         }
         Vector3 direction = projectile.Rigidbody.linearVelocity;
         enemy.Knockback(direction.normalized * knockbackForce * multiplier, knockbackTime);
+        enemy.Damage(damage);
     }
 }

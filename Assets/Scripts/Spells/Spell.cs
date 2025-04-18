@@ -11,7 +11,7 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private float maxRotation = 60f;
     [SerializeField] private float tiltSpeed = 20f;
 
-    private float _damage;
+    protected float damage;
     private CardPopupItem _cardPopupItem;
     private Vector3 _movementDelta;
     private Vector3 _rotationDelta;
@@ -25,7 +25,7 @@ public abstract class Spell : MonoBehaviour
     
     public void Init(SpellConfig config, CardPopupItem cardPopupItem)
     {
-        _damage = config.damage;
+        damage = config.damage;
         _cardPopupItem = cardPopupItem;
         _cardPopupItem.EndDrag += OnEndDrag;
     }

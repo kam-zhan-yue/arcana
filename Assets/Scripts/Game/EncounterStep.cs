@@ -31,7 +31,7 @@ public struct EnemySpawnData
     public Transform spawnPoint;
 
     [HideLabel, HorizontalGroup(Width = 0.5f)]
-    public Enemy enemyPrefab;
+    public EnemyConfig enemyConfig;
 }
 
 [Serializable]
@@ -62,14 +62,14 @@ public struct EncounterStep
                 {
                     enemiesToActivate[i].enemy.Init(enemiesToActivate[i].config);
                     enemiesToActivate[i].enemy.Activate();
-                    encounter.enemies.Add(enemiesToActivate[i].enemy);
+                    encounter.AddEnemy(enemiesToActivate[i].enemy);
                 }
                 break;
             case EncounterStepType.Spawn:
                 for (int i = 0; i < spawnData.Count; ++i)
                 {
-                    Enemy enemy = Object.Instantiate(spawnData[i].enemyPrefab, spawnData[i].spawnPoint);
-                    encounter.enemies.Add(enemy);
+                    Enemy enemy = spawnData[i].enemyConfig.Spawn(spawnData[i].spawnPoint);
+                    encounter.AddEnemy(enemy);
                 }
                 break;
             case EncounterStepType.Wait:

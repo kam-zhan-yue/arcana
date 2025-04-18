@@ -39,6 +39,7 @@ public class GameFlow : MonoBehaviour
         for (int i = startStep; i < steps.Count; ++i)
         {
             await steps[i].Play();
+            Debug.Log("Next Step!");
         }
     }
     
