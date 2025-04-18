@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class Spell : MonoBehaviour
+public abstract class Spell : MonoBehaviour
 {
     [Header("Follow Parameters")] 
     [SerializeField] private float followSpeed = 25f;
@@ -15,10 +14,18 @@ public class Spell : MonoBehaviour
     private CardPopupItem _cardPopupItem;
     private Vector3 _movementDelta;
     private Vector3 _rotationDelta;
+    private Camera _mainCamera;
+    private ISpellTarget _target;
 
+    private void Awake()
+    {
+        _mainCamera = Camera.main;
+    }
+    
     public void Init(CardPopupItem cardPopupItem)
     {
         _cardPopupItem = cardPopupItem;
+        _cardPopupItem.EndDrag += OnEndDrag;
     }
 
     private void Update()
@@ -26,6 +33,7 @@ public class Spell : MonoBehaviour
         if (!_cardPopupItem) return;
         Follow();
         Rotate();
+        CheckTarget();
     }
 
     private void Follow()
@@ -40,5 +48,33 @@ public class Spell : MonoBehaviour
         Vector3 movementRotation = (_cardPopupItem.State == CardState.Dragging ? _movementDelta : movementVector) * rotationAmount;
         _rotationDelta = Vector3.Lerp(_rotationDelta, movementRotation, rotationSpeed * Time.deltaTime);
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -maxRotation, maxRotation));
+    }
+
+    private void CheckTarget()
+    {
+        if (_cardPopupItem.State != CardState.Dragging)
+            return;
+        _target = null;
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (hit.transform.TryGetComponent(out ISpellTarget spellTarget))
+            {
+                _target = spellTarget;
+            }
+        }
+    }
+    
+    private void OnEndDrag(CardPopupItem cardPopupItem)
+    {
+        Apply(_target);
+    }
+
+    protected abstract void Apply(ISpellTarget target);
+
+
+    private void OnDestroy()
+    {
+        _cardPopupItem.EndDrag -= OnEndDrag;
     }
 }
