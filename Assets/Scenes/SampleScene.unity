@@ -1100,10 +1100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890456942fbfd416daaa8afe780ad672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardsToSpawn: 1
+  cardDatabase: {fileID: 11400000, guid: 32bc1733b55934d0b9a35e48f576b907, type: 2}
+  startingHand: 000000000000000001000000
   cardSlotPrefab: {fileID: 5983973944446856813, guid: 3e34329805ffc48f49e567f0bff6d37e, type: 3}
-  cardPrefab: {fileID: 7267757904049800613, guid: effae39753b694a4981bcb2a80c77547, type: 3}
-  visualCardPrefab: {fileID: 8414974181132903908, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
+  cardPopupItemPrefab: {fileID: 7267757904049800613, guid: effae39753b694a4981bcb2a80c77547, type: 3}
   visualCardContainer: {fileID: 385257697}
 --- !u!1 &1137757466
 GameObject:

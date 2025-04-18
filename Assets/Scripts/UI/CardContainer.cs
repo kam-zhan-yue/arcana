@@ -1,27 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CardContainer : MonoBehaviour
 {
-    [SerializeField] public int cardsToSpawn;
+    [SerializeField] public CardDatabase cardDatabase;
+    [SerializeField] public CardType[] startingHand;
     [SerializeField] public CardSlot cardSlotPrefab;
-    // Temporary
-    [SerializeField] public Card cardPrefab;
-    [SerializeField] public VisualCard visualCardPrefab;
+    [SerializeField] public CardPopupItem cardPopupItemPrefab;
     [SerializeField] public VisualCardContainer visualCardContainer;
     
-    private readonly List<Card> _cards = new List<Card>();
-    private Card _selectedCard = null;
+    private readonly List<CardPopupItem> _cards = new List<CardPopupItem>();
+    private CardPopupItem _selectedCardPopupItem = null;
 
     private void Start()
     {
-        for (int i = 0; i < cardsToSpawn; ++i)
+        for (int i = 0; i < startingHand.Length; ++i)
         {
-            AddCard();
+            AddCard(startingHand[i]);
         }
     }
 
-    private void AddCard()
+    private void AddCard(CardType cardType)
     {
         int cardSlots = transform.childCount;
         int cards = _cards.Count;
@@ -32,37 +32,38 @@ public class CardContainer : MonoBehaviour
         }
         
         // Then, create a card and put it at the end of the card slot
-        Card card = Instantiate(cardPrefab, transform.GetChild(transform.childCount - 1));
-        card.BeginDrag += OnBeginDrag;
-        card.EndDrag += OnEndDrag;
+        CardPopupItem cardPopupItem = Instantiate(cardPopupItemPrefab, transform.GetChild(transform.childCount - 1));
+        cardPopupItem.BeginDrag += OnBeginDrag;
+        cardPopupItem.EndDrag += OnEndDrag;
         
         // Also, create a new visual card for the card
-        VisualCard visualCard = Instantiate(visualCardPrefab, visualCardContainer.transform);
-        visualCard.Init(card);
-        _cards.Add(card);
+        VisualCardPopupItem visualCardPrefab = cardDatabase.GetCard(cardType).visualPopupItem;
+        VisualCardPopupItem visualCardPopupItem = Instantiate(visualCardPrefab, visualCardContainer.transform);
+        visualCardPopupItem.Init(cardPopupItem);
+        _cards.Add(cardPopupItem);
     }
 
 
     private void Update()
     {
-        if (_selectedCard == null)
+        if (_selectedCardPopupItem == null)
             return;
 
         for (int i = 0; i < _cards.Count; ++i)
         {
             // If the selected card is to the right of the card, and it was previously to the left, then swap 
-            if (_selectedCard.transform.position.x > _cards[i].transform.position.x)
+            if (_selectedCardPopupItem.transform.position.x > _cards[i].transform.position.x)
             {
-                if (_selectedCard.GetParentIndex() < _cards[i].GetParentIndex())
+                if (_selectedCardPopupItem.GetParentIndex() < _cards[i].GetParentIndex())
                 {
                     Swap(i);
                     break;
                 }
             }
 
-            if (_selectedCard.transform.position.x < _cards[i].transform.position.x)
+            if (_selectedCardPopupItem.transform.position.x < _cards[i].transform.position.x)
             {
-                if (_selectedCard.GetParentIndex() > _cards[i].GetParentIndex())
+                if (_selectedCardPopupItem.GetParentIndex() > _cards[i].GetParentIndex())
                 {
                     Swap(i);
                     break;
@@ -73,16 +74,16 @@ public class CardContainer : MonoBehaviour
 
     private void Swap(int index)
     {
-        (_selectedCard.transform.parent, _cards[index].transform.parent) = (_cards[index].transform.parent, _selectedCard.transform.parent);
+        (_selectedCardPopupItem.transform.parent, _cards[index].transform.parent) = (_cards[index].transform.parent, _selectedCardPopupItem.transform.parent);
     }
 
-    private void OnBeginDrag(Card card)
+    private void OnBeginDrag(CardPopupItem cardPopupItem)
     {
-        _selectedCard = card;
+        _selectedCardPopupItem = cardPopupItem;
     }
 
-    private void OnEndDrag(Card card)
+    private void OnEndDrag(CardPopupItem cardPopupItem)
     {
-        _selectedCard = null;
+        _selectedCardPopupItem = null;
     }
 }
