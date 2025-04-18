@@ -15,10 +15,17 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public Action<Card> BeginDrag;
     public Action<Card> EndDrag;
+
+    private VisualCard _visualCard;
     
     private void Awake()
     { 
         _rectTransform = GetComponent<RectTransform>();
+    }
+
+    public void Init(VisualCard visualCard)
+    {
+        _visualCard = visualCard;
     }
 
     private void Update()
@@ -26,13 +33,15 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         switch (_state)
         {
             case CardState.Idle:
-                _rectTransform.localPosition= Vector2.zero;
+                _rectTransform.localPosition = Vector2.zero;
                 break;
             case CardState.Dragging:
                 Vector2 mousePos = Input.mousePosition;
                 _rectTransform.position = mousePos;
                 break;
         }
+        
+        _visualCard.MoveTo(_rectTransform.position);
     }
 
     public int GetParentIndex()

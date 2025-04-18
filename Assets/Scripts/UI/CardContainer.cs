@@ -7,11 +7,13 @@ public class CardContainer : MonoBehaviour
     [SerializeField] public CardSlot cardSlotPrefab;
     // Temporary
     [SerializeField] public Card cardPrefab;
+    [SerializeField] public VisualCard visualCardPrefab;
+    [SerializeField] public VisualCardContainer visualCardContainer;
     
-    private List<Card> _cards = new List<Card>();
+    private readonly List<Card> _cards = new List<Card>();
     private Card _selectedCard = null;
 
-    private void Awake()
+    private void Start()
     {
         for (int i = 0; i < cardsToSpawn; ++i)
         {
@@ -33,6 +35,10 @@ public class CardContainer : MonoBehaviour
         Card card = Instantiate(cardPrefab, transform.GetChild(transform.childCount - 1));
         card.BeginDrag += OnBeginDrag;
         card.EndDrag += OnEndDrag;
+        
+        // Also, create a new visual card for the card
+        VisualCard visualCard = Instantiate(visualCardPrefab, visualCardContainer.transform);
+        card.Init(visualCard);
         _cards.Add(card);
     }
 

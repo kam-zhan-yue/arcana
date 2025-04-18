@@ -296,6 +296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 385257696}
+  - component: {fileID: 385257697}
   m_Layer: 5
   m_Name: VisualCardContainer
   m_TagString: Untagged
@@ -322,6 +323,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &385257697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385257695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce56d041b3786479b84092bdb3d5e364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,6 +662,8 @@ MonoBehaviour:
   cardsToSpawn: 3
   cardSlotPrefab: {fileID: 5983973944446856813, guid: 3e34329805ffc48f49e567f0bff6d37e, type: 3}
   cardPrefab: {fileID: 7267757904049800613, guid: effae39753b694a4981bcb2a80c77547, type: 3}
+  visualCardPrefab: {fileID: 8414974181132903908, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
+  visualCardContainer: {fileID: 385257697}
 --- !u!1 &1557110479
 GameObject:
   m_ObjectHideFlags: 0
