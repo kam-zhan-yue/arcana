@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class VisualCardPopupItem : MonoBehaviour
+public class Spell : MonoBehaviour
 {
     [Header("Follow Parameters")] 
-    [SerializeField] private float followSpeed = 5f;
+    [SerializeField] private float followSpeed = 25f;
 
     [Header("Rotation Parameters")] 
-    [SerializeField] private float rotationAmount = 20f;
-    [SerializeField] private float rotationSpeed = 20f;
+    [SerializeField] private float rotationAmount = 1f;
+    [SerializeField] private float rotationSpeed = 100f;
     [SerializeField] private float maxRotation = 60f;
     [SerializeField] private float tiltSpeed = 20f;
 

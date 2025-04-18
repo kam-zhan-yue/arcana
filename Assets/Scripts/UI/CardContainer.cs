@@ -37,9 +37,9 @@ public class CardContainer : MonoBehaviour
         cardPopupItem.EndDrag += OnEndDrag;
         
         // Also, create a new visual card for the card
-        VisualCardPopupItem visualCardPrefab = cardDatabase.GetCard(cardType).visualPopupItem;
-        VisualCardPopupItem visualCardPopupItem = Instantiate(visualCardPrefab, visualCardContainer.transform);
-        visualCardPopupItem.Init(cardPopupItem);
+        Spell spellPrefab = cardDatabase.GetCard(cardType).spell;
+        Spell spell = Instantiate(spellPrefab, visualCardContainer.transform);
+        spell.Init(cardPopupItem);
         _cards.Add(cardPopupItem);
     }
 

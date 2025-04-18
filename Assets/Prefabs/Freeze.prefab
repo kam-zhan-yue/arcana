@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4541245595854438384
+--- !u!1001 &7460352424076069947
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -90,15 +90,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7789487846723024378, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
       propertyPath: m_Color.b
-      value: 0.6509434
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7789487846723024378, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
       propertyPath: m_Color.g
-      value: 0.44580448
+      value: 0.68251145
       objectReference: {fileID: 0}
     - target: {fileID: 7789487846723024378, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.5424528
       objectReference: {fileID: 0}
     - target: {fileID: 8413920488183056382, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
       propertyPath: m_Name
@@ -107,5 +107,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8413920488183056382, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5240892185207594317}
   m_SourcePrefab: {fileID: 100100000, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
+--- !u!1 &1390555766436334533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8413920488183056382, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
+  m_PrefabInstance: {fileID: 7460352424076069947}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5240892185207594317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390555766436334533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9352be64ebc44a50862a78f9a5b61e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followSpeed: 25
+  rotationAmount: 1
+  rotationSpeed: 100
+  maxRotation: 60
+  tiltSpeed: 20

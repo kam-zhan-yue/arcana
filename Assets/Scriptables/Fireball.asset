@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63cf43b5912094bdc93c7ede5ecd68b9, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 10
