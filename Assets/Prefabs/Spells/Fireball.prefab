@@ -134,3 +134,5 @@ MonoBehaviour:
   rotationSpeed: 100
   maxRotation: 60
   tiltSpeed: 20
+  launchSpeed: 10
+  fireballPrefab: {fileID: -2068607691576770008, guid: a0edc385dc4a4437abffddb4fcde740d, type: 3}

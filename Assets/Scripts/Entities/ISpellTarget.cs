@@ -1,1 +1,6 @@
-public interface ISpellTarget {}
+using UnityEngine;
+
+public interface ISpellTarget
+{
+    public Transform GetTransform();
+}

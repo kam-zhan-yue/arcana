@@ -60,6 +60,7 @@ public abstract class Spell : MonoBehaviour
         {
             if (hit.transform.TryGetComponent(out ISpellTarget spellTarget))
             {
+                Debug.Log("Setting Target to " + spellTarget.GetTransform().gameObject.name);
                 _target = spellTarget;
             }
         }
@@ -67,7 +68,8 @@ public abstract class Spell : MonoBehaviour
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
     {
-        Apply(_target);
+        if (_target != null)
+            Apply(_target);
     }
 
     protected abstract void Apply(ISpellTarget target);
