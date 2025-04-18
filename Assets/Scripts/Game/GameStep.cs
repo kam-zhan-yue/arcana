@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -13,23 +14,25 @@ public enum GameStepType
 [Serializable]
 public class GameStep
 {
+    [HideLabel]
     public GameStepType type;
     
-    [ShowIf("type", GameStepType.Level)]
+    [HideLabel, ShowIf("type", GameStepType.Level)]
     [SerializeField] private PlayableDirector playableDirector;
 
-    [ShowIf("type", GameStepType.Encounter)]
+    [HideLabel, ShowIf("type", GameStepType.Encounter)]
     [SerializeField] private Encounter encounter;
 
-    public void Play()
+    public async UniTask Play()
     {
         switch (type)
         {
             case GameStepType.Level:
                 playableDirector.Play();
+                await UniTask.WaitUntil(() => playableDirector.state != PlayState.Playing);
                 break;
             case GameStepType.Encounter:
-                encounter.Play();
+                await encounter.Play();
                 break;
         }
     }
@@ -47,7 +50,7 @@ public class GameStep
                 }
                 break;
             case GameStepType.Encounter:
-                if (encounter)
+                if (encounter != null)
                     encounter.Resolve();
                 break;
         }

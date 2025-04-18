@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 
@@ -10,11 +13,11 @@ public class GameFlow : MonoBehaviour
     // It will linearly be outlined here. Easy Peasy Lemon Squeezy.
 
     [SerializeField] private int startStep;
-    [SerializeField] private GameStep[] steps = Array.Empty<GameStep>();
+    [SerializeField] private List<GameStep> steps = new();
 
     private void Awake()
     {
-        if (startStep > steps.Length)
+        if (startStep > steps.Count)
         {
             Debug.LogError("Invalid Start Step defined in Game Flow.");
             enabled = false;
@@ -28,11 +31,21 @@ public class GameFlow : MonoBehaviour
 
     private void Start()
     {
-        PlayStep(startStep);
+        PlayFlow().Forget();
     }
 
-    private void PlayStep(int index)
+    private async UniTask PlayFlow()
     {
-        steps[index].Play();
+        for (int i = startStep; i < steps.Count; ++i)
+        {
+            await steps[i].Play();
+        }
+    }
+    
+    [HorizontalGroup()]
+    [Button((ButtonSizes.Large)), GUIColor(0.2f, 1f, 0)]
+    public void AddStep()
+    {
+        steps.Add(new GameStep());
     }
 }

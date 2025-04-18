@@ -1,3 +1,4 @@
+using System;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public enum MovementStatus
 public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 {
     [SerializeField] private float moveSpeed = 1f;
+    private float _maxHealth;
+    private float _health;
     private Rigidbody _rigidbody;
     private Status _status = Status.None;
     private MovementStatus _movementStatus = MovementStatus.None;
@@ -17,10 +20,24 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     private float _knockbackTimer = 0.0f;
 
     public Status Status => _status;
+
+    private bool _activated = false;
+
+    public Action OnRelease;
     
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    public void Init(EnemyConfig config)
+    {
+        _maxHealth = config.maxHealth;
+    }
+
+    public void Activate()
+    {
+        _activated = true;
     }
     
     public Transform GetTransform()
@@ -30,7 +47,8 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 
     private void Update()
     {
-
+        if (!_activated)
+            return;
         if (_status == Status.Frozen)
         {
             _frozenTimer -= Time.deltaTime;
@@ -48,6 +66,9 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
                 _rigidbody.MovePosition(nextPosition);
                 break;
             case MovementStatus.Knockback:
+                _knockbackTimer -= Time.deltaTime;
+                if (_knockbackTimer <= 0f)
+                    _movementStatus = MovementStatus.None;
                 break;
         }
     }
@@ -67,6 +88,18 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 
     public void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
+        _movementStatus = MovementStatus.Knockback;
+        _rigidbody.AddForce(knockbackForce, ForceMode.Impulse);
+        _knockbackTimer = knockbackTime;
+    }
+
+    public void Damage(float damage)
+    {
+        _health -= damage;
+        if (_health <= 0f)
+        {
+            OnRelease?.Invoke();
+        }
     }
 
     public void Attack()
