@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 10
-  rotationAmount: 5
-  rotationSpeed: 5
+  rotationAmount: 1
+  rotationSpeed: 100
   maxRotation: 30
   tiltSpeed: 20
 --- !u!1 &9096109969046200851
