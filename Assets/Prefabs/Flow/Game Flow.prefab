@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &972282822255708010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8659840053324685715}
+  - component: {fileID: 8281021188858359429}
+  - component: {fileID: 1489882830614858037}
+  m_Layer: 0
+  m_Name: Player Movement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8659840053324685715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972282822255708010}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 308318373195976344}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &8281021188858359429
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972282822255708010}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: fa079f2a1a1344b8e97e0189aed4fb94, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -7387365015813981312, guid: fa079f2a1a1344b8e97e0189aed4fb94, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &1489882830614858037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972282822255708010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 086cbd641a8cc4f4fb8c3c7e4b9c0d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3625508973222859016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308318373195976344}
+  - component: {fileID: 8744305286667871654}
+  m_Layer: 0
+  m_Name: Game Flow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &308318373195976344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625508973222859016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8659840053324685715}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8744305286667871654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625508973222859016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a845b031137404e9ecf14f38151bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startStep: 0
+  steps:
+  - type: 0
+    playableDirector: {fileID: 8281021188858359429}
+    encounter:
+      steps: []
+      enemies: []
+  - type: 1
+    playableDirector: {fileID: 0}
+    encounter:
+      steps:
+      - type: 1
+        delayTime: 0
+        spawnData: []
+        enemiesToActivate:
+        - enemy: {fileID: 0}
+          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+        - enemy: {fileID: 0}
+          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+        - enemy: {fileID: 0}
+          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+      - type: 3
+        delayTime: 0
+        spawnData: []
+        enemiesToActivate: []
+      enemies: []
+  - type: 0
+    playableDirector: {fileID: 8281021188858359429}
+    encounter:
+      steps: []
+      enemies: []
+  - type: 1
+    playableDirector: {fileID: 0}
+    encounter:
+      steps:
+      - type: 1
+        delayTime: 0
+        spawnData:
+        - spawnPoint: {fileID: 0}
+          enemyConfig: {fileID: 0}
+        enemiesToActivate:
+        - enemy: {fileID: 0}
+          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+        - enemy: {fileID: 0}
+          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+        - enemy: {fileID: 0}
+          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+      enemies: []
