@@ -38,6 +38,18 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
                 Unfreeze();
             return;
         }
+
+        switch (_movementStatus)
+        {
+            case MovementStatus.None:
+                Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
+                Vector3 nextPosition =
+                    Vector3.MoveTowards(_rigidbody.position, player.transform.position, moveSpeed * Time.deltaTime);
+                _rigidbody.MovePosition(nextPosition);
+                break;
+            case MovementStatus.Knockback:
+                break;
+        }
     }
 
     public void Freeze(float frozenTime)
