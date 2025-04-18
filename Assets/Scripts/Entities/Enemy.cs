@@ -8,12 +8,16 @@ public enum MovementStatus
     Knockback,
 }
 
-public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
+public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 {
-    [SerializeField] private float moveSpeed = 1f;
+    protected float moveSpeed = 1f;
+    
+    // Protected Variables
+    protected Rigidbody rb;
+    
+    // Private Variables
     private float _maxHealth;
     private float _health;
-    private Rigidbody _rigidbody;
     private Status _status = Status.None;
     private MovementStatus _movementStatus = MovementStatus.None;
     private float _frozenTimer = 0.0f;
@@ -27,11 +31,12 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     public void Init(EnemyConfig config)
     {
+        moveSpeed = config.moveSpeed;
         _maxHealth = config.maxHealth;
         _health = _maxHealth;
     }
@@ -63,8 +68,8 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
             case MovementStatus.None:
                 Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
                 Vector3 nextPosition =
-                    Vector3.MoveTowards(_rigidbody.position, player.transform.position, moveSpeed * Time.deltaTime);
-                _rigidbody.MovePosition(nextPosition);
+                    Vector3.MoveTowards(rb.position, player.transform.position, moveSpeed * Time.deltaTime);
+                rb.MovePosition(nextPosition);
                 break;
             case MovementStatus.Knockback:
                 _knockbackTimer -= Time.deltaTime;
@@ -74,23 +79,25 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
         }
     }
 
+    public abstract void Move();
+
     public void Freeze(float frozenTime)
     {
         _frozenTimer = frozenTime;
         _status = Status.Frozen;
-        _rigidbody.isKinematic = true;
+        rb.isKinematic = true;
     }
 
     public void Unfreeze()
     {
         _status = Status.None;
-        _rigidbody.isKinematic = false;
+        rb.isKinematic = false;
     }
 
     public void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
         _movementStatus = MovementStatus.Knockback;
-        _rigidbody.AddForce(knockbackForce, ForceMode.Impulse);
+        rb.AddForce(knockbackForce, ForceMode.Impulse);
         _knockbackTimer = knockbackTime;
     }
 

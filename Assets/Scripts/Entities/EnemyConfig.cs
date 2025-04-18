@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyConfig : ScriptableObject
 {
     public Enemy prefab;
+    public float moveSpeed = 10f;
     public float maxHealth = 100f;
 
     public Enemy Spawn(Transform parent)
