@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.kamzhanyue.audio-delivery": "https://github.com/kam-zhan-yue/audio-delivery.git",
     "com.kamzhanyue.ui-delivery": "https://github.com/kam-zhan-yue/ui-delivery.git",
     "com.kamzhanyue.utility-delivery": "https://github.com/kam-zhan-yue/utility-delivery.git",
