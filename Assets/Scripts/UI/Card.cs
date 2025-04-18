@@ -13,6 +13,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private RectTransform _rectTransform;
     private CardState _state = CardState.Idle;
     public CardState State => _state;
+    public RectTransform RectTransform => _rectTransform;
 
     public Action<Card> BeginDrag;
     public Action<Card> EndDrag;
