@@ -12,20 +12,14 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 {
     private RectTransform _rectTransform;
     private CardState _state = CardState.Idle;
+    public CardState State => _state;
 
     public Action<Card> BeginDrag;
     public Action<Card> EndDrag;
-
-    private VisualCard _visualCard;
     
     private void Awake()
     { 
         _rectTransform = GetComponent<RectTransform>();
-    }
-
-    public void Init(VisualCard visualCard)
-    {
-        _visualCard = visualCard;
     }
 
     private void Update()
@@ -40,8 +34,6 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
                 _rectTransform.position = mousePos;
                 break;
         }
-        
-        _visualCard.MoveTo(_rectTransform.position);
     }
 
     public int GetParentIndex()

@@ -38,7 +38,7 @@ public class CardContainer : MonoBehaviour
         
         // Also, create a new visual card for the card
         VisualCard visualCard = Instantiate(visualCardPrefab, visualCardContainer.transform);
-        card.Init(visualCard);
+        visualCard.Init(card);
         _cards.Add(card);
     }
 
