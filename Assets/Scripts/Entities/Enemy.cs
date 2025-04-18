@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     private float _knockbackTimer = 0.0f;
 
     public Status Status => _status;
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
