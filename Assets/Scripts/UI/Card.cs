@@ -15,7 +15,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public Action<Card> BeginDrag;
     public Action<Card> EndDrag;
-
+    
     private void Awake()
     { 
         _rectTransform = GetComponent<RectTransform>();

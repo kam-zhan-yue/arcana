@@ -1,22 +1,41 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CardContainer : MonoBehaviour
 {
+    [SerializeField] public int cardsToSpawn;
+    [SerializeField] public CardSlot cardSlotPrefab;
+    // Temporary
+    [SerializeField] public Card cardPrefab;
+    
     private List<Card> _cards = new List<Card>();
     private Card _selectedCard = null;
 
     private void Awake()
     {
-        Card[] cardArray = GetComponentsInChildren<Card>();
-        _cards = cardArray.ToList();
-        for (int i = 0; i < _cards.Count; ++i)
+        for (int i = 0; i < cardsToSpawn; ++i)
         {
-            _cards[i].BeginDrag += OnBeginDrag;
-            _cards[i].EndDrag += OnEndDrag;
+            AddCard();
         }
     }
+
+    private void AddCard()
+    {
+        int cardSlots = transform.childCount;
+        int cards = _cards.Count;
+        // If we don't have enough card slots, then make a new card slot
+        if (cardSlots < cards + 1)
+        {
+            Instantiate(cardSlotPrefab, transform);
+        }
+        
+        // Then, create a card and put it at the end of the card slot
+        Card card = Instantiate(cardPrefab, transform.GetChild(transform.childCount - 1));
+        card.BeginDrag += OnBeginDrag;
+        card.EndDrag += OnEndDrag;
+        _cards.Add(card);
+    }
+
 
     private void Update()
     {
