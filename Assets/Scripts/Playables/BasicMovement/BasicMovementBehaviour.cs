@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 
 [Serializable]
-public class BasicEnemyBehaviour : PlayableBehaviour
+public class BasicMovementBehaviour : PlayableBehaviour
 {
     [SerializeField] private Transform target;
 

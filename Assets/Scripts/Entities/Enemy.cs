@@ -38,18 +38,6 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
                 Unfreeze();
             return;
         }
-
-        switch (_movementStatus)
-        {
-            case MovementStatus.None:
-                Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
-                Vector3 nextPosition =
-                    Vector3.MoveTowards(_rigidbody.position, player.transform.position, moveSpeed * Time.deltaTime);
-                _rigidbody.MovePosition(nextPosition);
-                break;
-            case MovementStatus.Knockback:
-                break;
-        }
     }
 
     public void Freeze(float frozenTime)
@@ -67,8 +55,15 @@ public class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 
     public void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
-        _movementStatus = MovementStatus.Knockback;
-        _rigidbody.AddForce(knockbackForce, ForceMode.Impulse);
-        _knockbackTimer = knockbackTime;
+    }
+
+    public void Attack()
+    {
+        if (ServiceLocator.Instance)
+        {
+            Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
+            Debug.Log("Attack!");
+        }
+        
     }
 }
