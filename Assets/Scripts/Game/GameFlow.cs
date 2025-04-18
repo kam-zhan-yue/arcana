@@ -13,6 +13,9 @@ public class GameFlow : MonoBehaviour
     // It will linearly be outlined here. Easy Peasy Lemon Squeezy.
 
     [SerializeField] private int startStep;
+    [NonSerialized, ShowInInspector, ReadOnly]
+    private int _currentStep;
+    
     [SerializeField] private List<GameStep> steps = new();
 
     private void Awake()
@@ -38,6 +41,7 @@ public class GameFlow : MonoBehaviour
     {
         for (int i = startStep; i < steps.Count; ++i)
         {
+            _currentStep = i;
             await steps[i].Play();
             Debug.Log("Next Step!");
         }
