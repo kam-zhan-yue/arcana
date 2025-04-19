@@ -1,12 +1,15 @@
 using System;
 
+[Serializable]
 public enum DamageType
 {
     Basic,
     Fire,
     Electric,
+    Ice,
 }
 
+[Serializable]
 public enum DamageEffect
 {
     None,

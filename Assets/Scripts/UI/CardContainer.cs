@@ -75,7 +75,9 @@ public class CardContainer : MonoBehaviour
 
     private void Swap(int index)
     {
-        (_selectedCardPopupItem.transform.parent, _cards[index].transform.parent) = (_cards[index].transform.parent, _selectedCardPopupItem.transform.parent);
+        Transform tempParent = _selectedCardPopupItem.transform.parent;
+        _selectedCardPopupItem.transform.SetParent(_cards[index].transform.parent);
+        _cards[index].transform.SetParent(tempParent);
     }
 
     private void OnBeginDrag(CardPopupItem cardPopupItem)

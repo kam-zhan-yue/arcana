@@ -12,8 +12,9 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 {
     protected float moveSpeed = 1f;
     
-    // Protected Variables
+    // Components
     protected Rigidbody rb;
+    private Renderer _renderer;
     
     // Private Variables
     private float _maxHealth;
@@ -22,6 +23,7 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     private MovementStatus _movementStatus = MovementStatus.None;
     private float _frozenTimer = 0.0f;
     private float _knockbackTimer = 0.0f;
+    private MaterialPropertyBlock _propertyBlock;
 
     public Status Status => _status;
 
@@ -29,10 +31,14 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 
     public Action<Enemy> OnRelease;
     public Action<Damage> OnDamage;
-    
+    private static readonly int OutlineColour = Shader.PropertyToID("_Outline_Colour");
+    private static readonly int OutlineThickness = Shader.PropertyToID("_Outline_Thickness");
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        _renderer = GetComponent<Renderer>();
+        _propertyBlock = new();
     }
 
     public void Init(EnemyConfig config)
@@ -67,10 +73,7 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
         switch (_movementStatus)
         {
             case MovementStatus.None:
-                Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
-                Vector3 nextPosition =
-                    Vector3.MoveTowards(rb.position, player.transform.position, moveSpeed * Time.deltaTime);
-                rb.MovePosition(nextPosition);
+                Move();
                 break;
             case MovementStatus.Knockback:
                 _knockbackTimer -= Time.deltaTime;
@@ -80,7 +83,7 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
         }
     }
 
-    public abstract void Move();
+    protected abstract void Move();
 
     public void Freeze(float frozenTime)
     {
@@ -123,5 +126,17 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
             Debug.Log("Attack!");
         }
         
+    }
+
+    public void SetOutline(Color colour, float thickness)
+    {
+        _propertyBlock.SetColor(OutlineColour, colour);
+        _propertyBlock.SetFloat(OutlineThickness, thickness);
+        _renderer.SetPropertyBlock(_propertyBlock, 1);
+    }
+
+    public void DisableOutline()
+    {
+        SetOutline(Color.clear, 0f);
     }
 }

@@ -129,10 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6bf89df4adc94c67b33f6a71d284f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: af1764148154749d0a07a57324a4da66, type: 2}
   followSpeed: 25
   rotationAmount: 1
   rotationSpeed: 100
   maxRotation: 60
   tiltSpeed: 20
   launchSpeed: 10
+  knockbackForce: 20
+  knockbackTime: 0.2
   fireballPrefab: {fileID: -2068607691576770008, guid: a0edc385dc4a4437abffddb4fcde740d, type: 3}

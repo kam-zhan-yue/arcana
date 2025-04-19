@@ -129,8 +129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9352be64ebc44a50862a78f9a5b61e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: af1764148154749d0a07a57324a4da66, type: 2}
   followSpeed: 25
   rotationAmount: 1
   rotationSpeed: 100
   maxRotation: 60
   tiltSpeed: 20
+  freezeTime: 5

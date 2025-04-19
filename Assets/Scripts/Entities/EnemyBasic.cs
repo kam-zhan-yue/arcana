@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyBasic : Enemy
 {
-    public override void Move()
+    protected override void Move()
     {
         Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
         Vector3 nextPosition =

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Spell : MonoBehaviour
 {
+    [Header("Settings")] [SerializeField] protected UISettings settings;
     [Header("Follow Parameters")] 
     [SerializeField] private float followSpeed = 25f;
 

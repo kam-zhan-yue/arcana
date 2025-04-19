@@ -30,9 +30,10 @@ public class Fireball : Spell
     protected override void Hover()
     {
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Fire);
         for (int i = 0; i < enemies.Count; ++i)
         {
-            Debug.Log($"Highlight {enemies[i].name}");
+            enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
         }
     }
 
@@ -41,7 +42,7 @@ public class Fireball : Spell
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            Debug.Log($"Unhighlight {enemies[i].name}");
+            enemies[i].DisableOutline();
         }
     }
 

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class Freeze : Spell
@@ -14,11 +16,20 @@ public class Freeze : Spell
 
     protected override void Hover()
     {
-        throw new System.NotImplementedException();
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Ice);
+        for (int i = 0; i < enemies.Count; ++i)
+        {
+            enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
+        }
     }
 
     protected override void UnHover()
     {
-        throw new System.NotImplementedException();
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; ++i)
+        {
+            enemies[i].DisableOutline();
+        }
     }
 }
