@@ -1,16 +1,14 @@
 using UnityEngine;
 
-public class Duck : MonoBehaviour
+public class Duck : SingleTargetSpell
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Apply(Enemy spellTarget)
     {
-        
+        Debug.Log("Make into duck.");
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override bool CanAffect(Enemy enemy)
     {
-        
+        return true;
     }
 }

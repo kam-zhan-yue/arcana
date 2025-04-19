@@ -1,16 +1,7 @@
 using UnityEngine;
 
-public class DuckSpellConfig : MonoBehaviour
+[CreateAssetMenu(menuName = "ScriptableObjects/Spell Config/Duck", fileName = "Duck")]
+public class DuckSpellConfig : SpellConfig
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
