@@ -11,6 +11,8 @@ public enum CardState
 
 public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
+    private Camera _uiCamera;
+
     private CardState _state = CardState.Idle;
     public CardState State => _state;
 
@@ -18,7 +20,15 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     public Action<CardPopupItem> EndDrag;
     public Action<CardPopupItem> PointerEnter;
     public Action<CardPopupItem> PointerExit;
-    
+
+    private RectTransform _rect;
+
+    private void Awake()
+    {
+        _rect = GetComponent<RectTransform>();
+        _uiCamera = Camera.main;
+    }
+
     private void Update()
     {
         switch (_state)
@@ -27,8 +37,10 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 transform.localPosition = Vector2.zero;
                 break;
             case CardState.Dragging:
-                Vector2 mousePos = Input.mousePosition;
-                transform.position = mousePos;
+                Vector3 screenMousePos = Input.mousePosition;
+                screenMousePos.z = _uiCamera.WorldToScreenPoint(_rect.position).z;
+                Vector3 worldMousePos = _uiCamera.ScreenToWorldPoint(screenMousePos);
+                transform.position = worldMousePos;
                 break;
         }
     }

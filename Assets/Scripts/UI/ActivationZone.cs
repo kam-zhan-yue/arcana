@@ -9,12 +9,15 @@ public class ActivationZone : MonoBehaviour
     private static readonly int Activate = Shader.PropertyToID("_Can_Activate");
     public bool CanActivate { get; private set; }
 
+    private Camera _uiCamera;
+
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
         _materialInstance = Instantiate(_image.material);
         _image.material = _materialInstance;
+        _uiCamera = Camera.main;
     }
 
     private void Update()
@@ -22,7 +25,7 @@ public class ActivationZone : MonoBehaviour
         Vector2 mousePosition = Input.mousePosition;
 
         bool isNowOver = RectTransformUtility.RectangleContainsScreenPoint(
-            _rectTransform, mousePosition, null);
+            _rectTransform, mousePosition, _uiCamera);
 
         if (isNowOver && !CanActivate)
         {
