@@ -9,19 +9,14 @@ public class DamagePopup : Popup
 {
     [SerializeField] private RectTransform damageHolder;
     [SerializeField] private DamagePopupItem sampleDamagePopupItem;
-
-    [NonSerialized, ShowInInspector, ReadOnly]
-    private Enemy _enemy;
     
     protected override void InitPopup()
     {
-        _enemy = GetComponentInParent<Enemy>();
-        if (!_enemy)
-        {
-            Debug.LogError("This damage popup is not attached to an enemy.");
-            enabled = false;
-        }
-        _enemy.OnDamage += OnDamage;
+    }
+
+    public void Init(Enemy enemy)
+    {
+        enemy.OnDamage += OnDamage;
     }
 
     [Button]

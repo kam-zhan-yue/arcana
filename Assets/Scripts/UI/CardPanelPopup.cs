@@ -5,7 +5,7 @@ using UnityEngine;
 public class CardPanelPopup : Popup
 {
     [SerializeField] private ActivationZone activationZone;
-    public bool CanActivate => activationZone.CanActivate;
+    public bool CanActivate => isShowing && activationZone.CanActivate;
     
     protected override void InitPopup()
     {

@@ -21,19 +21,20 @@ public abstract class Enemy : MonoBehaviour
     // Private Variables
     private float _maxHealth;
     private float _health;
-    private Status _status = Status.None;
     private MovementStatus _movementStatus = MovementStatus.None;
     private float _frozenTimer = 0.0f;
     private float _knockbackTimer = 0.0f;
     private MaterialPropertyBlock _outlinePropertyBlock;
     private MaterialPropertyBlock _pulsePropertyBlock;
     
-    public Status Status => _status;
+    public Status Status { get; private set; } = Status.None;
+
 
     private bool _activated = false;
 
     public Action<Enemy> OnRelease;
     public Action<Damage> OnDamage;
+    public Action<Status> OnStatus;
     private static readonly int OutlineColour = Shader.PropertyToID("_Outline_Colour");
     private static readonly int OutlineThickness = Shader.PropertyToID("_Outline_Thickness");
     private static readonly int PulseColour = Shader.PropertyToID("_Pulse_Colour");
@@ -68,7 +69,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (!_activated)
             return;
-        if (_status == Status.Frozen)
+        if (Status == Status.Frozen)
         {
             _frozenTimer -= Time.deltaTime;
             if (_frozenTimer <= 0f)
@@ -94,13 +95,13 @@ public abstract class Enemy : MonoBehaviour
     public void Freeze(float frozenTime)
     {
         _frozenTimer = frozenTime;
-        _status = Status.Frozen;
+        SetStatus(Status.Frozen);
         rb.isKinematic = true;
     }
 
     public void Unfreeze()
     {
-        _status = Status.None;
+        SetStatus(Status.None);
         rb.isKinematic = false;
     }
 
@@ -123,6 +124,15 @@ public abstract class Enemy : MonoBehaviour
     }
     
     public bool IsDead => _health <= 0f;
+    
+    private void SetStatus(Status newStatus)
+    {
+        if (Status != newStatus)
+        {
+            Status = newStatus;
+            OnStatus?.Invoke(Status);
+        }
+    }
 
     public void Attack()
     {
