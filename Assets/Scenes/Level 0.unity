@@ -156,6 +156,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6111883497388068292, guid: c7942ec4ec5b044ca908c16d907b8425, type: 3}
   m_PrefabInstance: {fileID: 4424644229896165024}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1099942643 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7689927136559641077, guid: 5f9f400a9f8e64ef08da5776470b53e1, type: 3}
+  m_PrefabInstance: {fileID: 6808544077539290788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1610764731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5222974484165721749, guid: 424d472229d284b4e8ee0c12ae825042, type: 3}
@@ -317,7 +322,7 @@ PrefabInstance:
     - target: {fileID: 2711500963105868941, guid: 5f9f400a9f8e64ef08da5776470b53e1, type: 3}
       propertyPath: m_SceneBindings.Array.data[0].value
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1099942643}
     - target: {fileID: 4293765407524643540, guid: 5f9f400a9f8e64ef08da5776470b53e1, type: 3}
       propertyPath: m_Name
       value: Level 0
