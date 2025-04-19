@@ -107,11 +107,13 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
         _health -= damage.Amount;
         Debug.Log($"Enemy Took Damage {damage}, Remaining Health is {_health}");
         OnDamage?.Invoke(damage);
-        if (_health <= 0f)
+        if (IsDead)
         {
             OnRelease?.Invoke();
         }
     }
+    
+    public bool IsDead => _health <= 0f;
 
     public void Attack()
     {

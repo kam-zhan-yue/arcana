@@ -27,7 +27,7 @@ public class DamagePopup : Popup
     [Button]
     private void DebugRandomDamage()
     {
-        Damage damage = new(Random.Range(0f, 100f));
+        Damage damage = new(Random.Range(0f, 100f), DamageType.Basic, DamageEffect.None);
         OnDamage(damage);
     }
 

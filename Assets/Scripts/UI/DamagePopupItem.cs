@@ -1,18 +1,27 @@
 using System.Globalization;
+using Kuroneko.UtilityDelivery;
 using TMPro;
 using UnityEngine;
 
 public class DamagePopupItem : MonoBehaviour
 {
-    private TMP_Text _text;
-
-    private void Awake()
-    {
-        _text = GetComponent<TMP_Text>();
-    }
+    [SerializeField] private TMP_Text damageText;
+    [SerializeField] private TMP_Text effectText;
     
     public void Init(Damage damage)
     {
-        _text.SetText(damage.Amount.ToString(CultureInfo.InvariantCulture));
+        damageText.SetText(damage.Amount.ToString(CultureInfo.InvariantCulture));
+        switch (damage.Effect)
+        {
+            case DamageEffect.None:
+                effectText.gameObject.SetActiveFast(false);
+                break;
+            case DamageEffect.Melt:
+                effectText.SetText("Melt");
+                break;
+            case DamageEffect.Electrocute:
+                effectText.SetText("Electrocute");
+                break;
+        }
     }
 }

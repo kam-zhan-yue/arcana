@@ -17,9 +17,9 @@ public class FireballProjectile : MonoBehaviour
         _fireball = fireball;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        if (other.gameObject.TryGetComponent(out Enemy enemy))
         {
             _fireball.ApplyEnemy(enemy, this);
         }
