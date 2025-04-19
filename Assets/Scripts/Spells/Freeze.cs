@@ -18,7 +18,13 @@ public class Freeze : Spell
         TypeSetting typeSetting = settings.GetSettingForType(DamageType.Ice);
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].SetPulse(typeSetting.colour, settings.GetPulseAmount(interactingTime));
+            enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
+        }
+
+        Enemy targetedEnemy = GetCurrentTarget();
+        if (targetedEnemy)
+        {
+            targetedEnemy.SetOutline(settings.selectColour, settings.outlineSize);
         }
     }
 
@@ -28,7 +34,7 @@ public class Freeze : Spell
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].DisablePulse();
+            enemies[i].DisableOutline();
         }
     }
 }

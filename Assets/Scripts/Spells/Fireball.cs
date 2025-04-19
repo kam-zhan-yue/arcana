@@ -11,8 +11,6 @@ public class Fireball : Spell
     
     protected override void Apply(Enemy spellTarget)
     {
-        Debug.Log("Fireballing " + spellTarget.GetTransform().gameObject.name);
-
         // Init the fireball
         Transform launchPosition = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
         FireballProjectile fireball = Instantiate(fireballPrefab);
@@ -35,6 +33,12 @@ public class Fireball : Spell
         for (int i = 0; i < enemies.Count; ++i)
         {
             enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
+        }
+
+        Enemy targetedEnemy = GetCurrentTarget();
+        if (targetedEnemy)
+        {
+            targetedEnemy.SetOutline(settings.selectColour, settings.outlineSize);
         }
     }
 

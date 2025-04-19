@@ -65,15 +65,22 @@ public abstract class Spell : MonoBehaviour
     {
         if (_cardPopupItem.State != CardState.Dragging)
             return;
-        target = null;
+        target = GetCurrentTarget();
+    }
+
+    protected Enemy GetCurrentTarget()
+    {
+        Enemy targetedEnemy = null;
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.transform.TryGetComponent(out Enemy spellTarget))
             {
-                target = spellTarget;
+                targetedEnemy = spellTarget;
             }
         }
+
+        return targetedEnemy;
     }
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
