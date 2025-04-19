@@ -86,10 +86,10 @@ public abstract class Spell : MonoBehaviour
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
     {
-        OnStopInteracting();
         List<Enemy> targets = GetTargets();
         for (int i = 0; i < targets.Count; ++i)
             Apply(targets[i]);
+        OnStopInteracting();
     }
 
     private void OnPointerEnter(CardPopupItem cardPopupItem)

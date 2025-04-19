@@ -15,6 +15,7 @@ public abstract class Enemy : MonoBehaviour
     protected float moveSpeed = 1f;
     
     // Components
+    public Rigidbody Rigidbody => rb;
     protected Rigidbody rb;
     private Renderer _renderer;
     
@@ -28,7 +29,7 @@ public abstract class Enemy : MonoBehaviour
     private MaterialPropertyBlock _pulsePropertyBlock;
     
     public Status Status { get; private set; } = Status.None;
-
+    private StatusEffect _statusEffect;
 
     private bool _activated = false;
 
@@ -69,14 +70,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (!_activated)
             return;
-        if (Status == Status.Frozen)
-        {
-            _frozenTimer -= Time.deltaTime;
-            if (_frozenTimer <= 0f)
-                Unfreeze();
-            return;
-        }
-
+        UpdateStatus();
         switch (_movementStatus)
         {
             case MovementStatus.None:
@@ -91,19 +85,6 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected abstract void Move();
-
-    public void Freeze(float frozenTime)
-    {
-        _frozenTimer = frozenTime;
-        SetStatus(Status.Frozen);
-        rb.isKinematic = true;
-    }
-
-    public void Unfreeze()
-    {
-        SetStatus(Status.None);
-        rb.isKinematic = false;
-    }
 
     public void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
@@ -124,6 +105,28 @@ public abstract class Enemy : MonoBehaviour
     }
     
     public bool IsDead => _health <= 0f;
+
+    private void UpdateStatus()
+    {
+        if (_statusEffect != null)
+        {
+            _statusEffect.Update(this, Time.deltaTime);
+            if (_statusEffect.completed)
+            {
+                SetStatus(Status.None);
+            }
+        }
+    }
+    
+    public void ApplyStatus(StatusEffect statusEffect)
+    {
+        bool applied = statusEffect.Apply(this);
+        if (applied)
+        {
+            _statusEffect = statusEffect;
+            SetStatus(statusEffect.status);
+        }
+    }
     
     private void SetStatus(Status newStatus)
     {

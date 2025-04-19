@@ -1,0 +1,46 @@
+public abstract class StatusEffect
+{
+    public Status status;
+    public float statusTime;
+    public bool completed = false;
+
+    private float _timer = 0f;
+
+    public StatusEffect(Status s, float t)
+    {
+        status = s;
+        statusTime = t;
+    }
+
+    protected abstract bool CanApply(Enemy enemy);
+
+    public bool Apply(Enemy enemy)
+    {
+        if (CanApply(enemy))
+        {
+            _timer = 0f;
+            completed = false;
+            OnApply(enemy);
+            return true;
+        }
+
+        return false;
+    }
+
+    public void Update(Enemy enemy, float deltaTime)
+    {
+        if (completed)
+            return;
+        _timer += deltaTime;
+        OnUpdate(enemy,  deltaTime);
+        if (_timer >= statusTime)
+        {
+            completed = true;
+            OnComplete(enemy);
+        }
+    }
+
+    protected abstract void OnApply(Enemy enemy);
+    protected abstract void OnUpdate(Enemy enemy, float deltaTime);
+    protected abstract void OnComplete(Enemy enemy);
+}

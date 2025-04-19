@@ -8,6 +8,7 @@ public class Freeze : Spell
 
     protected override List<Enemy> GetTargets()
     {
+        Debug.Log($"Can Activate is {cardPopup.CanActivate}");
         if (cardPopup.CanActivate)
         {
             List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
@@ -22,7 +23,8 @@ public class Freeze : Spell
     protected override void Apply(Enemy spellTarget)
     {
         Debug.Log($"Applying Freeze to {spellTarget.name}");
-        spellTarget.Freeze(freezeTime);
+        Frozen frozen = new(Status.Frozen, freezeTime);
+        spellTarget.ApplyStatus(frozen);
     }
 
     protected override void OnStartDragging()

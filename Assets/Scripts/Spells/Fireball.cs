@@ -67,10 +67,12 @@ public class Fireball : Spell
         if (enemy.Status == Status.Frozen)
         {
             effect = DamageEffect.Melt;
-            enemy.Unfreeze();
         }
-
+        // The burn will get rid of frozen
+        Burn burn = new Burn(Status.Burned, 5f, 10f, 1f);
         Damage fireballDamage = new Damage(damage, DamageType.Fire, effect);
+        
+        enemy.ApplyStatus(burn);
         enemy.Damage(fireballDamage);
 
         // Knockback the enemy only if they die from the fireball
