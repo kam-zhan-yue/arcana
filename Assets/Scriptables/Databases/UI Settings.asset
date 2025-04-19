@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: UI Settings
   m_EditorClassIdentifier: 
   followSpeed: 25
-  rotationAmount: 1
-  rotationSpeed: 100
+  rotationAmount: 200
+  rotationSpeed: 500
   maxRotation: 60
   outlineSize: 0.1
   selectColour: {r: 0, g: 2, b: 0.033795834, a: 0}
