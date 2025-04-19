@@ -8,7 +8,8 @@ public class CardContainer : MonoBehaviour
     [SerializeField] public CardSlot cardSlotPrefab;
     [SerializeField] public CardPopupItem cardPopupItemPrefab;
     [SerializeField] public VisualCardContainer visualCardContainer;
-    
+
+    private CardPopup _cardPopup;
     private readonly List<CardPopupItem> _cards = new List<CardPopupItem>();
     private CardPopupItem _selectedCardPopupItem = null;
 
@@ -18,6 +19,11 @@ public class CardContainer : MonoBehaviour
         {
             AddCard(startingHand[i]);
         }
+    }
+
+    public void Init(CardPopup cardPopup)
+    {
+        _cardPopup = cardPopup;
     }
 
     private void AddCard(CardType cardType)
@@ -40,7 +46,7 @@ public class CardContainer : MonoBehaviour
         // Also, create a new visual card for the card
         Spell spellPrefab = card.spell;
         Spell spell = Instantiate(spellPrefab, visualCardContainer.transform);
-        spell.Init(card.spellConfig, cardPopupItem);
+        spell.Init(card.spellConfig, cardPopupItem, _cardPopup);
         _cards.Add(cardPopupItem);
     }
 

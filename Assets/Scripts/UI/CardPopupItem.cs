@@ -45,28 +45,32 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        BeginDrag?.Invoke(this);
         _state = CardState.Dragging;
+        BeginDrag?.Invoke(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        EndDrag?.Invoke(this);
         _state = CardState.Idle;
+        EndDrag?.Invoke(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        PointerEnter?.Invoke(this);
-        if (_state == CardState.Idle) 
+        if (_state == CardState.Idle)
+        {
             _state = CardState.Hovering;
+            PointerEnter?.Invoke(this);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        PointerExit?.Invoke(this);
         if (_state == CardState.Hovering)
+        {
             _state = CardState.Idle;
+            PointerExit?.Invoke(this);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Spell : MonoBehaviour
@@ -15,6 +16,7 @@ public abstract class Spell : MonoBehaviour
     protected float damage;
     protected float interactingTime = 0f;
     protected Enemy target;
+    protected CardPopup cardPopup;
     private CardPopupItem _cardPopupItem;
     private Vector3 _movementDelta;
     private Vector3 _rotationDelta;
@@ -25,13 +27,15 @@ public abstract class Spell : MonoBehaviour
         _mainCamera = Camera.main;
     }
     
-    public void Init(SpellConfig config, CardPopupItem cardPopupItem)
+    public void Init(SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup)
     {
         damage = config.damage;
         _cardPopupItem = cardPopupItem;
+        _cardPopupItem.BeginDrag += OnBeginDrag;
         _cardPopupItem.EndDrag += OnEndDrag;
         _cardPopupItem.PointerEnter += OnPointerEnter;
         _cardPopupItem.PointerExit += OnPointerExit;
+        cardPopup = popup;
     }
 
     private void Update()
@@ -39,7 +43,6 @@ public abstract class Spell : MonoBehaviour
         if (!_cardPopupItem) return;
         Follow();
         Rotate();
-        CheckTarget();
 
         if (_cardPopupItem.State == CardState.Hovering || _cardPopupItem.State == CardState.Dragging)
         {
@@ -61,13 +64,6 @@ public abstract class Spell : MonoBehaviour
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -maxRotation, maxRotation));
     }
 
-    private void CheckTarget()
-    {
-        if (_cardPopupItem.State != CardState.Dragging)
-            return;
-        target = GetCurrentTarget();
-    }
-
     protected Enemy GetCurrentTarget()
     {
         Enemy targetedEnemy = null;
@@ -82,12 +78,18 @@ public abstract class Spell : MonoBehaviour
 
         return targetedEnemy;
     }
+
+    private void OnBeginDrag(CardPopupItem cardPopupItem)
+    {
+        OnStartDragging();
+    }
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
     {
         OnStopInteracting();
-        if (target != null)
-            Apply(target);
+        List<Enemy> targets = GetTargets();
+        for (int i = 0; i < targets.Count; ++i)
+            Apply(targets[i]);
     }
 
     private void OnPointerEnter(CardPopupItem cardPopupItem)
@@ -99,6 +101,11 @@ public abstract class Spell : MonoBehaviour
     private void OnPointerExit(CardPopupItem cardPopupItem)
     {
         OnStopInteracting();
+    }
+
+    protected virtual void OnStartDragging()
+    {
+        
     }
 
     protected virtual void OnStartInteracting()
@@ -115,6 +122,8 @@ public abstract class Spell : MonoBehaviour
     {
         interactingTime = 0f;
     }
+
+    protected abstract List<Enemy> GetTargets();
 
     protected abstract void Apply(Enemy spellTarget);
 

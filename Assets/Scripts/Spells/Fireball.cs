@@ -8,9 +8,16 @@ public class Fireball : Spell
     [SerializeField] private float knockbackForce = 20f;
     [SerializeField] private float knockbackTime = 0.2f;
     [SerializeField] private FireballProjectile fireballPrefab;
-    
+
+    protected override List<Enemy> GetTargets()
+    {
+        Enemy currentTarget = GetCurrentTarget();
+        return currentTarget ? new List<Enemy> { GetCurrentTarget() } : new List<Enemy>();
+    }
+
     protected override void Apply(Enemy spellTarget)
     {
+        Debug.Log($"Applying Fireball to {spellTarget.name}");
         // Init the fireball
         Transform launchPosition = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
         FireballProjectile fireball = Instantiate(fireballPrefab);

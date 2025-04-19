@@ -1,16 +1,28 @@
+using Kuroneko.UIDelivery;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
-public class CardPopup : MonoBehaviour
+public class CardPopup : Popup
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private CardPanelPopup cardPanelPopup;
+    [SerializeField] private CardContainer cardContainer;
+    [SerializeField] private VisualCardContainer visualCardContainer;
+
+    public bool CanActivate => cardPanelPopup.CanActivate;
+    
+    protected override void InitPopup()
     {
-        
+        DisableActivationZone();
+        cardContainer.Init(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EnableActivationZone()
     {
-        
+        cardPanelPopup.EnableActivationZone();
+    }
+
+    public void DisableActivationZone()
+    {
+        cardPanelPopup.DisableActivationZone();
     }
 }
