@@ -9,9 +9,9 @@ public class Fireball : Spell
     [SerializeField] private float knockbackTime = 0.2f;
     [SerializeField] private FireballProjectile fireballPrefab;
     
-    protected override void Apply(ISpellTarget target)
+    protected override void Apply(ISpellTarget spellTarget)
     {
-        Debug.Log("Fireballing " + target.GetTransform().gameObject.name);
+        Debug.Log("Fireballing " + spellTarget.GetTransform().gameObject.name);
 
         // Init the fireball
         Transform launchPosition = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
@@ -20,29 +20,31 @@ public class Fireball : Spell
         fireball.transform.SetPositionAndRotation(launchPosition.position, launchPosition.rotation);
         
         // Launch the fireball
-        Vector3 targetPosition = target.GetTransform().position;
+        Vector3 targetPosition = spellTarget.GetTransform().position;
         Vector3 launchDirection = targetPosition - fireball.transform.position;
         Debug.Log("Launch Direction is " + launchDirection);
         Vector3 launchForce = launchDirection * launchSpeed;
         fireball.Rigidbody.AddForce(launchForce, ForceMode.Impulse);
     }
-
-    protected override void Hover()
+    
+    protected override void OnInteracting()
     {
+        base.OnInteracting();
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         TypeSetting typeSetting = settings.GetSettingForType(DamageType.Fire);
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
+            enemies[i].SetPulse(typeSetting.colour, settings.GetPulseAmount(interactingTime));
         }
     }
 
-    protected override void UnHover()
+    protected override void OnStopInteracting()
     {
+        base.OnStopInteracting();
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].DisableOutline();
+            enemies[i].DisablePulse();
         }
     }
 

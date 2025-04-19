@@ -7,6 +7,7 @@ using UnityEngine;
 public class TypeSetting
 {
     public DamageType type;
+    [ColorUsage(true, true)]
     public Color colour;
 }
 
@@ -14,13 +15,19 @@ public class TypeSetting
 public class EffectSetting
 {
     public DamageEffect effect;
+    [ColorUsage(true, true)]
     public Color colour;
 }
 
 [CreateAssetMenu(menuName = "ScriptableObjects/UI Settings", fileName = "UI Settings")]
 public class UISettings : ScriptableObject
 {
+    [Header("Outline")]
     public float outlineSize = 0.5f;
+
+    [Header("Pulse")] public float pulseTime = 1f;
+    public AnimationCurve pulseCurve;
+    
     [TableList] public List<TypeSetting> typeSettings = new();
     [TableList] public List<EffectSetting> effectSettings = new();
 
@@ -44,5 +51,12 @@ public class UISettings : ScriptableObject
         }
 
         throw new KeyNotFoundException($"No TypeSetting found for type {effect}");
+    }
+
+    public float GetPulseAmount(float time)
+    {
+        float t = time / pulseTime;
+        t = Mathf.Repeat(t, 1f);
+        return pulseCurve.Evaluate(t);
     }
 }

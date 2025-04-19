@@ -6,30 +6,32 @@ public class Freeze : Spell
 {
     [SerializeField] private float freezeTime = 5f;
     
-    protected override void Apply(ISpellTarget target)
+    protected override void Apply(ISpellTarget spellTarget)
     {
-        if (target.GetTransform().TryGetComponent(out IFreezeTarget freezeTarget))
+        if (spellTarget.GetTransform().TryGetComponent(out IFreezeTarget freezeTarget))
         {
             freezeTarget.Freeze(freezeTime);
         }
     }
-
-    protected override void Hover()
+    
+    protected override void OnInteracting()
     {
+        base.OnInteracting();
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         TypeSetting typeSetting = settings.GetSettingForType(DamageType.Ice);
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
+            enemies[i].SetPulse(typeSetting.colour, settings.GetPulseAmount(interactingTime));
         }
     }
 
-    protected override void UnHover()
+    protected override void OnStopInteracting()
     {
+        base.OnStopInteracting();
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].DisableOutline();
+            enemies[i].DisablePulse();
         }
     }
 }

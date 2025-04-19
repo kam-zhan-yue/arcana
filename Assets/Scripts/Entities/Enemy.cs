@@ -10,6 +10,8 @@ public enum MovementStatus
 
 public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 {
+    private const int OUTLINE_MATERIAL_INDEX = 1;
+    private const int PULSE_MATERIAL_INDEX = 2;
     protected float moveSpeed = 1f;
     
     // Components
@@ -23,8 +25,9 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     private MovementStatus _movementStatus = MovementStatus.None;
     private float _frozenTimer = 0.0f;
     private float _knockbackTimer = 0.0f;
-    private MaterialPropertyBlock _propertyBlock;
-
+    private MaterialPropertyBlock _outlinePropertyBlock;
+    private MaterialPropertyBlock _pulsePropertyBlock;
+    
     public Status Status => _status;
 
     private bool _activated = false;
@@ -33,12 +36,15 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     public Action<Damage> OnDamage;
     private static readonly int OutlineColour = Shader.PropertyToID("_Outline_Colour");
     private static readonly int OutlineThickness = Shader.PropertyToID("_Outline_Thickness");
+    private static readonly int PulseColour = Shader.PropertyToID("_Pulse_Colour");
+    private static readonly int PulseAmount = Shader.PropertyToID("_Pulse_Amount");
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         _renderer = GetComponent<Renderer>();
-        _propertyBlock = new();
+        _outlinePropertyBlock = new();
+        _pulsePropertyBlock = new();
     }
 
     public void Init(EnemyConfig config)
@@ -130,13 +136,25 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 
     public void SetOutline(Color colour, float thickness)
     {
-        _propertyBlock.SetColor(OutlineColour, colour);
-        _propertyBlock.SetFloat(OutlineThickness, thickness);
-        _renderer.SetPropertyBlock(_propertyBlock, 1);
+        _outlinePropertyBlock.SetColor(OutlineColour, colour);
+        _outlinePropertyBlock.SetFloat(OutlineThickness, thickness);
+        _renderer.SetPropertyBlock(_outlinePropertyBlock, OUTLINE_MATERIAL_INDEX);
     }
 
     public void DisableOutline()
     {
         SetOutline(Color.clear, 0f);
+    }
+
+    public void SetPulse(Color colour, float amount)
+    {
+        _pulsePropertyBlock.SetColor(PulseColour, colour);
+        _pulsePropertyBlock.SetFloat(PulseAmount, amount);
+        _renderer.SetPropertyBlock(_pulsePropertyBlock, PULSE_MATERIAL_INDEX);
+    }
+
+    public void DisablePulse()
+    {
+        SetPulse(Color.clear, 0f);
     }
 }

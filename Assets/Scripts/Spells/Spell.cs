@@ -13,11 +13,12 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private float tiltSpeed = 20f;
 
     protected float damage;
+    protected float interactingTime = 0f;
+    protected ISpellTarget target;
     private CardPopupItem _cardPopupItem;
     private Vector3 _movementDelta;
     private Vector3 _rotationDelta;
     private Camera _mainCamera;
-    private ISpellTarget _target;
 
     private void Awake()
     {
@@ -39,6 +40,11 @@ public abstract class Spell : MonoBehaviour
         Follow();
         Rotate();
         CheckTarget();
+
+        if (_cardPopupItem.State == CardState.Hovering || _cardPopupItem.State == CardState.Dragging)
+        {
+            OnInteracting();
+        }
     }
 
     private void Follow()
@@ -59,37 +65,51 @@ public abstract class Spell : MonoBehaviour
     {
         if (_cardPopupItem.State != CardState.Dragging)
             return;
-        _target = null;
+        target = null;
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.transform.TryGetComponent(out ISpellTarget spellTarget))
             {
-                _target = spellTarget;
+                target = spellTarget;
             }
         }
     }
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
     {
-        if (_target != null)
-            Apply(_target);
+        OnStopInteracting();
+        if (target != null)
+            Apply(target);
     }
 
     private void OnPointerEnter(CardPopupItem cardPopupItem)
     {
-        Hover();
+        interactingTime = 0f;
+        OnStartInteracting();
     }
     
     private void OnPointerExit(CardPopupItem cardPopupItem)
     {
-        UnHover();
+        OnStopInteracting();
     }
 
-    protected abstract void Apply(ISpellTarget target);
-    protected abstract void Hover();
-    protected abstract void UnHover();
+    protected virtual void OnStartInteracting()
+    {
+        interactingTime = 0f;
+    }
 
+    protected virtual void OnInteracting()
+    {
+        interactingTime += Time.deltaTime;
+    }
+
+    protected virtual void OnStopInteracting()
+    {
+        interactingTime = 0f;
+    }
+
+    protected abstract void Apply(ISpellTarget spellTarget);
 
     private void OnDestroy()
     {
