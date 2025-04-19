@@ -9,4 +9,6 @@ public enum CardType
     FlameWave,
     Gust,
     Snowball,
+    Lightning,
+    Thunder,
 }
