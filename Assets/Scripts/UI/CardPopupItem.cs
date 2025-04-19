@@ -58,7 +58,8 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         PointerEnter?.Invoke(this);
-        _state = CardState.Hovering;
+        if (_state == CardState.Idle) 
+            _state = CardState.Hovering;
     }
 
     public void OnPointerExit(PointerEventData eventData)
