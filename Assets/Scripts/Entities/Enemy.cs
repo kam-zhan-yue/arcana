@@ -28,6 +28,7 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
     private bool _activated = false;
 
     public Action OnRelease;
+    public Action<Damage> OnDamage;
     
     private void Awake()
     {
@@ -101,10 +102,11 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
         _knockbackTimer = knockbackTime;
     }
 
-    public void Damage(float damage)
+    public void Damage(Damage damage)
     {
-        _health -= damage;
+        _health -= damage.Amount;
         Debug.Log($"Enemy Took Damage {damage}, Remaining Health is {_health}");
+        OnDamage?.Invoke(damage);
         if (_health <= 0f)
         {
             OnRelease?.Invoke();
