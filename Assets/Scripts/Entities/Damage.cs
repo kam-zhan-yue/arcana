@@ -7,6 +7,7 @@ public enum DamageType
     Fire,
     Electric,
     Ice,
+    Water,
 }
 
 [Serializable]

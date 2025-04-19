@@ -4,10 +4,13 @@ using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class Fireball : Spell
-{ 
-    private float _launchSpeed = 20f;
-    private float _knockbackForce = 20f;
-    private float _knockbackTime = 0.2f; 
+{
+    private float _burnTime;
+    private float _burnDamage;
+    private float _burnTick;
+    private float _launchSpeed;
+    private float _knockbackForce;
+    private float _knockbackTime; 
     private FireballProjectile _fireballPrefab;
 
     protected override void InitConfig(SpellConfig config)
@@ -16,6 +19,9 @@ public class Fireball : Spell
         FireballSpellConfig fireballConfig = config as FireballSpellConfig;
         if (fireballConfig == null)
             throw new InvalidCastException("Config must be of type FireballSpellConfig.");
+        _burnTime = fireballConfig.burnTime;
+        _burnDamage = fireballConfig.burnDamage;
+        _burnTick = fireballConfig.burnTick;
         _launchSpeed = fireballConfig.launchSpeed;
         _knockbackForce = fireballConfig.knockbackForce;
         _knockbackTime = fireballConfig.knockbackTime;
@@ -88,8 +94,8 @@ public class Fireball : Spell
         }
         
         // The burn will get rid of frozen
-        Burn burn = new Burn(Status.Burned, 5f, 10f, 1f);
-        Damage fireballDamage = new Damage(damage, DamageType.Fire, effect);
+        Burn burn = new (Status.Burned, _burnTime, _burnDamage, _burnTick);
+        Damage fireballDamage = new (damage, DamageType.Fire, effect);
         
         enemy.ApplyStatus(burn);
         enemy.Damage(fireballDamage);

@@ -19,9 +19,11 @@ public class Freeze : Spell
 
     protected override List<Enemy> GetTargets()
     {
-        if (!cardPopup.CanActivate)
-            return new();
-        
+        return !cardPopup.CanActivate ? new List<Enemy>() : GetFilteredTargets();
+    }
+
+    private List<Enemy> GetFilteredTargets()
+    {
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         List<Enemy> targets = new();
         for (int i = 0; i < enemies.Count; ++i)
@@ -48,7 +50,7 @@ public class Freeze : Spell
     protected override void OnInteracting()
     {
         base.OnInteracting();
-        List<Enemy> enemies = GetTargets();
+        List<Enemy> enemies = GetFilteredTargets();
         TypeSetting typeSetting = settings.GetSettingForType(DamageType.Ice);
         for (int i = 0; i < enemies.Count; ++i)
         {

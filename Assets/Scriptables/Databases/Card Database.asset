@@ -19,3 +19,5 @@ MonoBehaviour:
     spellConfig: {fileID: 11400000, guid: d0bdf31634e3548e2b4162943a4cf30f, type: 2}
   - cardType: 2
     spellConfig: {fileID: 11400000, guid: d646b2645c64b499898690b604748ae0, type: 2}
+  - cardType: 3
+    spellConfig: {fileID: 11400000, guid: 37e2d7ed1f2a049a695974b10884081f, type: 2}

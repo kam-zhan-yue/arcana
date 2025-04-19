@@ -17,14 +17,16 @@ public class WaterBucket : Spell
     }
     protected override List<Enemy> GetTargets()
     {
-        if (!cardPopup.CanActivate)
-            return new();
-        
+        return !cardPopup.CanActivate ? new List<Enemy>() : GetFilteredTargets();
+    }
+
+    private List<Enemy> GetFilteredTargets()
+    {
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         List<Enemy> targets = new();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            if (Drench.CanAffect(enemies[i]))
+            if (Frozen.CanAffect(enemies[i]))
                 targets.Add(enemies[i]);
         }
         return targets;
@@ -45,8 +47,8 @@ public class WaterBucket : Spell
     protected override void OnInteracting()
     {
         base.OnInteracting();
-        List<Enemy> enemies = GetTargets();
-        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Ice);
+        List<Enemy> enemies = GetFilteredTargets();
+        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Water);
         for (int i = 0; i < enemies.Count; ++i)
         {
             enemies[i].SetOutline(cardPopup.CanActivate ? settings.selectColour : typeSetting.colour, settings.outlineSize);
