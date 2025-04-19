@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
-public class Snowball : Spell, IProjectileSpell
+public class Snowball : SingleTargetSpell, IProjectileSpell
 {
     private float _freezeTime;
     private float _launchSpeed;
@@ -24,12 +24,9 @@ public class Snowball : Spell, IProjectileSpell
         _snowballPrefab = snowballConfig.projectilePrefab;
     }
 
-    protected override List<Enemy> GetTargets()
+    protected override bool CanAffect(Enemy enemy)
     {
-        Enemy currentTarget = GetCurrentTarget();
-        if (currentTarget && Frozen.CanAffect(currentTarget))
-            return new List<Enemy> { currentTarget };
-        return new();
+        return Frozen.CanAffect(enemy);
     }
 
     protected override void Apply(Enemy spellTarget)
@@ -47,35 +44,6 @@ public class Snowball : Spell, IProjectileSpell
         snowball.Rigidbody.AddForce(launchForce, ForceMode.Impulse);
     }
     
-    protected override void OnInteracting()
-    {
-        base.OnInteracting();
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
-        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Ice);
-        
-        for (int i = 0; i < enemies.Count; ++i)
-        {
-            if(Burn.CanAffect(enemies[i]))
-                enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
-        }
-
-        Enemy targetedEnemy = GetCurrentTarget();
-        if (targetedEnemy && Burn.CanAffect(targetedEnemy))
-        {
-            targetedEnemy.SetOutline(settings.selectColour, settings.outlineSize);
-        }
-    }
-
-    protected override void OnStopInteracting()
-    {
-        base.OnStopInteracting();
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
-        for (int i = 0; i < enemies.Count; ++i)
-        {
-            enemies[i].DisableOutline();
-        }
-    }
-
     public void ApplyEnemy(Enemy enemy, Projectile projectile)
     {
         // The burn will get rid of frozen

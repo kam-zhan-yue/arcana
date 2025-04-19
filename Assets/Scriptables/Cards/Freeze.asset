@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 5240892185207594317, guid: 46df98c7469e14afc978a6c45d218bda, type: 3}
   damage: 0
+  type: 3
   freezeTime: 5

@@ -11,4 +11,5 @@ public enum CardType
     Snowball,
     Lightning,
     Thunder,
+    Duck,
 }

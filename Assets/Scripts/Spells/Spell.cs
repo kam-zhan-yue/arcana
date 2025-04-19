@@ -7,6 +7,7 @@ public abstract class Spell : MonoBehaviour
     // [SerializeField] private float tiltSpeed = 20f;
 
     protected float damage;
+    protected DamageType type;
     protected float interactingTime = 0f;
     protected CardPopup cardPopup;
     private CardPopupItem _cardPopupItem;
@@ -34,6 +35,7 @@ public abstract class Spell : MonoBehaviour
     protected virtual void InitConfig(SpellConfig config)
     {
         damage = config.damage;
+        type = config.type;
     }
 
     private void Update()

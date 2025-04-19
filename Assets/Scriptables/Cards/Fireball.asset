@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 7069891739309875284, guid: 022a4d5e9f46c46709f27503a9874fec, type: 3}
   damage: 100
+  type: 1
   burnTime: 5
   burnDamage: 10
   burnTick: 1

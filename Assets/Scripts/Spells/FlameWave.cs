@@ -55,25 +55,4 @@ public class FlameWave : Spell
         cardPopup.EnableActivationZone();
     }
 
-    protected override void OnInteracting()
-    {
-        base.OnInteracting();
-        List<Enemy> enemies = GetFilteredTargets();
-        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Fire);
-        for (int i = 0; i < enemies.Count; ++i)
-        {
-            enemies[i].SetOutline(cardPopup.CanActivate ? settings.selectColour : typeSetting.colour, settings.outlineSize);
-        }
-    }
-
-    protected override void OnStopInteracting()
-    {
-        base.OnStopInteracting();
-        cardPopup.DisableActivationZone();
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
-        for (int i = 0; i < enemies.Count; ++i)
-        {
-            enemies[i].DisableOutline();
-        }
-    }
 }

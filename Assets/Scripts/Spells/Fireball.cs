@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
-public class Fireball : Spell, IProjectileSpell
+public class Fireball : SingleTargetSpell, IProjectileSpell
 {
     private float _burnTime;
     private float _burnDamage;
@@ -28,12 +28,9 @@ public class Fireball : Spell, IProjectileSpell
         _fireballPrefab = fireballConfig.projectilePrefab;
     }
 
-    protected override List<Enemy> GetTargets()
+    protected override bool CanAffect(Enemy enemy)
     {
-        Enemy currentTarget = GetCurrentTarget();
-        if (currentTarget && Burn.CanAffect(currentTarget))
-            return new List<Enemy> { currentTarget };
-        return new();
+        return Burn.CanAffect(enemy);
     }
 
     protected override void Apply(Enemy spellTarget)
@@ -51,34 +48,6 @@ public class Fireball : Spell, IProjectileSpell
         fireball.Rigidbody.AddForce(launchForce, ForceMode.Impulse);
     }
     
-    protected override void OnInteracting()
-    {
-        base.OnInteracting();
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
-        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Fire);
-        
-        for (int i = 0; i < enemies.Count; ++i)
-        {
-            if(Burn.CanAffect(enemies[i]))
-                enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
-        }
-
-        Enemy targetedEnemy = GetCurrentTarget();
-        if (targetedEnemy && Burn.CanAffect(targetedEnemy))
-        {
-            targetedEnemy.SetOutline(settings.selectColour, settings.outlineSize);
-        }
-    }
-
-    protected override void OnStopInteracting()
-    {
-        base.OnStopInteracting();
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
-        for (int i = 0; i < enemies.Count; ++i)
-        {
-            enemies[i].DisableOutline();
-        }
-    }
 
     public void ApplyEnemy(Enemy enemy, Projectile projectile)
     {
