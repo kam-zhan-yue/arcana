@@ -21,13 +21,18 @@ public abstract class Spell : MonoBehaviour
     
     public void Init(SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup)
     {
-        damage = config.damage;
         _cardPopupItem = cardPopupItem;
         _cardPopupItem.BeginDrag += OnBeginDrag;
         _cardPopupItem.EndDrag += OnEndDrag;
         _cardPopupItem.PointerEnter += OnPointerEnter;
         _cardPopupItem.PointerExit += OnPointerExit;
         cardPopup = popup;
+        InitConfig(config);
+    }
+
+    protected virtual void InitConfig(SpellConfig config)
+    {
+        damage = config.damage;
     }
 
     private void Update()

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards:
   - cardType: 0
-    spellConfig: {fileID: 11400000, guid: ea50092e213964181b7a10eba0180ff7, type: 2}
+    spellConfig: {fileID: 11400000, guid: d3b6aacf01660468183c77072648219e, type: 2}
   - cardType: 1
     spellConfig: {fileID: 11400000, guid: d0bdf31634e3548e2b4162943a4cf30f, type: 2}
   - cardType: 2
-    spellConfig: {fileID: 11400000, guid: c82fba0644fb848cd93b2a999ac67ddc, type: 2}
+    spellConfig: {fileID: 11400000, guid: d646b2645c64b499898690b604748ae0, type: 2}

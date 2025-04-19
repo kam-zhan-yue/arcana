@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Kuroneko.UtilityDelivery;
@@ -5,7 +6,16 @@ using UnityEngine;
 
 public class Freeze : Spell
 {
-    [SerializeField] private float freezeTime = 5f;
+    private float _freezeTime = 5f;
+
+    protected override void InitConfig(SpellConfig config)
+    {
+        base.InitConfig(config);
+        FreezeSpellConfig freezeConfig = config as FreezeSpellConfig;
+        if (freezeConfig == null)
+            throw new InvalidCastException("Config must be of type FreezeSpellConfig.");
+        _freezeTime = freezeConfig.freezeTime;
+    }
 
     protected override List<Enemy> GetTargets()
     {
@@ -25,7 +35,7 @@ public class Freeze : Spell
     protected override void Apply(Enemy spellTarget)
     {
         Debug.Log($"Applying Freeze to {spellTarget.name}");
-        Frozen frozen = new(Status.Frozen, freezeTime);
+        Frozen frozen = new(Status.Frozen, _freezeTime);
         spellTarget.ApplyStatus(frozen);
     }
 

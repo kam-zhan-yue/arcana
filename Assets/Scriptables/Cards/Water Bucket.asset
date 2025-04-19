@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63cf43b5912094bdc93c7ede5ecd68b9, type: 3}
+  m_Script: {fileID: 11500000, guid: bee97fa7cc81b44dcbd9ba673da5653f, type: 3}
   m_Name: Water Bucket
   m_EditorClassIdentifier: 
   prefab: {fileID: 4551054513585895188, guid: cdaaebeacce7a47049ada729da440bf6, type: 3}
-  damage: 100
+  damage: 0
+  wetTime: 5

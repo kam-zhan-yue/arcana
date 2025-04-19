@@ -1,13 +1,26 @@
+using System;
 using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class Fireball : Spell
-{
-    [SerializeField] private float launchSpeed = 20f;
-    [SerializeField] private float knockbackForce = 20f;
-    [SerializeField] private float knockbackTime = 0.2f;
-    [SerializeField] private FireballProjectile fireballPrefab;
+{ 
+    private float _launchSpeed = 20f;
+    private float _knockbackForce = 20f;
+    private float _knockbackTime = 0.2f; 
+    private FireballProjectile _fireballPrefab;
+
+    protected override void InitConfig(SpellConfig config)
+    {
+        base.InitConfig(config);
+        FireballSpellConfig fireballConfig = config as FireballSpellConfig;
+        if (fireballConfig == null)
+            throw new InvalidCastException("Config must be of type FireballSpellConfig.");
+        _launchSpeed = fireballConfig.launchSpeed;
+        _knockbackForce = fireballConfig.knockbackForce;
+        _knockbackTime = fireballConfig.knockbackTime;
+        _fireballPrefab = fireballConfig.fireballPrefab;
+    }
 
     protected override List<Enemy> GetTargets()
     {
@@ -23,7 +36,7 @@ public class Fireball : Spell
         
         // Init the fireball
         Transform launchPosition = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
-        FireballProjectile fireball = Instantiate(fireballPrefab);
+        FireballProjectile fireball = Instantiate(_fireballPrefab);
         fireball.Init(this);
         fireball.transform.SetPositionAndRotation(launchPosition.position, launchPosition.rotation);
         
@@ -31,7 +44,7 @@ public class Fireball : Spell
         Vector3 targetPosition = spellTarget.GetTransform().position;
         Vector3 launchDirection = targetPosition - fireball.transform.position;
         Debug.Log("Launch Direction is " + launchDirection);
-        Vector3 launchForce = launchDirection * launchSpeed;
+        Vector3 launchForce = launchDirection * _launchSpeed;
         fireball.Rigidbody.AddForce(launchForce, ForceMode.Impulse);
     }
     
@@ -85,7 +98,7 @@ public class Fireball : Spell
         if (enemy.IsDead)
         {
             Vector3 direction = projectile.Rigidbody.linearVelocity;
-            enemy.Knockback(direction.normalized * knockbackForce * multiplier, knockbackTime);
+            enemy.Knockback(direction.normalized * _knockbackForce * multiplier, _knockbackTime);
         }
         
         // Destroy the fireball projectile

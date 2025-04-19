@@ -1,11 +1,20 @@
+using System;
 using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class WaterBucket : Spell
 {
-    [SerializeField] private float wetTime = 5f;
+    private float _wetTime = 5f;
 
+    protected override void InitConfig(SpellConfig config)
+    {
+        base.InitConfig(config);
+        WaterBucketSpellConfig spellConfig = config as WaterBucketSpellConfig;
+        if (spellConfig == null)
+            throw new InvalidCastException("Config must be of type WaterBucketSpellConfig");
+        _wetTime = spellConfig.wetTime;
+    }
     protected override List<Enemy> GetTargets()
     {
         if (!cardPopup.CanActivate)
@@ -23,7 +32,7 @@ public class WaterBucket : Spell
 
     protected override void Apply(Enemy spellTarget)
     {
-        Drench drench = new(Status.Wet, wetTime);
+        Drench drench = new(Status.Wet, _wetTime);
         spellTarget.ApplyStatus(drench);
     }
 
