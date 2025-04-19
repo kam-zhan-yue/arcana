@@ -15,9 +15,19 @@ public class Burn : StatusEffect
         return enemy.Status != Status.Wet;
     }
 
+    public override StatusEffect Clone()
+    {
+        return new Burn(status, statusTime, _burnDamage, _burnTick);
+    }
+
     protected override bool CanApply(Enemy enemy)
     {
         return CanAffect(enemy);
+    }
+
+    public override void Refresh()
+    {
+        _burnTimer = 0f;
     }
 
     protected override void OnApply(Enemy enemy)

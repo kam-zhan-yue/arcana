@@ -4,7 +4,7 @@ using UnityEngine;
 public class CardContainer : MonoBehaviour
 {
     [SerializeField] public CardDatabase cardDatabase;
-    [SerializeField] public CardType[] startingHand;
+    [SerializeField] public UISettings uiSettings;
     [SerializeField] public CardSlot cardSlotPrefab;
     [SerializeField] public CardPopupItem cardPopupItemPrefab;
     [SerializeField] public VisualCardContainer visualCardContainer;
@@ -15,9 +15,9 @@ public class CardContainer : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < startingHand.Length; ++i)
+        for (int i = 0; i < cardDatabase.startingHand.Length; ++i)
         {
-            AddCard(startingHand[i]);
+            AddCard(cardDatabase.startingHand[i]);
         }
     }
 
@@ -46,7 +46,7 @@ public class CardContainer : MonoBehaviour
         // Also, create a new visual card for the card
         Spell spellPrefab = card.spellConfig.prefab;
         Spell spell = Instantiate(spellPrefab, visualCardContainer.transform);
-        spell.Init(card.spellConfig, cardPopupItem, _cardPopup);
+        spell.Init(card.spellConfig, cardPopupItem, _cardPopup, uiSettings);
         _cards.Add(cardPopupItem);
     }
 

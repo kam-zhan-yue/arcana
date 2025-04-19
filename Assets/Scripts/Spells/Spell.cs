@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Spell : MonoBehaviour
 {
-    [Header("Settings")] [SerializeField] protected UISettings settings;
+    protected UISettings settings;
     // [SerializeField] private float tiltSpeed = 20f;
 
     protected float damage;
@@ -19,7 +19,7 @@ public abstract class Spell : MonoBehaviour
         _mainCamera = Camera.main;
     }
     
-    public void Init(SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup)
+    public void Init(SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup, UISettings uiSettings)
     {
         _cardPopupItem = cardPopupItem;
         _cardPopupItem.BeginDrag += OnBeginDrag;
@@ -27,6 +27,7 @@ public abstract class Spell : MonoBehaviour
         _cardPopupItem.PointerEnter += OnPointerEnter;
         _cardPopupItem.PointerExit += OnPointerExit;
         cardPopup = popup;
+        settings = uiSettings;
         InitConfig(config);
     }
 
@@ -83,10 +84,15 @@ public abstract class Spell : MonoBehaviour
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
     {
+        ApplySpell();
+        OnStopInteracting();
+    }
+
+    protected virtual void ApplySpell()
+    {
         List<Enemy> targets = GetTargets();
         for (int i = 0; i < targets.Count; ++i)
             Apply(targets[i]);
-        OnStopInteracting();
     }
 
     private void OnPointerEnter(CardPopupItem cardPopupItem)

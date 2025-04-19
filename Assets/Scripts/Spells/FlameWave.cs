@@ -30,7 +30,7 @@ public class FlameWave : Spell
         List<Enemy> targets = new();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            if (Frozen.CanAffect(enemies[i]))
+            if (Burn.CanAffect(enemies[i]))
                 targets.Add(enemies[i]);
         }
         return targets;

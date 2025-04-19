@@ -3,35 +3,31 @@ using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
-public class Fireball : Spell, IProjectileSpell
+public class Snowball : Spell, IProjectileSpell
 {
-    private float _burnTime;
-    private float _burnDamage;
-    private float _burnTick;
+    private float _freezeTime;
     private float _launchSpeed;
     private float _knockbackForce;
     private float _knockbackTime; 
-    private Projectile _fireballPrefab;
+    private Projectile _snowballPrefab;
 
     protected override void InitConfig(SpellConfig config)
     {
         base.InitConfig(config);
-        FireballSpellConfig fireballConfig = config as FireballSpellConfig;
-        if (fireballConfig == null)
-            throw new InvalidCastException("Config must be of type FireballSpellConfig.");
-        _burnTime = fireballConfig.burnTime;
-        _burnDamage = fireballConfig.burnDamage;
-        _burnTick = fireballConfig.burnTick;
-        _launchSpeed = fireballConfig.launchSpeed;
-        _knockbackForce = fireballConfig.knockbackForce;
-        _knockbackTime = fireballConfig.knockbackTime;
-        _fireballPrefab = fireballConfig.projectilePrefab;
+        SnowballSpellConfig snowballConfig = config as SnowballSpellConfig;
+        if (snowballConfig == null)
+            throw new InvalidCastException("Config must be of type SnowballSpellConfig.");
+        _freezeTime = snowballConfig.freezeTime;
+        _launchSpeed = snowballConfig.launchSpeed;
+        _knockbackForce = snowballConfig.knockbackForce;
+        _knockbackTime = snowballConfig.knockbackTime;
+        _snowballPrefab = snowballConfig.projectilePrefab;
     }
 
     protected override List<Enemy> GetTargets()
     {
         Enemy currentTarget = GetCurrentTarget();
-        if (currentTarget && Burn.CanAffect(currentTarget))
+        if (currentTarget && Frozen.CanAffect(currentTarget))
             return new List<Enemy> { currentTarget };
         return new();
     }
@@ -40,22 +36,22 @@ public class Fireball : Spell, IProjectileSpell
     {
         // Init the fireball
         Transform launchPosition = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
-        Projectile fireball = Instantiate(_fireballPrefab);
-        fireball.Init(this);
-        fireball.transform.SetPositionAndRotation(launchPosition.position, launchPosition.rotation);
+        Projectile snowball = Instantiate(_snowballPrefab);
+        snowball.Init(this);
+        snowball.transform.SetPositionAndRotation(launchPosition.position, launchPosition.rotation);
         
         // Launch the fireball
         Vector3 targetPosition = spellTarget.GetTransform().position;
-        Vector3 launchDirection = targetPosition - fireball.transform.position;
+        Vector3 launchDirection = targetPosition - snowball.transform.position;
         Vector3 launchForce = launchDirection * _launchSpeed;
-        fireball.Rigidbody.AddForce(launchForce, ForceMode.Impulse);
+        snowball.Rigidbody.AddForce(launchForce, ForceMode.Impulse);
     }
     
     protected override void OnInteracting()
     {
         base.OnInteracting();
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
-        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Fire);
+        TypeSetting typeSetting = settings.GetSettingForType(DamageType.Ice);
         
         for (int i = 0; i < enemies.Count; ++i)
         {
@@ -82,26 +78,18 @@ public class Fireball : Spell, IProjectileSpell
 
     public void ApplyEnemy(Enemy enemy, Projectile projectile)
     {
-        float multiplier = 1f;
-        
-        DamageEffect effect = DamageEffect.None;
-        if (enemy.Status == Status.Frozen)
-        {
-            effect = DamageEffect.Melt;
-        }
-        
         // The burn will get rid of frozen
-        Burn burn = new (Status.Burned, _burnTime, _burnDamage, _burnTick);
-        Damage fireballDamage = new (damage, DamageType.Fire, effect);
+        Frozen frozen = new (Status.Frozen, _freezeTime);
+        Damage spellDamage = new (damage, DamageType.Ice, DamageEffect.None);
         
-        enemy.ApplyStatus(burn);
-        enemy.Damage(fireballDamage);
+        enemy.ApplyStatus(frozen);
+        enemy.Damage(spellDamage);
 
         // Knockback the enemy only if they die from the fireball
         if (enemy.IsDead)
         {
             Vector3 direction = projectile.Rigidbody.linearVelocity;
-            enemy.Knockback(direction.normalized * _knockbackForce * multiplier, _knockbackTime);
+            enemy.Knockback(direction.normalized * _knockbackForce, _knockbackTime);
         }
         
         // Destroy the fireball projectile

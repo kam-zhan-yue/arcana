@@ -8,7 +8,12 @@ public class Frozen : StatusEffect
     {
         return enemy.Status != Status.Burned;
     }
-    
+
+
+    public override StatusEffect Clone()
+    {
+        return new Frozen(status, statusTime);
+    }
 
     protected override bool CanApply(Enemy enemy)
     {

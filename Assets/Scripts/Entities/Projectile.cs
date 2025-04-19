@@ -1,27 +1,27 @@
 using System;
 using UnityEngine;
 
-public class FireballProjectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     public Rigidbody Rigidbody => _rigidbody;
-    private Fireball _fireball;
+    private IProjectileSpell _spell;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Init(Fireball fireball)
+    public void Init(IProjectileSpell spell)
     {
-        _fireball = fireball;
+        _spell = spell;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent(out Enemy enemy))
         {
-            _fireball.ApplyEnemy(enemy, this);
+            _spell.ApplyEnemy(enemy, this);
         }
     }
 }

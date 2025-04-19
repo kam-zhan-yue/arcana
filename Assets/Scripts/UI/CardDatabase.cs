@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Card Database", fileName = "Card Database")]
 public class CardDatabase : ScriptableObject
 {
+    public CardType[] startingHand;
     [TableList] public Card[] cards = Array.Empty<Card>();
 
     public Card GetCard(CardType cardType)

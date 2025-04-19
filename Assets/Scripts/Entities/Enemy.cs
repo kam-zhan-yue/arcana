@@ -29,6 +29,7 @@ public abstract class Enemy : MonoBehaviour
     
     public Status Status { get; private set; } = Status.None;
     private StatusEffect _statusEffect;
+    public StatusEffect StatusEffect => _statusEffect;
 
     private bool _activated = false;
 
@@ -95,7 +96,6 @@ public abstract class Enemy : MonoBehaviour
     public void Damage(Damage damage)
     {
         _health -= damage.Amount;
-        Debug.Log($"Enemy Took Damage {damage}, Remaining Health is {_health}");
         OnDamage?.Invoke(damage);
         if (IsDead)
         {

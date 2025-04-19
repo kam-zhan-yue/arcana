@@ -7,4 +7,6 @@ public enum CardType
     Freeze,
     WaterBucket,
     FlameWave,
+    Gust,
+    Snowball,
 }

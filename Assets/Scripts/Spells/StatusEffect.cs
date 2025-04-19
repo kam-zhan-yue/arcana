@@ -6,11 +6,19 @@ public abstract class StatusEffect
 
     private float _timer = 0f;
 
-    public StatusEffect(Status s, float t)
+    protected StatusEffect(Status s, float t)
     {
         status = s;
         statusTime = t;
     }
+
+    public virtual void Refresh()
+    {
+        _timer = 0f;
+        completed = false;
+    }
+
+    public abstract StatusEffect Clone();
 
     protected abstract bool CanApply(Enemy enemy);
 
@@ -43,4 +51,9 @@ public abstract class StatusEffect
     protected abstract void OnApply(Enemy enemy);
     protected abstract void OnUpdate(Enemy enemy, float deltaTime);
     protected abstract void OnComplete(Enemy enemy);
+    
+    public override string ToString()
+    {
+        return $"{status} ({statusTime:F2}s)";
+    } 
 }

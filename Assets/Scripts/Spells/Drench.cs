@@ -9,6 +9,11 @@ public class Drench : StatusEffect
         return enemy.Status != Status.Frozen;
     }
 
+    public override StatusEffect Clone()
+    {
+        return new Drench(status, statusTime);
+    }
+
     protected override bool CanApply(Enemy enemy)
     {
         return CanAffect(enemy);
