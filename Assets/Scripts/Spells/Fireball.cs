@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
@@ -24,6 +25,24 @@ public class Fireball : Spell
         Debug.Log("Launch Direction is " + launchDirection);
         Vector3 launchForce = launchDirection * launchSpeed;
         fireball.Rigidbody.AddForce(launchForce, ForceMode.Impulse);
+    }
+
+    protected override void Hover()
+    {
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; ++i)
+        {
+            Debug.Log($"Highlight {enemies[i].name}");
+        }
+    }
+
+    protected override void UnHover()
+    {
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; ++i)
+        {
+            Debug.Log($"Unhighlight {enemies[i].name}");
+        }
     }
 
     public void ApplyEnemy(Enemy enemy, FireballProjectile projectile)

@@ -27,7 +27,7 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
 
     private bool _activated = false;
 
-    public Action OnRelease;
+    public Action<Enemy> OnRelease;
     public Action<Damage> OnDamage;
     
     private void Awake()
@@ -109,7 +109,7 @@ public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
         OnDamage?.Invoke(damage);
         if (IsDead)
         {
-            OnRelease?.Invoke();
+            OnRelease?.Invoke(this);
         }
     }
     

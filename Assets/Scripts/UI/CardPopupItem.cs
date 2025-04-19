@@ -6,6 +6,7 @@ public enum CardState
 {
     Idle,
     Dragging,
+    Hovering,
 }
 
 public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
@@ -15,6 +16,8 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public Action<CardPopupItem> BeginDrag;
     public Action<CardPopupItem> EndDrag;
+    public Action<CardPopupItem> PointerEnter;
+    public Action<CardPopupItem> PointerExit;
     
     private void Update()
     {
@@ -54,10 +57,15 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        PointerEnter?.Invoke(this);
+        _state = CardState.Hovering;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        PointerExit?.Invoke(this);
+        if (_state == CardState.Hovering)
+            _state = CardState.Idle;
     }
 
     public void OnPointerUp(PointerEventData eventData)

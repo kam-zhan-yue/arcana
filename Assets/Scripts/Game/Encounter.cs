@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Kuroneko.UtilityDelivery;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -26,7 +27,15 @@ public class Encounter
     public void AddEnemy(Enemy enemy)
     {
         enemies.Add(enemy);
-        enemy.OnRelease += () => enemies.Remove(enemy);
+        ServiceLocator.Instance.Get<IGameManager>().AddActiveEnemy(enemy);
+        enemy.OnRelease += RemoveEnemy;
+    }
+
+    private void RemoveEnemy(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+        ServiceLocator.Instance.Get<IGameManager>().RemoveActiveEnemy(enemy);
+        enemy.OnRelease -= RemoveEnemy;
     }
     
     

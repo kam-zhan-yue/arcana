@@ -11,4 +11,14 @@ public class Freeze : Spell
             freezeTarget.Freeze(freezeTime);
         }
     }
+
+    protected override void Hover()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void UnHover()
+    {
+        throw new System.NotImplementedException();
+    }
 }

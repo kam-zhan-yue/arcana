@@ -28,6 +28,8 @@ public abstract class Spell : MonoBehaviour
         damage = config.damage;
         _cardPopupItem = cardPopupItem;
         _cardPopupItem.EndDrag += OnEndDrag;
+        _cardPopupItem.PointerEnter += OnPointerEnter;
+        _cardPopupItem.PointerExit += OnPointerExit;
     }
 
     private void Update()
@@ -73,11 +75,25 @@ public abstract class Spell : MonoBehaviour
             Apply(_target);
     }
 
+    private void OnPointerEnter(CardPopupItem cardPopupItem)
+    {
+        Hover();
+    }
+    
+    private void OnPointerExit(CardPopupItem cardPopupItem)
+    {
+        UnHover();
+    }
+
     protected abstract void Apply(ISpellTarget target);
+    protected abstract void Hover();
+    protected abstract void UnHover();
 
 
     private void OnDestroy()
     {
         _cardPopupItem.EndDrag -= OnEndDrag;
+        _cardPopupItem.PointerEnter -= OnPointerEnter;
+        _cardPopupItem.PointerExit -= OnPointerExit;
     }
 }
