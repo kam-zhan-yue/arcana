@@ -10,11 +10,11 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] private float rotationAmount = 1f;
     [SerializeField] private float rotationSpeed = 100f;
     [SerializeField] private float maxRotation = 60f;
-    [SerializeField] private float tiltSpeed = 20f;
+    // [SerializeField] private float tiltSpeed = 20f;
 
     protected float damage;
     protected float interactingTime = 0f;
-    protected ISpellTarget target;
+    protected Enemy target;
     private CardPopupItem _cardPopupItem;
     private Vector3 _movementDelta;
     private Vector3 _rotationDelta;
@@ -69,7 +69,7 @@ public abstract class Spell : MonoBehaviour
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.transform.TryGetComponent(out ISpellTarget spellTarget))
+            if (hit.transform.TryGetComponent(out Enemy spellTarget))
             {
                 target = spellTarget;
             }
@@ -109,7 +109,7 @@ public abstract class Spell : MonoBehaviour
         interactingTime = 0f;
     }
 
-    protected abstract void Apply(ISpellTarget spellTarget);
+    protected abstract void Apply(Enemy spellTarget);
 
     private void OnDestroy()
     {

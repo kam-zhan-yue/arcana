@@ -24,6 +24,8 @@ public class UISettings : ScriptableObject
 {
     [Header("Outline")]
     public float outlineSize = 0.5f;
+    [ColorUsage(true, true)]
+    public Color selectColour;
 
     [Header("Pulse")] public float pulseTime = 1f;
     public AnimationCurve pulseCurve;

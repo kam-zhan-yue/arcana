@@ -8,7 +8,7 @@ public enum MovementStatus
     Knockback,
 }
 
-public abstract class Enemy : MonoBehaviour, ISpellTarget, IFreezeTarget
+public abstract class Enemy : MonoBehaviour
 {
     private const int OUTLINE_MATERIAL_INDEX = 1;
     private const int PULSE_MATERIAL_INDEX = 2;

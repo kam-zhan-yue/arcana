@@ -9,7 +9,7 @@ public class Fireball : Spell
     [SerializeField] private float knockbackTime = 0.2f;
     [SerializeField] private FireballProjectile fireballPrefab;
     
-    protected override void Apply(ISpellTarget spellTarget)
+    protected override void Apply(Enemy spellTarget)
     {
         Debug.Log("Fireballing " + spellTarget.GetTransform().gameObject.name);
 
@@ -34,7 +34,7 @@ public class Fireball : Spell
         TypeSetting typeSetting = settings.GetSettingForType(DamageType.Fire);
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].SetPulse(typeSetting.colour, settings.GetPulseAmount(interactingTime));
+            enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
         }
     }
 
@@ -44,7 +44,7 @@ public class Fireball : Spell
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].DisablePulse();
+            enemies[i].DisableOutline();
         }
     }
 

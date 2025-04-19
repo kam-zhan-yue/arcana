@@ -6,12 +6,9 @@ public class Freeze : Spell
 {
     [SerializeField] private float freezeTime = 5f;
     
-    protected override void Apply(ISpellTarget spellTarget)
+    protected override void Apply(Enemy spellTarget)
     {
-        if (spellTarget.GetTransform().TryGetComponent(out IFreezeTarget freezeTarget))
-        {
-            freezeTarget.Freeze(freezeTime);
-        }
+        spellTarget.Freeze(freezeTime);
     }
     
     protected override void OnInteracting()
