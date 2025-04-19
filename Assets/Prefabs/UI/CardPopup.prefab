@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDatabase: {fileID: 11400000, guid: 32bc1733b55934d0b9a35e48f576b907, type: 2}
-  startingHand: 000000000000000001000000
+  startingHand: 000000000100000002000000
   cardSlotPrefab: {fileID: 5983973944446856813, guid: 3e34329805ffc48f49e567f0bff6d37e, type: 3}
   cardPopupItemPrefab: {fileID: 7267757904049800613, guid: effae39753b694a4981bcb2a80c77547, type: 3}
   visualCardContainer: {fileID: 3193242678137593700}

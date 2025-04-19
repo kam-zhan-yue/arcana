@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
-public class Freeze : Spell
+public class WaterBucket : Spell
 {
-    [SerializeField] private float freezeTime = 5f;
+    [SerializeField] private float wetTime = 5f;
 
     protected override List<Enemy> GetTargets()
     {
@@ -16,17 +15,16 @@ public class Freeze : Spell
         List<Enemy> targets = new();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            if (Frozen.CanAffect(enemies[i]))
+            if (Drench.CanAffect(enemies[i]))
                 targets.Add(enemies[i]);
         }
         return targets;
     }
-    
+
     protected override void Apply(Enemy spellTarget)
     {
-        Debug.Log($"Applying Freeze to {spellTarget.name}");
-        Frozen frozen = new(Status.Frozen, freezeTime);
-        spellTarget.ApplyStatus(frozen);
+        Drench drench = new(Status.Wet, wetTime);
+        spellTarget.ApplyStatus(drench);
     }
 
     protected override void OnStartDragging()

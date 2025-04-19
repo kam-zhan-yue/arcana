@@ -4,18 +4,10 @@ using UnityEngine;
 public abstract class Spell : MonoBehaviour
 {
     [Header("Settings")] [SerializeField] protected UISettings settings;
-    [Header("Follow Parameters")] 
-    [SerializeField] private float followSpeed = 25f;
-
-    [Header("Rotation Parameters")] 
-    [SerializeField] private float rotationAmount = 1f;
-    [SerializeField] private float rotationSpeed = 100f;
-    [SerializeField] private float maxRotation = 60f;
     // [SerializeField] private float tiltSpeed = 20f;
 
     protected float damage;
     protected float interactingTime = 0f;
-    protected Enemy target;
     protected CardPopup cardPopup;
     private CardPopupItem _cardPopupItem;
     private Vector3 _movementDelta;
@@ -52,16 +44,16 @@ public abstract class Spell : MonoBehaviour
 
     private void Follow()
     {
-        transform.position = Vector3.Lerp(transform.position, _cardPopupItem.transform.position, followSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, _cardPopupItem.transform.position, settings.followSpeed * Time.deltaTime);
     }
 
     private void Rotate()
     {
         Vector3 movementVector = (transform.position - _cardPopupItem.transform.position);
         _movementDelta = Vector3.Lerp(_movementDelta, movementVector, 25 * Time.deltaTime);
-        Vector3 movementRotation = (_cardPopupItem.State == CardState.Dragging ? _movementDelta : movementVector) * rotationAmount;
-        _rotationDelta = Vector3.Lerp(_rotationDelta, movementRotation, rotationSpeed * Time.deltaTime);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -maxRotation, maxRotation));
+        Vector3 movementRotation = (_cardPopupItem.State == CardState.Dragging ? _movementDelta : movementVector) * settings.rotationAmount;
+        _rotationDelta = Vector3.Lerp(_rotationDelta, movementRotation, settings.rotationSpeed * Time.deltaTime);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -settings.maxRotation, settings.maxRotation));
     }
 
     protected Enemy GetCurrentTarget()

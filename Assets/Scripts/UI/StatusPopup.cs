@@ -20,14 +20,12 @@ public class StatusPopup : Popup
 
     private void OnStatus(Status status)
     {
-        OnStatusAsync(status).Forget();
-    }
-
-    private async UniTask OnStatusAsync(Status status)
-    {
-        ShowPopup();
-        statusText.text = status.ToString();
-        await UniTask.WaitForSeconds(2f);
-        HidePopup();
+        if (status == Status.None)
+            HidePopup();
+        else
+        {
+            ShowPopup();
+            statusText.text = status.ToString();
+        }
     }
 }

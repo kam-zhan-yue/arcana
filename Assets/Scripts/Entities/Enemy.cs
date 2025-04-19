@@ -23,7 +23,6 @@ public abstract class Enemy : MonoBehaviour
     private float _maxHealth;
     private float _health;
     private MovementStatus _movementStatus = MovementStatus.None;
-    private float _frozenTimer = 0.0f;
     private float _knockbackTimer = 0.0f;
     private MaterialPropertyBlock _outlinePropertyBlock;
     private MaterialPropertyBlock _pulsePropertyBlock;

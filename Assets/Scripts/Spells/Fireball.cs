@@ -12,12 +12,15 @@ public class Fireball : Spell
     protected override List<Enemy> GetTargets()
     {
         Enemy currentTarget = GetCurrentTarget();
-        return currentTarget ? new List<Enemy> { GetCurrentTarget() } : new List<Enemy>();
+        if (currentTarget && Burn.CanAffect(currentTarget))
+            return new List<Enemy> { currentTarget };
+        return new();
     }
 
     protected override void Apply(Enemy spellTarget)
     {
         Debug.Log($"Applying Fireball to {spellTarget.name}");
+        
         // Init the fireball
         Transform launchPosition = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
         FireballProjectile fireball = Instantiate(fireballPrefab);
@@ -37,13 +40,15 @@ public class Fireball : Spell
         base.OnInteracting();
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
         TypeSetting typeSetting = settings.GetSettingForType(DamageType.Fire);
+        
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
+            if(Burn.CanAffect(enemies[i]))
+                enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
         }
 
         Enemy targetedEnemy = GetCurrentTarget();
-        if (targetedEnemy)
+        if (targetedEnemy && Burn.CanAffect(targetedEnemy))
         {
             targetedEnemy.SetOutline(settings.selectColour, settings.outlineSize);
         }
@@ -68,6 +73,7 @@ public class Fireball : Spell
         {
             effect = DamageEffect.Melt;
         }
+        
         // The burn will get rid of frozen
         Burn burn = new Burn(Status.Burned, 5f, 10f, 1f);
         Damage fireballDamage = new Damage(damage, DamageType.Fire, effect);

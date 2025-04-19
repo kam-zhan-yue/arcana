@@ -1,14 +1,13 @@
-public class Frozen : StatusEffect
+public class Drench : StatusEffect
 {
-    public Frozen(Status s, float t) : base(s, t)
+    public Drench(Status s, float t) : base(s, t)
     {
     }
 
     public static bool CanAffect(Enemy enemy)
     {
-        return enemy.Status != Status.Burned;
+        return enemy.Status != Status.Frozen;
     }
-    
 
     protected override bool CanApply(Enemy enemy)
     {
@@ -17,7 +16,12 @@ public class Frozen : StatusEffect
 
     protected override void OnApply(Enemy enemy)
     {
-        enemy.Rigidbody.isKinematic = true;
+        // If burned, just put it out
+        if (enemy.Status == Status.Burned)
+        {
+            status = Status.None;
+            completed = true;
+        }
     }
 
     protected override void OnUpdate(Enemy enemy, float deltaTime)
@@ -26,6 +30,5 @@ public class Frozen : StatusEffect
 
     protected override void OnComplete(Enemy enemy)
     {
-        enemy.Rigidbody.isKinematic = false;
     }
 }

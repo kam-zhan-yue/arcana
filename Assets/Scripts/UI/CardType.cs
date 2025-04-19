@@ -5,4 +5,5 @@ public enum CardType
 {
     Fireball,
     Freeze,
+    WaterBucket,
 }

@@ -10,9 +10,14 @@ public class Burn : StatusEffect
         _burnTick = burnTick;
     }
 
-    protected override bool CanApply(Enemy enemy)
+    public static bool CanAffect(Enemy enemy)
     {
         return enemy.Status != Status.Wet;
+    }
+
+    protected override bool CanApply(Enemy enemy)
+    {
+        return CanAffect(enemy);
     }
 
     protected override void OnApply(Enemy enemy)
