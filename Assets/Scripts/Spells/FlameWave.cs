@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using Kuroneko.UtilityDelivery;
 
-public class FlameWave : Spell
+public class FlameWave : MultiTargetSpell
 {
     private float _burnTime;
     private float _burnDamage;
@@ -18,22 +16,10 @@ public class FlameWave : Spell
         _burnDamage = spellConfig.burnDamage;
         _burnTick = spellConfig.burnTick;
     }
-    
-    protected override List<Enemy> GetTargets()
-    {
-        return !cardPopup.CanActivate ? new List<Enemy>() : GetFilteredTargets();
-    }
 
-    private List<Enemy> GetFilteredTargets()
+    protected override bool CanAffect(Enemy enemy)
     {
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
-        List<Enemy> targets = new();
-        for (int i = 0; i < enemies.Count; ++i)
-        {
-            if (Burn.CanAffect(enemies[i]))
-                targets.Add(enemies[i]);
-        }
-        return targets;
+        return Burn.CanAffect(enemy);
     }
 
     protected override void Apply(Enemy enemy)
@@ -48,11 +34,4 @@ public class FlameWave : Spell
         enemy.ApplyStatus(burn);
         enemy.Damage(spellDamage);
     }
-    
-    protected override void OnStartDragging()
-    {
-        base.OnStartDragging();
-        cardPopup.EnableActivationZone();
-    }
-
 }
