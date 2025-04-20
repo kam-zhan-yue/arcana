@@ -22,6 +22,7 @@ public enum AttackState
 
 public abstract class Enemy : MonoBehaviour
 {
+    private const float KNOCKBACK_TIME = 0.2f;
     [SerializeField] private float height = 0.5f;
     
     private const int OUTLINE_MATERIAL_INDEX = 1;
@@ -167,7 +168,6 @@ public abstract class Enemy : MonoBehaviour
             _startupTimer += Time.deltaTime;
             if (_startupTimer >= _startupTime)
                 _startup = false;
-            return;
         }
         
         switch (_movementState)
@@ -248,7 +248,7 @@ public abstract class Enemy : MonoBehaviour
 
     private bool CanMove()
     {
-        return Status != Status.Frozen && !IsDead;
+        return Status != Status.Frozen && !IsDead && !_startup;
     }
 
     private float DistanceToPlayer()
@@ -258,7 +258,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected abstract void Move();
 
-    public void Knockback(Vector3 knockbackForce, float knockbackTime)
+    private void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
         ResetVelocity();
         _movementState = MovementStatus.Knockback;
@@ -276,12 +276,26 @@ public abstract class Enemy : MonoBehaviour
         {
             Die();
         }
+        else if(damage.KnockbackForce > 0f)
+        {
+            Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
+            Vector3 knockbackDirection = (transform.position - player.transform.position).normalized;
+            Knockback(knockbackDirection * damage.KnockbackForce, KNOCKBACK_TIME);
+        }
     }
 
     private void Die()
     {
+        ResetVelocity();
         animator.SetTrigger(Dead);
         OnRelease?.Invoke(this);
+        DieAsync().Forget();
+    }
+
+    private async UniTask DieAsync()
+    {
+        await UniTask.WaitForSeconds(2f);
+        Destroy(gameObject);
     }
     
     public bool IsDead => _health <= 0f;

@@ -20,6 +20,6 @@ MonoBehaviour:
   burnDamage: 10
   burnTick: 1
   launchSpeed: 5
-  knockbackForce: 10
+  knockbackForce: 2
   knockbackTime: 0.2
   projectilePrefab: {fileID: 667547049008858918, guid: a0edc385dc4a4437abffddb4fcde740d, type: 3}

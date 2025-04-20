@@ -44,14 +44,10 @@ public class Snowball : SingleTargetSpell, IProjectileSpell
     {
         // The burn will get rid of frozen
         Frozen frozen = new (Status.Frozen, _freezeTime);
-        Damage spellDamage = new (damage, DamageType.Ice, DamageEffect.None);
+        Damage spellDamage = new (damage, DamageType.Ice, DamageEffect.None, _knockbackForce);
         
         enemy.ApplyStatus(frozen);
         enemy.Damage(spellDamage);
-
-        // Knockback the enemy only if they die from the fireball
-        if (enemy.IsDead)
-            enemy.Knockback(projectile.GetDirection * _knockbackForce, _knockbackTime);
         
         // Destroy the fireball projectile
         Destroy(projectile.gameObject);

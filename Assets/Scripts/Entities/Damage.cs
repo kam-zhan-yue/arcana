@@ -26,7 +26,7 @@ public class Damage
     private float _baseAmount;
     private DamageType _type;
     private DamageEffect _effect;
-
+    private float _knockbackForce;
     public float Amount
     {
         get
@@ -40,12 +40,13 @@ public class Damage
 
     public DamageType Type => _type;
     public DamageEffect Effect => _effect;
+    public float KnockbackForce => _knockbackForce;
 
-
-    public Damage(float baseAmount, DamageType type, DamageEffect effect)
+    public Damage(float baseAmount, DamageType type, DamageEffect effect, float knockbackForce = 0f)
     {
         _baseAmount = baseAmount;
         _type = type;
         _effect = effect;
+        _knockbackForce = knockbackForce;
     }
 }

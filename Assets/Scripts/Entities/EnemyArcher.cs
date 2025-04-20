@@ -8,7 +8,6 @@ public class EnemyArcher : Enemy, IProjectileEnemy
     
     private static readonly int RangedAttack = Animator.StringToHash("RangedAttack");
     private static readonly int AimStart = Animator.StringToHash("AimStart");
-    private float _startupTime;
     private ProjectileEnemy _arrowPrefab;
     private float _arrowSpeed;
 
@@ -26,7 +25,6 @@ public class EnemyArcher : Enemy, IProjectileEnemy
         EnemyArcherConfig config = data.config as EnemyArcherConfig;
         if (config == null)
             throw new InvalidCastException("Config must be of type EnemyArcherConfig");
-        _startupTime = config.startupTime;
         _arrowPrefab = config.arrowPrefab;
         _arrowSpeed = config.arrowSpeed;
     }

@@ -7,7 +7,6 @@ public class EnemyMage : Enemy, IProjectileEnemy
     [SerializeField] private Transform staff;
     [SerializeField] private Transform launchPoint;
     private static readonly int MagicAttack = Animator.StringToHash("MagicAttack");
-    private float _startupTime;
     private ProjectileEnemy _spellPrefab;
     private float _spellSpeed;
 
@@ -24,7 +23,6 @@ public class EnemyMage : Enemy, IProjectileEnemy
         EnemyMageConfig config = data.config as EnemyMageConfig;
         if (config == null)
             throw new InvalidCastException("Config must be of type EnemyMageConfig");
-        _startupTime = config.startupTime;
         _spellPrefab = config.spellPrefab;
         _spellSpeed = config.spellSpeed;
     }
@@ -35,6 +33,7 @@ public class EnemyMage : Enemy, IProjectileEnemy
 
     protected override void PlayAttackAnimation()
     {
+        Debug.Log("Enemy Mage Attack Animation");
         animator.SetTrigger(MagicAttack);
     }
 

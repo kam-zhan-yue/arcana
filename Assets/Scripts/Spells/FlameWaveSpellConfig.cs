@@ -7,4 +7,5 @@ public class FlameWaveSpellConfig : SpellConfig
     public float burnTime = 10f;
     public float burnDamage = 10f;
     public float burnTick = 1f;
+    public float knockbackForce = 1f;
 }

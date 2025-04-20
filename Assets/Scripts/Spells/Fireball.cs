@@ -48,8 +48,6 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
 
     public void ApplyEnemy(Enemy enemy, Projectile projectile)
     {
-        float multiplier = 1f;
-        
         DamageEffect effect = DamageEffect.None;
         if (enemy.Status == Status.Frozen)
         {
@@ -58,14 +56,10 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
         
         // The burn will get rid of frozen
         Burn burn = new (Status.Burned, _burnTime, _burnDamage, _burnTick);
-        Damage fireballDamage = new (damage, DamageType.Fire, effect);
+        Damage fireballDamage = new (damage, DamageType.Fire, effect, _knockbackForce);
         
         enemy.ApplyStatus(burn);
         enemy.Damage(fireballDamage);
-
-        // Knockback the enemy only if they die from the fireball
-        if (enemy.IsDead)
-            enemy.Knockback(projectile.GetDirection * _knockbackForce * multiplier, _knockbackTime);
         
         // Destroy the fireball projectile
         Destroy(projectile.gameObject);
