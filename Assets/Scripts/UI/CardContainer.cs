@@ -63,11 +63,14 @@ public class CardContainer : MonoBehaviour
     {
         if (_selectedCardPopupItem == null)
             return;
+        Transform sharedParent = _selectedCardPopupItem.Rect.parent;
 
         for (int i = 0; i < _cards.Count; ++i)
         {
-            // If the selected card is to the right of the card, and it was previously to the left, then swap 
-            if (_selectedCardPopupItem.transform.position.x > _cards[i].transform.position.x)
+            Vector3 selectedLocalPos = sharedParent.InverseTransformPoint(_selectedCardPopupItem.Rect.position);
+            Vector3 cardLocalPos = sharedParent.InverseTransformPoint(_cards[i].Rect.position);
+
+            if (selectedLocalPos.x > cardLocalPos.x)
             {
                 if (_selectedCardPopupItem.GetParentIndex() < _cards[i].GetParentIndex())
                 {
@@ -76,7 +79,7 @@ public class CardContainer : MonoBehaviour
                 }
             }
 
-            if (_selectedCardPopupItem.transform.position.x < _cards[i].transform.position.x)
+            if (selectedLocalPos.x < cardLocalPos.x)
             {
                 if (_selectedCardPopupItem.GetParentIndex() > _cards[i].GetParentIndex())
                 {

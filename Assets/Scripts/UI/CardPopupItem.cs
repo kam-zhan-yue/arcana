@@ -22,6 +22,7 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     public Action<CardPopupItem> PointerExit;
 
     private RectTransform _rect;
+    public RectTransform Rect => _rect;
 
     private void Awake()
     {
@@ -34,13 +35,13 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         switch (_state)
         {
             case CardState.Idle:
-                transform.localPosition = Vector2.zero;
+                _rect.localPosition = Vector2.zero;
                 break;
             case CardState.Dragging:
                 Vector3 screenMousePos = Input.mousePosition;
                 screenMousePos.z = _uiCamera.WorldToScreenPoint(_rect.position).z;
                 Vector3 worldMousePos = _uiCamera.ScreenToWorldPoint(screenMousePos);
-                transform.position = worldMousePos;
+                _rect.position = worldMousePos;
                 break;
         }
     }

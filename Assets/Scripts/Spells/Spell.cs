@@ -20,11 +20,13 @@ public abstract class Spell : MonoBehaviour
     private bool _oneTimeUse;
     private TMP_Text _nameText;
     private CardType _cardType;
+    private RectTransform _rect;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
         _nameText = GetComponentInChildren<TMP_Text>();
+        _rect = GetComponent<RectTransform>();
     }
     
     public void Init(CardType cardType, SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup, UISettings uiSettings)
@@ -62,16 +64,16 @@ public abstract class Spell : MonoBehaviour
 
     private void Follow()
     {
-        transform.position = Vector3.Lerp(transform.position, _cardPopupItem.transform.position, settings.followSpeed * Time.deltaTime);
+        _rect.position = Vector3.Lerp(_rect.position, _cardPopupItem.Rect.position, settings.followSpeed * Time.deltaTime);
     }
 
     private void Rotate()
     {
-        Vector3 movementVector = (transform.position - _cardPopupItem.transform.position);
+        Vector3 movementVector = _cardPopupItem.Rect.InverseTransformPoint(_rect.position);
         _movementDelta = Vector3.Lerp(_movementDelta, movementVector, 25 * Time.deltaTime);
         Vector3 movementRotation = (_cardPopupItem.State == CardState.Dragging ? _movementDelta : movementVector) * settings.rotationAmount;
         _rotationDelta = Vector3.Lerp(_rotationDelta, movementRotation, settings.rotationSpeed * Time.deltaTime);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -settings.maxRotation, settings.maxRotation));
+        _rect.eulerAngles = new Vector3(_rect.eulerAngles.x, _rect.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -settings.maxRotation, settings.maxRotation));
     }
 
     protected Enemy GetCurrentTarget()
