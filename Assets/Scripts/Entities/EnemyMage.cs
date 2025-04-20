@@ -1,11 +1,10 @@
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
-public class EnemyBasicGround : Enemy
+public class EnemyMage : Enemy
 {
     protected override void OnInit()
     {
-        // We want to play the spawn animation, then go into walking afterwards.
     }
 
     protected override void Move()

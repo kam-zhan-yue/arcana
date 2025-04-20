@@ -8,7 +8,8 @@ public class EnemyDatabase : ScriptableObject
 {
     public Material outlineShader;
     public Material pulseShader;
-    [TableList] public List<EnemyConfig> configs = new();
+    [InlineEditor]
+    public List<EnemyConfig> configs = new();
 
     public EnemyData GetDataByEnemy(Enemy enemy)
     {
