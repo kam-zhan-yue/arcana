@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour, IGameManager
 {
+    [SerializeField] private GameDatabase gameDatabase;
+    
     [NonSerialized, ShowInInspector, ReadOnly]
     private Player _player;
 
@@ -36,5 +38,10 @@ public class GameManager : MonoBehaviour, IGameManager
     public void RemoveActiveEnemy(Enemy enemy)
     {
         _enemies.Remove(enemy);
+    }
+
+    public GameDatabase GetGameDatabase()
+    {
+        return gameDatabase;
     }
 }

@@ -15,16 +15,6 @@ public enum EncounterStepType
 }
 
 [Serializable]
-public struct EnemyActivationData
-{
-    [HideLabel, HorizontalGroup(Width = 0.5f)]
-    public Enemy enemy;
-    
-    [HideLabel, HorizontalGroup(Width = 0.5f)]
-    public EnemyConfig config;
-}
-
-[Serializable]
 public struct EnemySpawnData
 {
     [HideLabel, HorizontalGroup(Width = 0.5f)]
@@ -46,7 +36,7 @@ public struct EncounterStep
     public List<EnemySpawnData> spawnData;
 
     [ShowIf("type", EncounterStepType.Activate)] [SerializeField]
-    public List<EnemyActivationData> enemiesToActivate;
+    public List<Enemy> enemiesToActivate;
     
     public async UniTask Play(Encounter encounter)
     {
@@ -60,15 +50,20 @@ public struct EncounterStep
                 Debug.Log("Activating");
                 for (int i = 0; i < enemiesToActivate.Count; ++i)
                 {
-                    enemiesToActivate[i].enemy.Init(enemiesToActivate[i].config);
-                    enemiesToActivate[i].enemy.Activate();
-                    encounter.AddEnemy(enemiesToActivate[i].enemy);
+                    EnemyDatabase enemyDatabase = GetEnemyDatabase();
+                    EnemyData data = enemyDatabase.GetDataByEnemy(enemiesToActivate[i]);
+                    enemiesToActivate[i].Init(data);
+                    enemiesToActivate[i].Activate();
+                    encounter.AddEnemy(enemiesToActivate[i]);
                 }
                 break;
             case EncounterStepType.Spawn:
                 for (int i = 0; i < spawnData.Count; ++i)
                 {
-                    Enemy enemy = spawnData[i].enemyConfig.Spawn(spawnData[i].spawnPoint);
+                    Enemy enemy = Object.Instantiate(spawnData[i].enemyConfig.prefab, spawnData[i].spawnPoint);
+                    EnemyDatabase enemyDatabase = GetEnemyDatabase();
+                    EnemyData data = enemyDatabase.GetDataByConfig(spawnData[i].enemyConfig);
+                    enemy.Init(data);
                     encounter.AddEnemy(enemy);
                 }
                 break;
@@ -77,7 +72,13 @@ public struct EncounterStep
                 break;
         }
     }
-    
+
+    private EnemyDatabase GetEnemyDatabase()
+    {
+        GameDatabase gameDatabase = ServiceLocator.Instance.Get<IGameManager>().GetGameDatabase();
+        EnemyDatabase enemyDatabase = gameDatabase.enemyDatabase;
+        return enemyDatabase;
+    }
     
     [ShowIf("type", EncounterStepType.Spawn)]
     [HorizontalGroup()]

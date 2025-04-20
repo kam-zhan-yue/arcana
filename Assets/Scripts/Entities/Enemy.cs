@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
@@ -57,11 +58,21 @@ public abstract class Enemy : MonoBehaviour
         return center;
     }
 
-    public void Init(EnemyConfig config)
+    public void Init(EnemyData data)
     {
-        moveSpeed = config.moveSpeed;
-        _maxHealth = config.maxHealth;
+        moveSpeed = data.config.moveSpeed;
+        _maxHealth = data.config.maxHealth;
         _health = _maxHealth;
+        
+        
+        foreach (Renderer rend in _renderers)
+        {
+            List<Material> materials = new List<Material>();
+            rend.GetMaterials(materials);
+            materials.Add(data.outlineShader);
+            materials.Add(data.pulseShader);
+            rend.SetMaterials(materials);
+        }
     }
 
     public void Activate()

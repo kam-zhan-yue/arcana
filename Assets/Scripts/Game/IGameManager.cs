@@ -7,4 +7,5 @@ public interface IGameManager : IGameService
     public List<Enemy> GetActiveEnemies();
     public void AddActiveEnemy(Enemy enemy);
     public void RemoveActiveEnemy(Enemy enemy);
+    public GameDatabase GetGameDatabase();
 }

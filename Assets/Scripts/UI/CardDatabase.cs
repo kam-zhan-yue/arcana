@@ -2,6 +2,27 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+[Serializable]
+public class Card
+{
+    [TableColumnWidth(100, Resizable = false)]
+    public CardType cardType;
+    [InlineEditor] public SpellConfig spellConfig;
+}
+
+[Serializable]
+public enum CardType
+{
+    Fireball,
+    Freeze,
+    WaterBucket,
+    FlameWave,
+    Gust,
+    Snowball,
+    Lightning,
+    Thunder,
+    Duck,
+}
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Card Database", fileName = "Card Database")]
 public class CardDatabase : ScriptableObject
