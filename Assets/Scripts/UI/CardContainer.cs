@@ -16,7 +16,8 @@ public class CardContainer : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Instance.Get<IGameManager>().OnRegisterAddCard(AddCard);
+        Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
+        game.OnCardAdded += AddCard;
         for (int i = 0; i < cardDatabase.startingHand.Length; ++i)
         {
             AddCard(cardDatabase.startingHand[i]);

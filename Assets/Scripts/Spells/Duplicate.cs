@@ -11,7 +11,7 @@ public class Duplicate : ActivationSpell
 
     protected override bool CanApply()
     {
-        List<CardType> cardHistory = ServiceLocator.Instance.Get<IGameManager>().GetCardHistory();
+        List<CardType> cardHistory = ServiceLocator.Instance.Get<IGameManager>().GetGame().CardHistory;
         return base.CanApply() && cardHistory.Count > 0;
     }
 
@@ -21,10 +21,11 @@ public class Duplicate : ActivationSpell
 
     protected override void Use()
     {
-        List<CardType> cardHistory = ServiceLocator.Instance.Get<IGameManager>().GetCardHistory();
+        Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
+        List<CardType> cardHistory = game.CardHistory;
         // Adds the last played card twice
-        ServiceLocator.Instance.Get<IGameManager>().AddCard(cardHistory[^1]);
-        ServiceLocator.Instance.Get<IGameManager>().AddCard(cardHistory[^1]);
+        game.AddCard(cardHistory[^1]);
+        game.AddCard(cardHistory[^1]);
         base.Use();
     }
 }

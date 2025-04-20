@@ -15,7 +15,7 @@ public class Heal : ActivationSpell
 
     protected override void Use()
     {
-        ServiceLocator.Instance.Get<IGameManager>().GetPlayer().Heal();
+        ServiceLocator.Instance.Get<IGameManager>().GetGame().Player.Heal();
         base.Use();
     }
 }

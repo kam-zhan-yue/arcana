@@ -116,7 +116,7 @@ public abstract class Spell : MonoBehaviour
     protected virtual void Use()
     {
         DisableOutline();
-        ServiceLocator.Instance.Get<IGameManager>().UseCard(_cardType);
+        ServiceLocator.Instance.Get<IGameManager>().GetGame().UseCard(_cardType);
         if (_oneTimeUse)
         {
             Debug.Log("Use up card");
@@ -127,7 +127,7 @@ public abstract class Spell : MonoBehaviour
 
     private void DisableOutline()
     {
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetGame().Enemies;
         for (int i = 0; i < enemies.Count; ++i)
             enemies[i].DisableOutline();
     }

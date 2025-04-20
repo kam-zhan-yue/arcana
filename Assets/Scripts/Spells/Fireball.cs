@@ -35,7 +35,7 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
 
     public (Vector3 position, Quaternion rotation) GetLaunchPlatform()
     {
-        Transform launch = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
+        Transform launch = ServiceLocator.Instance.Get<IGameManager>().GetGame().Player.GetLaunchPosition();
         return (launch.position, launch.rotation);
     }
 

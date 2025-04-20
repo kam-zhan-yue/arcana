@@ -21,7 +21,7 @@ public abstract class SingleTargetSpell : Spell
     protected override void OnInteracting()
     {
         base.OnInteracting();
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetGame().Enemies;
         TypeSetting typeSetting = settings.GetSettingForType(type);
         
         for (int i = 0; i < enemies.Count; ++i)

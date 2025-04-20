@@ -45,7 +45,7 @@ public class Gust : Spell
 
     private List<(Enemy enemy, StatusEffect effect)> GetActiveTargets()
     {
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetGame().Enemies;
         Queue<(Enemy enemy, StatusEffect statusEffect)> queue = new();
         HashSet<Enemy> visited = new();
 
@@ -96,7 +96,7 @@ public class Gust : Spell
     {
         base.OnStopInteracting();
         cardPopup.DisableActivationZone();
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetGame().Enemies;
         for (int i = 0; i < enemies.Count; ++i)
         {
             enemies[i].DisableOutline();

@@ -14,15 +14,15 @@ public class Encounter
 
     public async UniTask Play()
     {
+        Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
         for (int i = 0; i < cards.Length; ++i)
         {
-            ServiceLocator.Instance.Get<IGameManager>().AddCard(cards[i]);
+            game.AddCard(cards[i]);
         }
         for (int i = 0; i < steps.Count; ++i)
         {
             await steps[i].Play(this);
         }
-        // ServiceLocator.Instance.Get<IGameManager>().ClearHand();
     }
     
     public void Resolve()
@@ -33,14 +33,14 @@ public class Encounter
     public void AddEnemy(Enemy enemy)
     {
         enemies.Add(enemy);
-        ServiceLocator.Instance.Get<IGameManager>().AddActiveEnemy(enemy);
+        ServiceLocator.Instance.Get<IGameManager>().GetGame().AddActiveEnemy(enemy);
         enemy.OnRelease += RemoveEnemy;
     }
 
     private void RemoveEnemy(Enemy enemy)
     {
         enemies.Remove(enemy);
-        ServiceLocator.Instance.Get<IGameManager>().RemoveActiveEnemy(enemy);
+        ServiceLocator.Instance.Get<IGameManager>().GetGame().RemoveActiveEnemy(enemy);
         enemy.OnRelease -= RemoveEnemy;
     }
     

@@ -17,7 +17,7 @@ public abstract class MultiTargetSpell : ActivationSpell
 
     private List<Enemy> GetFilteredTargets()
     {
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetGame().Enemies;
         List<Enemy> targets = new();
         for (int i = 0; i < enemies.Count; ++i)
         {

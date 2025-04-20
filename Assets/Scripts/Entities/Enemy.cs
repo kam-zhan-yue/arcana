@@ -87,7 +87,8 @@ public abstract class Enemy : MonoBehaviour
 
     protected Player GetPlayer()
     {
-        return ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
+        Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
+        return game.Player;
     }
 
     protected void FacePlayer()
@@ -277,7 +278,8 @@ public abstract class Enemy : MonoBehaviour
         }
         else if(damage.KnockbackForce > 0f)
         {
-            Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
+            Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
+            Player player = game.Player;
             Vector3 knockbackDirection = (transform.position - player.transform.position).normalized;
             Knockback(knockbackDirection * damage.KnockbackForce, KNOCKBACK_TIME);
         }
