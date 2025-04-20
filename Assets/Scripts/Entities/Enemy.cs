@@ -285,10 +285,10 @@ public abstract class Enemy : MonoBehaviour
 
     public void Mutate(GameObject mutation)
     {
-        Instantiate(mutation);
+        GameObject mutate = Instantiate(mutation);
         Vector3 newPosition = transform.position;
         newPosition.y += height;
-        mutation.transform.SetPositionAndRotation(newPosition, transform.rotation);
+        mutate.transform.SetPositionAndRotation(newPosition, transform.rotation);
         Die(true);
     }
 
