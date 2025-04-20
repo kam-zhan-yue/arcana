@@ -20,6 +20,7 @@ public abstract class Enemy : MonoBehaviour
     // Components
     public Rigidbody Rigidbody => rb;
     protected Rigidbody rb;
+    protected Animator animator;
     private Renderer[] _renderers = Array.Empty<Renderer>();
     
     // Private Variables
@@ -43,11 +44,13 @@ public abstract class Enemy : MonoBehaviour
     private static readonly int OutlineThickness = Shader.PropertyToID("_Outline_Thickness");
     private static readonly int PulseColour = Shader.PropertyToID("_Pulse_Colour");
     private static readonly int PulseAmount = Shader.PropertyToID("_Pulse_Amount");
+    private static readonly int WalkSpeed = Animator.StringToHash("WalkSpeed");
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         _renderers = GetComponentsInChildren<Renderer>();
+        animator = GetComponentInChildren<Animator>();
         _outlinePropertyBlock = new();
         _pulsePropertyBlock = new();
     }
@@ -84,6 +87,13 @@ public abstract class Enemy : MonoBehaviour
     {
         if (!_activated)
             return;
+        if (Status == Status.Frozen)
+        {
+            animator.speed = 0f;
+            return;
+        }
+        
+        animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
         UpdateStatus();
         switch (_movementStatus)
         {

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Frozen : StatusEffect
 {
     public Frozen(Status s, float t) : base(s, t)
@@ -22,6 +24,7 @@ public class Frozen : StatusEffect
 
     protected override void OnApply(Enemy enemy)
     {
+        enemy.Rigidbody.linearVelocity = Vector3.zero;
         enemy.Rigidbody.isKinematic = true;
     }
 
