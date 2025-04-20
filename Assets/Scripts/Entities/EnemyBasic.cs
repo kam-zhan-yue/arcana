@@ -3,22 +3,30 @@ using UnityEngine;
 
 public class EnemyBasic : Enemy
 {
-    protected override void OnInit()
+    protected override void OnInit(EnemyData data)
     {
+        
     }
 
     protected override void Move()
     {
-        Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
-        Vector3 direction = player.transform.position - rb.position;
+        Player player = GetPlayer();
+        Vector3 direction = (player.transform.position - rb.position).normalized;
 
-        Vector3 nextPosition = Vector3.MoveTowards(rb.position, player.transform.position, moveSpeed * Time.deltaTime);
-        rb.MovePosition(nextPosition);
+        rb.linearVelocity = direction * moveSpeed;
 
         if (direction.sqrMagnitude > 0.001f)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
+            Quaternion lookRotation = Quaternion.LookRotation( direction.normalized, Vector3.up);
             rb.MoveRotation(lookRotation);
         }
+        Debug.Log($"Velocity is {Rigidbody.linearVelocity}");
+    }
+
+    protected override void Attack()
+    {
+        animator.Play("MeleeAttack");
+        Player player = GetPlayer();
+        player.Damage();
     }
 }

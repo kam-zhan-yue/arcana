@@ -6,4 +6,6 @@ public class EnemyConfig : ScriptableObject
     public Enemy prefab;
     public float moveSpeed = 10f;
     public float maxHealth = 100f;
+    public float attackRange = 1f;
+    public float timeBetweenAttacks = 1f;
 }

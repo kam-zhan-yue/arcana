@@ -59,7 +59,6 @@ public struct EncounterStep
                     EnemyData data = enemyDatabase.GetDataByEnemy(enemiesToActivate[i].enemy);
                     data.spawnFromGround = enemiesToActivate[i].spawnFromGround;
                     enemiesToActivate[i].enemy.Init(data);
-                    enemiesToActivate[i].enemy.Activate();
                     encounter.AddEnemy(enemiesToActivate[i].enemy);
                 }
                 break;

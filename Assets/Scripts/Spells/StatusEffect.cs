@@ -43,9 +43,15 @@ public abstract class StatusEffect
         OnUpdate(enemy,  deltaTime);
         if (_timer >= statusTime)
         {
-            completed = true;
-            OnComplete(enemy);
+            Complete(enemy);
         }
+    }
+
+    public void Complete(Enemy enemy)
+    {
+        if (completed) return;
+        completed = true;
+        OnComplete(enemy);
     }
 
     protected abstract void OnApply(Enemy enemy);

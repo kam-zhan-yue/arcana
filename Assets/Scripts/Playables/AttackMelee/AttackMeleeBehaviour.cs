@@ -14,7 +14,6 @@ public class AttackMeleeBehaviour : PlayableBehaviour
         if (_hasAttacked)
             return;
 
-        enemy.Attack();
         _hasAttacked = true;
     }
     

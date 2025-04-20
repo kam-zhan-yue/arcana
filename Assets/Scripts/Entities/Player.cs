@@ -8,5 +8,10 @@ public class Player : MonoBehaviour
     {
         return launchPosition;
     }
+
+    public void Damage()
+    {
+        Debug.Log("Damage");
+    }
 }
 

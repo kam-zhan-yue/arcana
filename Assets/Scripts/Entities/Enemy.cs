@@ -7,6 +7,7 @@ using UnityEngine;
 public enum MovementStatus
 {
     None,
+    Attacking,
     Spawning,
     Knockback,
 }
@@ -28,6 +29,8 @@ public abstract class Enemy : MonoBehaviour
     // Private Variables
     private float _maxHealth;
     private float _health;
+    protected float attackRange;
+    protected float timeBetweenAttacks;
     private MovementStatus _movementState = MovementStatus.None;
     private float _knockbackTimer = 0.0f;
     private MaterialPropertyBlock _outlinePropertyBlock;
@@ -37,7 +40,8 @@ public abstract class Enemy : MonoBehaviour
     private StatusEffect _statusEffect;
     public StatusEffect StatusEffect => _statusEffect;
 
-    private bool _activated = false;
+    private bool _inited = false;
+    private float _attackTimer = 0f;
 
     public Action<Enemy> OnRelease;
     public Action<Damage> OnDamage;
@@ -64,16 +68,22 @@ public abstract class Enemy : MonoBehaviour
         return center;
     }
 
+    protected Player GetPlayer()
+    {
+        return ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
+    }
+
     public void Init(EnemyData data)
     {
         moveSpeed = data.config.moveSpeed;
+        attackRange = data.config.attackRange;
+        timeBetweenAttacks = data.config.timeBetweenAttacks;
         _maxHealth = data.config.maxHealth;
         _health = _maxHealth;
         if (data.spawnFromGround)
         {
-            SpawnFromGround().Forget();
+            SpawnFromGround(data.timeToSpawn).Forget();
         }
-        
         
         foreach (Renderer rend in _renderers)
         {
@@ -83,28 +93,26 @@ public abstract class Enemy : MonoBehaviour
             materials.Add(data.pulseShader);
             rend.SetMaterials(materials);
         }
-        OnInit();
+        OnInit(data);
+        _inited = true;
     }
 
-    private async UniTask SpawnFromGround()
+    private async UniTask SpawnFromGround(float spawnTime)
     {
         _movementState = MovementStatus.Spawning;
         animator.SetTrigger(SpawnGround);
-        await UniTask.WaitForSeconds(2.0f);
+        await UniTask.WaitForSeconds(spawnTime);
         _movementState = MovementStatus.None;
     }
 
-    protected abstract void OnInit();
-
-    public void Activate()
-    {
-        _activated = true;
-    }
+    protected abstract void OnInit(EnemyData data);
 
     private void Update()
     {
-        if (!_activated)
+        if (!_inited)
             return;
+        
+        UpdateStatus();
         if (Status == Status.Frozen)
         {
             animator.speed = 0f;
@@ -112,11 +120,21 @@ public abstract class Enemy : MonoBehaviour
         }
         
         animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
-        UpdateStatus();
+        
         switch (_movementState)
         {
             case MovementStatus.None:
                 Move();
+                if (DistanceToPlayer() <= attackRange)
+                    _movementState = MovementStatus.Attacking;
+                break;
+            case MovementStatus.Attacking:
+                _attackTimer += Time.deltaTime;
+                if (_attackTimer >= timeBetweenAttacks)
+                {
+                    _attackTimer = 0f;
+                    Attack();
+                }
                 break;
             case MovementStatus.Knockback:
                 _knockbackTimer -= Time.deltaTime;
@@ -124,6 +142,11 @@ public abstract class Enemy : MonoBehaviour
                     _movementState = MovementStatus.None;
                 break;
         }
+    }
+
+    private float DistanceToPlayer()
+    {
+        return Vector3.Distance(GetPlayer().transform.position, transform.position);
     }
 
     protected abstract void Move();
@@ -164,6 +187,8 @@ public abstract class Enemy : MonoBehaviour
         bool applied = statusEffect.Apply(this);
         if (applied)
         {
+            // Complete the previous status effect if it was set
+            _statusEffect?.Complete(this);
             _statusEffect = statusEffect;
             SetStatus(statusEffect.status);
         }
@@ -178,15 +203,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    public void Attack()
-    {
-        if (ServiceLocator.Instance)
-        {
-            Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
-            Debug.Log("Attack!");
-        }
-        
-    }
+    protected abstract void Attack();
 
     public void SetOutline(Color colour, float thickness)
     {
