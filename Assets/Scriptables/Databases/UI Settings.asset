@@ -18,8 +18,8 @@ MonoBehaviour:
   rotationAmount: 0.5
   rotationSpeed: 10
   maxRotation: 50
-  outlineSize: 0.1
-  selectColour: {r: 0, g: 2, b: 0.033795834, a: 0}
+  outlineSize: 0.05
+  selectColour: {r: 0, g: 1.4980392, b: 0.025313742, a: 0}
   pulseTime: 2
   pulseCurve:
     serializedVersion: 2

@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3506113417582818975, guid: 424d472229d284b4e8ee0c12ae825042, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -300.00006
+      value: -300.0001
       objectReference: {fileID: 0}
     - target: {fileID: 5222974484165721749, guid: 424d472229d284b4e8ee0c12ae825042, type: 3}
       propertyPath: m_LocalPosition.x
@@ -317,6 +317,10 @@ PrefabInstance:
     - target: {fileID: 4267597433720247815, guid: 941a9e18215704976b90b8160e8c1c57, type: 3}
       propertyPath: m_Name
       value: Directional Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267597433720247815, guid: 941a9e18215704976b90b8160e8c1c57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
