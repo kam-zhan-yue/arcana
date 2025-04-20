@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour, IGameManager
         return gameDatabase;
     }
 
+    [Button]
     public void AddCard(CardType cardType)
     {
         OnCardAdded?.Invoke(cardType);

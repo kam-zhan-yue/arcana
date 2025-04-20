@@ -14,6 +14,7 @@ public abstract class Spell : MonoBehaviour
     private Vector3 _movementDelta;
     private Vector3 _rotationDelta;
     private Camera _mainCamera;
+    private bool _oneTimeUse;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void InitConfig(SpellConfig config)
     {
+        _oneTimeUse = config.oneTimeUse;
         damage = config.damage;
         type = config.type;
     }
@@ -86,15 +88,27 @@ public abstract class Spell : MonoBehaviour
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
     {
-        ApplySpell();
+        if(CanApply())
+            ApplySpell();
         OnStopInteracting();
     }
+
+    protected abstract bool CanApply();
 
     protected virtual void ApplySpell()
     {
         List<Enemy> targets = GetTargets();
         for (int i = 0; i < targets.Count; ++i)
             Apply(targets[i]);
+        Use();
+    }
+
+    protected virtual void Use()
+    {
+        if (_oneTimeUse)
+        {
+            Debug.Log("Use up card");
+        }
     }
 
     private void OnPointerEnter(CardPopupItem cardPopupItem)

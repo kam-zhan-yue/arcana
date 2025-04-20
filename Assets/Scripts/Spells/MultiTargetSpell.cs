@@ -9,6 +9,12 @@ public abstract class MultiTargetSpell : Spell
     }
 
     protected abstract bool CanAffect(Enemy enemy);
+    
+    protected override bool CanApply()
+    {
+        return GetTargets().Count > 0;
+    }
+
 
     private List<Enemy> GetFilteredTargets()
     {

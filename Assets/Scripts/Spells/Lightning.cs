@@ -9,7 +9,7 @@ public class Lightning : MultiTargetSpell
         if (spellConfig == null)
             throw new InvalidCastException("Config must be of type LightningSpellConfig.");
     }
-    
+
     protected override void Apply(Enemy enemy)
     {
         DamageEffect effect = DamageEffect.None;

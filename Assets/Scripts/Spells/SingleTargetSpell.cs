@@ -4,6 +4,12 @@ using Kuroneko.UtilityDelivery;
 public abstract class SingleTargetSpell : Spell
 {
     protected abstract bool CanAffect(Enemy enemy);
+    
+    protected override bool CanApply()
+    {
+        return GetTargets().Count > 0;
+    }
+    
     protected override List<Enemy> GetTargets()
     {
         Enemy currentTarget = GetCurrentTarget();

@@ -21,6 +21,11 @@ public class Gust : Spell
             throw new InvalidCastException("Config must be of type GustSpellConfig.");
     }
 
+    protected override bool CanApply()
+    {
+        return GetActiveTargets().Count > 0 && cardPopup.CanActivate;
+    }
+
     protected override void ApplySpell()
     {
         var targets = GetActiveTargets();
@@ -101,7 +106,7 @@ public class Gust : Spell
     // This is not used
     protected override List<Enemy> GetTargets()
     {
-        return new();
+        throw new NotImplementedException();
     }
 
     protected override void Apply(Enemy spellTarget)

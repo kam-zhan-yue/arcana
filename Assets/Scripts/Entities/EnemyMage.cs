@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyMage : Enemy, IProjectileEnemy
 {
-    [SerializeField] private Crossbow crossbow;
-    
+    [SerializeField] private Transform staff;
+    [SerializeField] private Transform launchPoint;
     private static readonly int RangedAttack = Animator.StringToHash("RangedAttack");
     private static readonly int AimStart = Animator.StringToHash("AimStart");
     private float _startupTime;
@@ -17,13 +17,13 @@ public class EnemyMage : Enemy, IProjectileEnemy
     protected override void Awake()
     {
         base.Awake();
-        crossbow.gameObject.SetActiveFast(false);
+        staff.gameObject.SetActiveFast(false);
     }
 
     protected override void OnInit(EnemyData data)
     {
         base.OnInit(data);
-        crossbow.gameObject.SetActiveFast(true);
+        staff.gameObject.SetActiveFast(true);
         animator.SetTrigger(AimStart);
         EnemyMageConfig config = data.config as EnemyMageConfig;
         if (config == null)
@@ -58,7 +58,7 @@ public class EnemyMage : Enemy, IProjectileEnemy
         Player player = GetPlayer();
 
         ProjectileEnemy projectile = Instantiate(_spellPrefab);
-        projectile.Init(this, player, crossbow.launchPoint, _spellSpeed);
+        projectile.Init(this, player, launchPoint, _spellSpeed);
     }
 
     public void ApplyPlayer(Player player, ProjectileEnemy projectile)
