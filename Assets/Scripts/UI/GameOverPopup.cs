@@ -1,18 +1,46 @@
+using System;
 using Kuroneko.UIDelivery;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameOverPopup : Popup
 {
-    [SerializeField] private Button restartButton;
+    private Game _game;
     
     protected override void InitPopup()
     {
-        restartButton.onClick.AddListener(RestartButtonClicked);
+        HidePopup();
+    }
+
+    private void Start()
+    {
+        _game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
+        _game.OnEndGame += OnEndGame;
+    }
+
+    private void OnEndGame()
+    {
+        ShowPopup();
+        Time.timeScale = 0f;
+    }
+
+    private void Update()
+    {
+        if (isShowing && Input.GetMouseButtonDown(0))
+        {
+            RestartButtonClicked();
+        }
     }
 
     private void RestartButtonClicked()
     {
-        
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnDestroy()
+    {
+        _game.OnEndGame -= OnEndGame;
     }
 }

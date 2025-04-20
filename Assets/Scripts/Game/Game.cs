@@ -18,9 +18,10 @@ public class Game
     public Player Player => _player;
     public List<Enemy> Enemies => _enemies;
     public List<CardType> CardHistory => _cardHistory;
-    public Action<CardType> OnCardAdded;
     private GameDatabase _database;
     public GameDatabase Database => _database;
+    public Action<CardType> OnCardAdded;
+    public Action OnEndGame;
 
     public Game(Player player, GameDatabase database)
     {
@@ -51,6 +52,6 @@ public class Game
 
     public void EndGame()
     {
-        
+        OnEndGame?.Invoke();
     }
 }

@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         _health += change;
         if (_health > _maxHealth)
             _health = _maxHealth;
-        OnHealthChanged?.Invoke(change);
+        OnHealthChanged?.Invoke(_health);
         if (_health <= 0)
         {
             _game.EndGame();

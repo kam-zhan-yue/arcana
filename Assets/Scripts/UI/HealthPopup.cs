@@ -35,7 +35,7 @@ public class HealthPopup : Popup
     {
         for (int i = 0; i < _items.Count; ++i)
         {
-            _items[i].gameObject.SetActiveFast(health < (i + 1));
+            _items[i].gameObject.SetActiveFast(health > i);
         }
     }
 
