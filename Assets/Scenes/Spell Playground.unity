@@ -175,15 +175,15 @@ MonoBehaviour:
         - enemyConfig: {fileID: 11400000, guid: eef543554c788449d88aa02e3caed951, type: 2}
           spawnPoint: {fileID: 946564232}
           spawnFromGround: 1
-        - enemyConfig: {fileID: 11400000, guid: 19bc755abaa2b428d801ba4a5e59902a, type: 2}
-          spawnPoint: {fileID: 1317633419}
-          spawnFromGround: 1
-        - enemyConfig: {fileID: 11400000, guid: 281dee7daef334e09bf4dda8f73c27a9, type: 2}
-          spawnPoint: {fileID: 1669008356}
-          spawnFromGround: 1
         - enemyConfig: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+          spawnPoint: {fileID: 1317633419}
+          spawnFromGround: 0
+        - enemyConfig: {fileID: 11400000, guid: 19bc755abaa2b428d801ba4a5e59902a, type: 2}
+          spawnPoint: {fileID: 1669008356}
+          spawnFromGround: 0
+        - enemyConfig: {fileID: 11400000, guid: 281dee7daef334e09bf4dda8f73c27a9, type: 2}
           spawnPoint: {fileID: 228672449}
-          spawnFromGround: 1
+          spawnFromGround: 0
         enemiesToActivate: []
       enemies: []
 --- !u!1 &228672448

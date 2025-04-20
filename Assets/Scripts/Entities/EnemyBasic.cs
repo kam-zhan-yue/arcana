@@ -2,12 +2,7 @@ using UnityEngine;
 
 public class EnemyBasic : Enemy
 {
-    private static readonly int AttackTrigger = Animator.StringToHash("MeleeAttack");
-
-    protected override void OnInit(EnemyData data)
-    {
-        
-    }
+    private static readonly int MeleeAttack = Animator.StringToHash("MeleeAttack");
 
     protected override void Move()
     {
@@ -19,7 +14,7 @@ public class EnemyBasic : Enemy
 
     protected override void Attack()
     {
-        animator.SetTrigger(AttackTrigger);
+        animator.SetTrigger(MeleeAttack);
         Player player = GetPlayer();
         player.Damage();
     }

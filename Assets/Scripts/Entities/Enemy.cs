@@ -56,7 +56,7 @@ public abstract class Enemy : MonoBehaviour
 
     public bool IsVulnerable => !IsDead && _movementState != MovementStatus.Spawning;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
         _renderers = GetComponentsInChildren<Renderer>();
@@ -89,16 +89,33 @@ public abstract class Enemy : MonoBehaviour
 
     public void Init(EnemyData data)
     {
+        if (data.spawnFromGround)
+        {
+            SpawnFromGround(data).Forget();
+        }
+        else
+        {
+            OnInit(data);
+        }
+    }
+
+    private async UniTask SpawnFromGround(EnemyData data)
+    {
+        _movementState = MovementStatus.Spawning;
+        animator.SetTrigger(SpawnGround);
+        await UniTask.WaitForSeconds(data.timeToSpawn);
+        _movementState = MovementStatus.None;
+        OnInit(data);
+    }
+
+
+    protected virtual void OnInit(EnemyData data)
+    {
         moveSpeed = data.config.moveSpeed;
         attackRange = data.config.attackRange;
         timeBetweenAttacks = data.config.timeBetweenAttacks;
         _maxHealth = data.config.maxHealth;
         _health = _maxHealth;
-        if (data.spawnFromGround)
-        {
-            SpawnFromGround(data.timeToSpawn).Forget();
-        }
-        
         foreach (Renderer rend in _renderers)
         {
             List<Material> materials = new List<Material>();
@@ -107,22 +124,9 @@ public abstract class Enemy : MonoBehaviour
             materials.Add(data.pulseShader);
             rend.SetMaterials(materials);
         }
-        
         FacePlayer();
-        
-        OnInit(data);
         _inited = true;
     }
-
-    private async UniTask SpawnFromGround(float spawnTime)
-    {
-        _movementState = MovementStatus.Spawning;
-        animator.SetTrigger(SpawnGround);
-        await UniTask.WaitForSeconds(spawnTime);
-        _movementState = MovementStatus.None;
-    }
-
-    protected abstract void OnInit(EnemyData data);
 
     private void Update()
     {
