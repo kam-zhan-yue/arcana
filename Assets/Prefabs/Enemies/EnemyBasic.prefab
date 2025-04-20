@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2995861417839057149, guid: 841c5b2ed1d5b4a92b022147b8e66067, type: 3}
       propertyPath: m_Name
-      value: EnemyBase (1) Variant
+      value: EnemyBasic
       objectReference: {fileID: 0}
     - target: {fileID: 8513478873763655641, guid: 841c5b2ed1d5b4a92b022147b8e66067, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513478873763655641, guid: 841c5b2ed1d5b4a92b022147b8e66067, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8513478873763655641, guid: 841c5b2ed1d5b4a92b022147b8e66067, type: 3}
       propertyPath: m_LocalPosition.z

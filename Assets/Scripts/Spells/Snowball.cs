@@ -27,22 +27,19 @@ public class Snowball : SingleTargetSpell, IProjectileSpell
     {
         return Frozen.CanAffect(enemy);
     }
+    public (Vector3 position, Quaternion rotation) GetLaunchPlatform()
+    {
+        Transform launch = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
+        return (launch.position, launch.rotation);
+    }
 
     protected override void Apply(Enemy spellTarget)
     {
         // Init the fireball
-        Transform launchPosition = ServiceLocator.Instance.Get<IGameManager>().GetPlayer().GetLaunchPosition();
-        Projectile snowball = Instantiate(_snowballPrefab);
-        snowball.Init(this);
-        snowball.transform.SetPositionAndRotation(launchPosition.position, launchPosition.rotation);
-        
-        // Launch the fireball
-        Vector3 targetPosition = spellTarget.GetTransform().position;
-        Vector3 launchDirection = targetPosition - snowball.transform.position;
-        Vector3 launchForce = launchDirection * _launchSpeed;
-        snowball.Rigidbody.AddForce(launchForce, ForceMode.Impulse);
+        Projectile projectile = Instantiate(_snowballPrefab);
+        projectile.Init(this, spellTarget, _launchSpeed);
     }
-    
+
     public void ApplyEnemy(Enemy enemy, Projectile projectile)
     {
         // The burn will get rid of frozen
@@ -54,10 +51,7 @@ public class Snowball : SingleTargetSpell, IProjectileSpell
 
         // Knockback the enemy only if they die from the fireball
         if (enemy.IsDead)
-        {
-            Vector3 direction = projectile.Rigidbody.linearVelocity;
-            enemy.Knockback(direction.normalized * _knockbackForce, _knockbackTime);
-        }
+            enemy.Knockback(projectile.GetDirection * _knockbackForce, _knockbackTime);
         
         // Destroy the fireball projectile
         Destroy(projectile.gameObject);

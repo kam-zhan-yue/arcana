@@ -10,6 +10,8 @@ public enum MovementStatus
 
 public abstract class Enemy : MonoBehaviour
 {
+    [SerializeField] private float height = 0.5f;
+    
     private const int OUTLINE_MATERIAL_INDEX = 1;
     private const int PULSE_MATERIAL_INDEX = 2;
     protected float moveSpeed = 1f;
@@ -17,7 +19,7 @@ public abstract class Enemy : MonoBehaviour
     // Components
     public Rigidbody Rigidbody => rb;
     protected Rigidbody rb;
-    private Renderer _renderer;
+    private Renderer[] _renderers = Array.Empty<Renderer>();
     
     // Private Variables
     private float _maxHealth;
@@ -44,9 +46,15 @@ public abstract class Enemy : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        _renderer = GetComponent<Renderer>();
+        _renderers = GetComponentsInChildren<Renderer>();
         _outlinePropertyBlock = new();
         _pulsePropertyBlock = new();
+    }
+
+    public Vector3 GetCenter()
+    {
+        Vector3 center = new(transform.position.x, transform.position.y + height, transform.position.z);
+        return center;
     }
 
     public void Init(EnemyConfig config)
@@ -59,11 +67,6 @@ public abstract class Enemy : MonoBehaviour
     public void Activate()
     {
         _activated = true;
-    }
-    
-    public Transform GetTransform()
-    {
-        return transform;
     }
 
     private void Update()
@@ -150,7 +153,8 @@ public abstract class Enemy : MonoBehaviour
     {
         _outlinePropertyBlock.SetColor(OutlineColour, colour);
         _outlinePropertyBlock.SetFloat(OutlineThickness, thickness);
-        _renderer.SetPropertyBlock(_outlinePropertyBlock, OUTLINE_MATERIAL_INDEX);
+        foreach (Renderer rend in _renderers)
+            rend.SetPropertyBlock(_outlinePropertyBlock, OUTLINE_MATERIAL_INDEX);
     }
 
     public void DisableOutline()
@@ -162,7 +166,8 @@ public abstract class Enemy : MonoBehaviour
     {
         _pulsePropertyBlock.SetColor(PulseColour, colour);
         _pulsePropertyBlock.SetFloat(PulseAmount, amount);
-        _renderer.SetPropertyBlock(_pulsePropertyBlock, PULSE_MATERIAL_INDEX);
+        foreach (Renderer rend in _renderers)
+            rend.SetPropertyBlock(_pulsePropertyBlock, PULSE_MATERIAL_INDEX);
     }
 
     public void DisablePulse()
