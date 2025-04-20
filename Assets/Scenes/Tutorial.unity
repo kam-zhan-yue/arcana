@@ -1574,6 +1574,10 @@ MonoBehaviour:
         delayTime: 0
         spawnData: []
         enemiesToActivate: []
+      - type: 2
+        delayTime: 1
+        spawnData: []
+        enemiesToActivate: []
       enemies: []
   - type: 0
     playableDirector: {fileID: 1489833768}
