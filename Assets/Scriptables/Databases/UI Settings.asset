@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b690c5940993d4b38bf5f463819f60c5, type: 3}
   m_Name: UI Settings
   m_EditorClassIdentifier: 
+  activateDisabled: {r: 1, g: 0.8901961, b: 0.53333336, a: 0.39215687}
+  activateEnabled: {r: 0.67058825, g: 0.9529412, b: 0.79607844, a: 0.39215687}
   followSpeed: 25
   rotationAmount: 200
   rotationSpeed: 500

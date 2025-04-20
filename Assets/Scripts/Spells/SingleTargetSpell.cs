@@ -36,14 +36,4 @@ public abstract class SingleTargetSpell : Spell
             targetedEnemy.SetOutline(settings.selectColour, settings.outlineSize);
         }
     }
-
-    protected override void OnStopInteracting()
-    {
-        base.OnStopInteracting();
-        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
-        for (int i = 0; i < enemies.Count; ++i)
-        {
-            enemies[i].DisableOutline();
-        }
-    }
 }

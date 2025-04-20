@@ -48,7 +48,7 @@ public class CardContainer : MonoBehaviour
         // Also, create a new visual card for the card
         Spell spellPrefab = card.spellConfig.prefab;
         Spell spell = Instantiate(spellPrefab, visualCardContainer.transform);
-        spell.Init(card.spellConfig, cardPopupItem, _cardPopup, uiSettings);
+        spell.Init(cardType, card.spellConfig, cardPopupItem, _cardPopup, uiSettings);
         _cards.Add(cardPopupItem);
     }
 

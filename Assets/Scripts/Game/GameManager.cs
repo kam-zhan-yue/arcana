@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour, IGameManager
     private List<Enemy> _enemies = new();
 
     private Action<CardType> OnCardAdded;
+
+    [NonSerialized, ShowInInspector, ReadOnly]
+    private List<CardType> _cardHistory = new();
     
     private void Awake()
     {
@@ -60,6 +63,16 @@ public class GameManager : MonoBehaviour, IGameManager
 
     public void ClearHand()
     {
-        throw new NotImplementedException();
+        
+    }
+
+    public void UseCard(CardType cardType)
+    {
+        _cardHistory.Add(cardType);
+    }
+
+    public List<CardType> GetCardHistory()
+    {
+        return _cardHistory;
     }
 }

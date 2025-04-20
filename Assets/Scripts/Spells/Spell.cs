@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Kuroneko.UtilityDelivery;
 using TMPro;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public abstract class Spell : MonoBehaviour
     private Camera _mainCamera;
     private bool _oneTimeUse;
     private TMP_Text _nameText;
+    private CardType _cardType;
 
     private void Awake()
     {
@@ -25,8 +27,9 @@ public abstract class Spell : MonoBehaviour
         _nameText = GetComponentInChildren<TMP_Text>();
     }
     
-    public void Init(SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup, UISettings uiSettings)
+    public void Init(CardType cardType, SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup, UISettings uiSettings)
     {
+        _cardType = cardType;
         _nameText.SetText(config.name);
         _cardPopupItem = cardPopupItem;
         _cardPopupItem.BeginDrag += OnBeginDrag;
@@ -110,6 +113,8 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void Use()
     {
+        DisableOutline();
+        ServiceLocator.Instance.Get<IGameManager>().UseCard(_cardType);
         if (_oneTimeUse)
         {
             Debug.Log("Use up card");
@@ -117,6 +122,14 @@ public abstract class Spell : MonoBehaviour
             RemoveAsync().Forget();
         }
     }
+
+    private void DisableOutline()
+    {
+        List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; ++i)
+            enemies[i].DisableOutline();
+    }
+    
 
     private async UniTask RemoveAsync()
     {
@@ -153,6 +166,7 @@ public abstract class Spell : MonoBehaviour
     protected virtual void OnStopInteracting()
     {
         interactingTime = 0f;
+        DisableOutline();
     }
 
     protected abstract List<Enemy> GetTargets();

@@ -12,4 +12,6 @@ public interface IGameManager : IGameService
     public void AddCard(CardType cardType);
     public void OnRegisterAddCard(Action<CardType> listener);
     public void ClearHand();
+    public void UseCard(CardType cardType);
+    public List<CardType> GetCardHistory();
 }
