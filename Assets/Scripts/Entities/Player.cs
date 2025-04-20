@@ -15,6 +15,11 @@ public class Player : MonoBehaviour
         return headCamera.transform;
     }
 
+    public void Heal()
+    {
+        
+    }
+
     public void Damage()
     {
         Debug.Log("Damage");

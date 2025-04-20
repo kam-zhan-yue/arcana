@@ -23,6 +23,7 @@ public enum CardType
     Thunder,
     Duck,
     Duplicate,
+    Heal,
 }
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Card Database", fileName = "Card Database")]
