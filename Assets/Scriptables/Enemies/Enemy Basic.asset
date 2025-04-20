@@ -17,3 +17,5 @@ MonoBehaviour:
   maxHealth: 100
   attackRange: 3
   timeBetweenAttacks: 1
+  attackAnimationTime: 0.2
+  startupTime: 0.5

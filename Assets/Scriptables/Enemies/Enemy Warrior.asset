@@ -18,4 +18,4 @@ MonoBehaviour:
   attackRange: 3
   timeBetweenAttacks: 1.5
   attackAnimationTime: 1
-  startupTime: 1
+  startupTime: 0.5

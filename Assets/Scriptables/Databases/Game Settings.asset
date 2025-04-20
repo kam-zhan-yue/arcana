@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: Game Settings
   m_EditorClassIdentifier: 
   playerHealth: 3
+  levels:
+  - active: 1
+    name: Tutorial
+    buildIndex: 0
+  - active: 1
+    name: Level 1
+    buildIndex: 1

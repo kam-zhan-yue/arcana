@@ -18,6 +18,6 @@ MonoBehaviour:
   attackRange: 100
   timeBetweenAttacks: 3
   attackAnimationTime: 1
-  startupTime: 2
+  startupTime: 1
   spellPrefab: {fileID: 3050934454620154988, guid: 5139c6a3d41ac4fa4b59543dc6c15002, type: 3}
   spellSpeed: 2

@@ -17,6 +17,7 @@ MonoBehaviour:
   maxHealth: 100
   attackRange: 100
   timeBetweenAttacks: 1
-  startupTime: 2
+  attackAnimationTime: 0.2
+  startupTime: 1
   arrowPrefab: {fileID: 3050934454620154988, guid: 3b850629464004b93adfb5c3bbb23ac5, type: 3}
   arrowSpeed: 5

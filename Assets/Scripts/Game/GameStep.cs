@@ -1,8 +1,10 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Kuroneko.UtilityDelivery;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 
 [Serializable]
@@ -40,6 +42,10 @@ public class GameStep
                 break;
             case GameStepType.End:
                 Debug.Log("End Level");
+                Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
+                int next = game.Database.settings.GetNextScene();
+                if (next >= 0)
+                    SceneManager.LoadScene(next);
                 break;
         }
     }
