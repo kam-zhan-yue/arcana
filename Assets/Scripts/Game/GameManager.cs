@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [NonSerialized, ShowInInspector, ReadOnly]
     private List<Enemy> _enemies = new();
+
+    private Action<CardType> OnCardAdded;
     
     private void Awake()
     {
@@ -43,5 +45,15 @@ public class GameManager : MonoBehaviour, IGameManager
     public GameDatabase GetGameDatabase()
     {
         return gameDatabase;
+    }
+
+    public void AddCard(CardType cardType)
+    {
+        OnCardAdded?.Invoke(cardType);
+    }
+
+    public void OnRegisterAddCard(Action<CardType> listener)
+    {
+        OnCardAdded += listener;
     }
 }

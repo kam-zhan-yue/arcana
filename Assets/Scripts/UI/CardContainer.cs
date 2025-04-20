@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class CardContainer : MonoBehaviour
@@ -15,6 +16,7 @@ public class CardContainer : MonoBehaviour
 
     private void Start()
     {
+        ServiceLocator.Instance.Get<IGameManager>().OnRegisterAddCard(AddCard);
         for (int i = 0; i < cardDatabase.startingHand.Length; ++i)
         {
             AddCard(cardDatabase.startingHand[i]);
@@ -48,6 +50,11 @@ public class CardContainer : MonoBehaviour
         Spell spell = Instantiate(spellPrefab, visualCardContainer.transform);
         spell.Init(card.spellConfig, cardPopupItem, _cardPopup, uiSettings);
         _cards.Add(cardPopupItem);
+    }
+
+    private void RemoveCard()
+    {
+        
     }
 
 
