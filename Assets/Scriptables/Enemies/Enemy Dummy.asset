@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Enemy Dummy
   m_EditorClassIdentifier: 
   prefab: {fileID: 6386029979857675769, guid: 97ae12ac8d0804cd1853d49999f162aa, type: 3}
+  spawnFromGround: 1
   moveSpeed: 0
   maxHealth: 10000

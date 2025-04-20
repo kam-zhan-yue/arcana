@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public enum MovementStatus
 {
     None,
+    Spawning,
     Knockback,
 }
 
@@ -26,7 +28,7 @@ public abstract class Enemy : MonoBehaviour
     // Private Variables
     private float _maxHealth;
     private float _health;
-    private MovementStatus _movementStatus = MovementStatus.None;
+    private MovementStatus _movementState = MovementStatus.None;
     private float _knockbackTimer = 0.0f;
     private MaterialPropertyBlock _outlinePropertyBlock;
     private MaterialPropertyBlock _pulsePropertyBlock;
@@ -45,6 +47,7 @@ public abstract class Enemy : MonoBehaviour
     private static readonly int PulseColour = Shader.PropertyToID("_Pulse_Colour");
     private static readonly int PulseAmount = Shader.PropertyToID("_Pulse_Amount");
     private static readonly int WalkSpeed = Animator.StringToHash("WalkSpeed");
+    private static readonly int SpawnGround = Animator.StringToHash("SpawnGround");
 
     private void Awake()
     {
@@ -66,6 +69,10 @@ public abstract class Enemy : MonoBehaviour
         moveSpeed = data.config.moveSpeed;
         _maxHealth = data.config.maxHealth;
         _health = _maxHealth;
+        if (data.spawnFromGround)
+        {
+            SpawnFromGround().Forget();
+        }
         
         
         foreach (Renderer rend in _renderers)
@@ -76,7 +83,18 @@ public abstract class Enemy : MonoBehaviour
             materials.Add(data.pulseShader);
             rend.SetMaterials(materials);
         }
+        OnInit();
     }
+
+    private async UniTask SpawnFromGround()
+    {
+        _movementState = MovementStatus.Spawning;
+        animator.SetTrigger(SpawnGround);
+        await UniTask.WaitForSeconds(2.0f);
+        _movementState = MovementStatus.None;
+    }
+
+    protected abstract void OnInit();
 
     public void Activate()
     {
@@ -95,7 +113,7 @@ public abstract class Enemy : MonoBehaviour
         
         animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
         UpdateStatus();
-        switch (_movementStatus)
+        switch (_movementState)
         {
             case MovementStatus.None:
                 Move();
@@ -103,7 +121,7 @@ public abstract class Enemy : MonoBehaviour
             case MovementStatus.Knockback:
                 _knockbackTimer -= Time.deltaTime;
                 if (_knockbackTimer <= 0f)
-                    _movementStatus = MovementStatus.None;
+                    _movementState = MovementStatus.None;
                 break;
         }
     }
@@ -112,7 +130,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
-        _movementStatus = MovementStatus.Knockback;
+        _movementState = MovementStatus.Knockback;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         _knockbackTimer = knockbackTime;
     }

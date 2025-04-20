@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Enemy Basic
   m_EditorClassIdentifier: 
   prefab: {fileID: 4392531199633644569, guid: 91228f9727bd643e3b3a8fdf5a0f251b, type: 3}
+  spawnFromGround: 1
   moveSpeed: 1
   maxHealth: 100

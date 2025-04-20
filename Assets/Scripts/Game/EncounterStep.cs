@@ -15,13 +15,18 @@ public enum EncounterStepType
 }
 
 [Serializable]
+public struct EnemyActivateData
+{
+    public Enemy enemy;
+    public bool spawnFromGround;
+}
+
+[Serializable]
 public struct EnemySpawnData
 {
-    [HideLabel, HorizontalGroup(Width = 0.5f)]
-    public Transform spawnPoint;
-
-    [HideLabel, HorizontalGroup(Width = 0.5f)]
     public EnemyConfig enemyConfig;
+    public Transform spawnPoint;
+    public bool spawnFromGround;
 }
 
 [Serializable]
@@ -32,11 +37,11 @@ public struct EncounterStep
     [HideLabel, ShowIf("type", EncounterStepType.Delay)] [SerializeField]
     public float delayTime;
 
-    [HideLabel, ShowIf("type", EncounterStepType.Spawn), TableList] [SerializeField]
+    [ShowIf("type", EncounterStepType.Spawn), TableList] [SerializeField]
     public List<EnemySpawnData> spawnData;
 
-    [ShowIf("type", EncounterStepType.Activate)] [SerializeField]
-    public List<Enemy> enemiesToActivate;
+    [ShowIf("type", EncounterStepType.Activate), TableList] [SerializeField]
+    public List<EnemyActivateData> enemiesToActivate;
     
     public async UniTask Play(Encounter encounter)
     {
@@ -51,10 +56,11 @@ public struct EncounterStep
                 for (int i = 0; i < enemiesToActivate.Count; ++i)
                 {
                     EnemyDatabase enemyDatabase = GetEnemyDatabase();
-                    EnemyData data = enemyDatabase.GetDataByEnemy(enemiesToActivate[i]);
-                    enemiesToActivate[i].Init(data);
-                    enemiesToActivate[i].Activate();
-                    encounter.AddEnemy(enemiesToActivate[i]);
+                    EnemyData data = enemyDatabase.GetDataByEnemy(enemiesToActivate[i].enemy);
+                    data.spawnFromGround = enemiesToActivate[i].spawnFromGround;
+                    enemiesToActivate[i].enemy.Init(data);
+                    enemiesToActivate[i].enemy.Activate();
+                    encounter.AddEnemy(enemiesToActivate[i].enemy);
                 }
                 break;
             case EncounterStepType.Spawn:
@@ -63,6 +69,7 @@ public struct EncounterStep
                     Enemy enemy = Object.Instantiate(spawnData[i].enemyConfig.prefab, spawnData[i].spawnPoint);
                     EnemyDatabase enemyDatabase = GetEnemyDatabase();
                     EnemyData data = enemyDatabase.GetDataByConfig(spawnData[i].enemyConfig);
+                    data.spawnFromGround = spawnData[i].spawnFromGround;
                     enemy.Init(data);
                     encounter.AddEnemy(enemy);
                 }

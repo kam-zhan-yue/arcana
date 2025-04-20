@@ -173,10 +173,14 @@ MonoBehaviour:
         delayTime: 0
         spawnData: []
         enemiesToActivate:
-        - {fileID: 1506314057}
-        - {fileID: 1504857806}
-        - {fileID: 1827365085}
-        - {fileID: 892127003}
+        - enemy: {fileID: 892127003}
+          spawnFromGround: 0
+        - enemy: {fileID: 1506314057}
+          spawnFromGround: 1
+        - enemy: {fileID: 1827365085}
+          spawnFromGround: 1
+        - enemy: {fileID: 1504857806}
+          spawnFromGround: 1
       enemies: []
 --- !u!1001 &340777523
 PrefabInstance:
