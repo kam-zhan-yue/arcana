@@ -15,8 +15,9 @@ MonoBehaviour:
   prefab: {fileID: 8448679247216850235, guid: bdbd08ffe80c24820a36380e71e253c9, type: 3}
   moveSpeed: 10
   maxHealth: 100
-  attackRange: 2
-  timeBetweenAttacks: 1
+  attackRange: 100
+  timeBetweenAttacks: 3
+  attackAnimationTime: 1
   startupTime: 2
   spellPrefab: {fileID: 3050934454620154988, guid: 5139c6a3d41ac4fa4b59543dc6c15002, type: 3}
   spellSpeed: 2

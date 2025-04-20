@@ -11,8 +11,6 @@ public class EnemyArcher : Enemy, IProjectileEnemy
     private float _startupTime;
     private ProjectileEnemy _arrowPrefab;
     private float _arrowSpeed;
-    private bool _startup = false;
-    private float _startupTimer = 0f;
 
     protected override void Awake()
     {
@@ -31,30 +29,20 @@ public class EnemyArcher : Enemy, IProjectileEnemy
         _startupTime = config.startupTime;
         _arrowPrefab = config.arrowPrefab;
         _arrowSpeed = config.arrowSpeed;
-        _startup = true;
     }
 
     protected override void Move()
     {
     }
 
-    protected override void AttackUpdate()
+    protected override void PlayAttackAnimation()
     {
-        if (_startup)
-        {
-            _startupTimer += Time.deltaTime;
-            if (_startupTimer >= _startupTime)
-                _startup = true;
-            return;
-        }
-        
-        base.AttackUpdate();
+        animator.SetTrigger(RangedAttack);
     }
-
+    
     protected override void Attack()
     {
         Debug.Log("Enemy Archer Attack");
-        animator.SetTrigger(RangedAttack);
         Player player = GetPlayer();
 
         ProjectileEnemy projectile = Instantiate(_arrowPrefab);

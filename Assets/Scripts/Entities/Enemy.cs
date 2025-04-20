@@ -12,6 +12,14 @@ public enum MovementStatus
     Knockback,
 }
 
+public enum AttackState
+{
+    None,
+    Waiting,
+    Animating,
+    Attack,
+}
+
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] private float height = 0.5f;
@@ -35,6 +43,8 @@ public abstract class Enemy : MonoBehaviour
     private float _knockbackTimer = 0.0f;
     private MaterialPropertyBlock _outlinePropertyBlock;
     private MaterialPropertyBlock _pulsePropertyBlock;
+    private float _attackAnimationTime;
+    private AttackState _attackState = AttackState.None;
     
     public Status Status { get; private set; } = Status.None;
     private StatusEffect _statusEffect;
@@ -55,6 +65,10 @@ public abstract class Enemy : MonoBehaviour
     private static readonly int Dead = Animator.StringToHash("Dead");
 
     public bool IsVulnerable => !IsDead && _movementState != MovementStatus.Spawning;
+    private bool _attackAnimation = false;
+    private bool _startup = false;
+    private float _startupTimer = 0f;
+    private float _startupTime = 0f;
 
     protected virtual void Awake()
     {
@@ -120,11 +134,15 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void OnInit(EnemyData data)
     {
+        _attackAnimationTime = data.config.attackAnimationTime;
         moveSpeed = data.config.moveSpeed;
         attackRange = data.config.attackRange;
         timeBetweenAttacks = data.config.timeBetweenAttacks;
         _maxHealth = data.config.maxHealth;
         _health = _maxHealth;
+        _startupTime = data.config.startupTime;
+        _startupTimer = 0f;
+        _startup = true;
         _inited = true;
     }
 
@@ -142,6 +160,14 @@ public abstract class Enemy : MonoBehaviour
         {
             animator.speed = 1f;
             animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
+        }
+
+        if (_startup)
+        {
+            _startupTimer += Time.deltaTime;
+            if (_startupTimer >= _startupTime)
+                _startup = false;
+            return;
         }
         
         switch (_movementState)
@@ -172,16 +198,40 @@ public abstract class Enemy : MonoBehaviour
         {
             ResetVelocity();
             _movementState = MovementStatus.Attacking;
+            _attackState = AttackState.None;
         }
     }
 
-    protected virtual void AttackUpdate()
+    protected abstract void PlayAttackAnimation();
+
+    private void AttackUpdate()
     {
         _attackTimer += Time.deltaTime;
-        if (_attackTimer >= timeBetweenAttacks)
+        switch (_attackState)
         {
-            _attackTimer = 0f;
-            Attack();
+            case AttackState.None:
+                _attackState = AttackState.Waiting;
+                _attackTimer = 0f;
+                break;
+            case AttackState.Waiting:
+                if (_attackTimer >= timeBetweenAttacks)
+                {
+                    PlayAttackAnimation();
+                    _attackTimer -= timeBetweenAttacks;
+                    _attackState = AttackState.Animating;
+                }
+                break;
+            case AttackState.Animating:
+                if (_attackTimer >= _attackAnimationTime)
+                {
+                    _attackTimer -= _attackAnimationTime;
+                    _attackState = AttackState.Attack;
+                }
+                break;
+            case AttackState.Attack:
+                Attack();
+                _attackState = AttackState.None;
+                break;
         }
     }
 
@@ -189,6 +239,11 @@ public abstract class Enemy : MonoBehaviour
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+    }
+
+    protected virtual bool CanAttack()
+    {
+        return true;
     }
 
     private bool CanMove()

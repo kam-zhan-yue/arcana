@@ -4,6 +4,11 @@ public class EnemyBasic : Enemy
 {
     private static readonly int MeleeAttack = Animator.StringToHash("MeleeAttack");
 
+    protected override void PlayAttackAnimation()
+    {
+        animator.SetTrigger(MeleeAttack);
+    }
+
     protected override void Move()
     {
         Player player = GetPlayer();
@@ -14,7 +19,6 @@ public class EnemyBasic : Enemy
 
     protected override void Attack()
     {
-        animator.SetTrigger(MeleeAttack);
         Player player = GetPlayer();
         player.Damage();
     }

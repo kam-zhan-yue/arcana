@@ -10,8 +10,6 @@ public class EnemyMage : Enemy, IProjectileEnemy
     private float _startupTime;
     private ProjectileEnemy _spellPrefab;
     private float _spellSpeed;
-    private bool _startup = false;
-    private float _startupTimer = 0f;
 
     protected override void Awake()
     {
@@ -29,30 +27,20 @@ public class EnemyMage : Enemy, IProjectileEnemy
         _startupTime = config.startupTime;
         _spellPrefab = config.spellPrefab;
         _spellSpeed = config.spellSpeed;
-        _startup = true;
     }
 
     protected override void Move()
     {
     }
 
-    protected override void AttackUpdate()
+    protected override void PlayAttackAnimation()
     {
-        if (_startup)
-        {
-            _startupTimer += Time.deltaTime;
-            if (_startupTimer >= _startupTime)
-                _startup = false;
-            return;
-        }
-        
-        base.AttackUpdate();
+        animator.SetTrigger(MagicAttack);
     }
 
     protected override void Attack()
     {
         Debug.Log("Enemy Mage Attack");
-        animator.SetTrigger(MagicAttack);
         Player player = GetPlayer();
 
         ProjectileEnemy projectile = Instantiate(_spellPrefab);
