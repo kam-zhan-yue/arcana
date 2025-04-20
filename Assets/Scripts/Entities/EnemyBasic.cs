@@ -1,8 +1,9 @@
-using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class EnemyBasic : Enemy
 {
+    private static readonly int MeleeAttack = Animator.StringToHash("MeleeAttack");
+
     protected override void OnInit(EnemyData data)
     {
         
@@ -14,18 +15,11 @@ public class EnemyBasic : Enemy
         Vector3 direction = (player.transform.position - rb.position).normalized;
 
         rb.linearVelocity = direction * moveSpeed;
-
-        if (direction.sqrMagnitude > 0.001f)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation( direction.normalized, Vector3.up);
-            rb.MoveRotation(lookRotation);
-        }
-        Debug.Log($"Velocity is {Rigidbody.linearVelocity}");
     }
 
     protected override void Attack()
     {
-        animator.Play("MeleeAttack");
+        animator.SetTrigger(MeleeAttack);
         Player player = GetPlayer();
         player.Damage();
     }

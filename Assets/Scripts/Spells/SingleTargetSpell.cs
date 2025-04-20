@@ -20,12 +20,12 @@ public abstract class SingleTargetSpell : Spell
         
         for (int i = 0; i < enemies.Count; ++i)
         {
-            if(Burn.CanAffect(enemies[i]))
+            if(CanAffect(enemies[i]) && enemies[i].IsVulnerable)
                 enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
         }
 
         Enemy targetedEnemy = GetCurrentTarget();
-        if (targetedEnemy && Burn.CanAffect(targetedEnemy))
+        if (targetedEnemy && CanAffect(targetedEnemy) && targetedEnemy.IsVulnerable)
         {
             targetedEnemy.SetOutline(settings.selectColour, settings.outlineSize);
         }

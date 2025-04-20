@@ -16,7 +16,7 @@ public abstract class MultiTargetSpell : Spell
         List<Enemy> targets = new();
         for (int i = 0; i < enemies.Count; ++i)
         {
-            if (CanAffect(enemies[i]))
+            if (CanAffect(enemies[i]) && enemies[i].IsVulnerable)
                 targets.Add(enemies[i]);
         }
         return targets;

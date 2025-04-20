@@ -52,6 +52,9 @@ public abstract class Enemy : MonoBehaviour
     private static readonly int PulseAmount = Shader.PropertyToID("_Pulse_Amount");
     private static readonly int WalkSpeed = Animator.StringToHash("WalkSpeed");
     private static readonly int SpawnGround = Animator.StringToHash("SpawnGround");
+    private static readonly int Dead = Animator.StringToHash("Dead");
+
+    public bool IsVulnerable => !IsDead && _movementState != MovementStatus.Spawning;
 
     private void Awake()
     {
@@ -71,6 +74,17 @@ public abstract class Enemy : MonoBehaviour
     protected Player GetPlayer()
     {
         return ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
+    }
+
+    protected void FacePlayer()
+    {
+        Player player = GetPlayer();
+        Vector3 direction = (player.transform.position - rb.position).normalized;
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation( direction.normalized, Vector3.up);
+            rb.MoveRotation(lookRotation);
+        }
     }
 
     public void Init(EnemyData data)
@@ -93,6 +107,9 @@ public abstract class Enemy : MonoBehaviour
             materials.Add(data.pulseShader);
             rend.SetMaterials(materials);
         }
+        
+        FacePlayer();
+        
         OnInit(data);
         _inited = true;
     }
@@ -116,32 +133,48 @@ public abstract class Enemy : MonoBehaviour
         if (Status == Status.Frozen)
         {
             animator.speed = 0f;
-            return;
+        }
+        else
+        {
+            animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
         }
         
-        animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
         
         switch (_movementState)
         {
             case MovementStatus.None:
-                Move();
-                if (DistanceToPlayer() <= attackRange)
-                    _movementState = MovementStatus.Attacking;
+                if (CanMove())
+                {
+                    Move();
+                    if (DistanceToPlayer() <= attackRange)
+                        _movementState = MovementStatus.Attacking;
+                }
                 break;
             case MovementStatus.Attacking:
-                _attackTimer += Time.deltaTime;
-                if (_attackTimer >= timeBetweenAttacks)
+                if (CanMove())
                 {
-                    _attackTimer = 0f;
-                    Attack();
+                    _attackTimer += Time.deltaTime;
+                    if (_attackTimer >= timeBetweenAttacks)
+                    {
+                        _attackTimer = 0f;
+                        Attack();
+                    }
                 }
                 break;
             case MovementStatus.Knockback:
                 _knockbackTimer -= Time.deltaTime;
                 if (_knockbackTimer <= 0f)
+                {
+                    rb.linearVelocity = Vector3.zero;
                     _movementState = MovementStatus.None;
+                }
                 break;
         }
+    }
+
+    private bool CanMove()
+    {
+        return Status != Status.Frozen && !IsDead;
     }
 
     private float DistanceToPlayer()
@@ -153,6 +186,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
+        rb.linearVelocity = Vector3.zero;
         _movementState = MovementStatus.Knockback;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         _knockbackTimer = knockbackTime;
@@ -160,12 +194,20 @@ public abstract class Enemy : MonoBehaviour
 
     public void Damage(Damage damage)
     {
+        // If already dead, don't do anything
+        if (IsDead) return;
         _health -= damage.Amount;
         OnDamage?.Invoke(damage);
         if (IsDead)
         {
-            OnRelease?.Invoke(this);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        animator.SetTrigger(Dead);
+        OnRelease?.Invoke(this);
     }
     
     public bool IsDead => _health <= 0f;
