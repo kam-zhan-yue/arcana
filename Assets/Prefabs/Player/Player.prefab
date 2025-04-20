@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 3066880452589202566}
   - component: {fileID: 6575245893762159838}
   - component: {fileID: 4065939632690038089}
+  - component: {fileID: 479002984624288727}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -215,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c699f415133b94e70be69b1748dafd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headCamera: {fileID: 1513161293623846396}
   launchPosition: {fileID: 6838245301525565007}
 --- !u!95 &4065939632690038089
 Animator:
@@ -238,3 +240,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &479002984624288727
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669185764903739340}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1.42, z: 0.45}
