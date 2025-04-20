@@ -10,6 +10,7 @@ public enum GameStepType
 {
     Level,
     Encounter,
+    End,
 }
 
 [Serializable]
@@ -37,6 +38,9 @@ public class GameStep
                 Debug.Log("Playing Encounter");
                 await encounter.Play();
                 break;
+            case GameStepType.End:
+                Debug.Log("End Level");
+                break;
         }
     }
     
@@ -46,12 +50,9 @@ public class GameStep
         {
             case GameStepType.Level:
                 if (playableDirector)
-                {
                     ResolvePlayableDirector();
-                }
                 break;
             case GameStepType.Encounter:
-                Debug.Log("Resolving Encounter");
                 if (encounter != null)
                     encounter.Resolve();
                 break;
@@ -75,6 +76,8 @@ public class GameStep
                 {
                     // Set the time slightly past the marker so as to not trigger the pause
                     playableDirector.time = marker.time + 0.01f;
+                    playableDirector.Evaluate();
+                    playableDirector.Pause();
                     Debug.Log($"Resolved Playable to {marker.time}");
                     return;
                 }

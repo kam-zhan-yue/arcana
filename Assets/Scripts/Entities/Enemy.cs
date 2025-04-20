@@ -171,6 +171,7 @@ public abstract class Enemy : MonoBehaviour
                 if (_knockbackTimer <= 0f)
                 {
                     rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
                     _movementState = MovementStatus.None;
                 }
                 break;
@@ -192,6 +193,7 @@ public abstract class Enemy : MonoBehaviour
     public void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
         rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
         _movementState = MovementStatus.Knockback;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         _knockbackTimer = knockbackTime;
