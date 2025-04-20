@@ -97,6 +97,7 @@ public abstract class Enemy : MonoBehaviour
             materials.Add(data.pulseShader);
             rend.SetMaterials(materials);
         }
+        FacePlayer();
         if (data.spawnFromGround)
         {
             SpawnFromGround(data).Forget();
@@ -124,7 +125,6 @@ public abstract class Enemy : MonoBehaviour
         timeBetweenAttacks = data.config.timeBetweenAttacks;
         _maxHealth = data.config.maxHealth;
         _health = _maxHealth;
-        FacePlayer();
         _inited = true;
     }
 

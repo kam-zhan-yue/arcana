@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e6617aa594f4e9f96331822b7dd9c4, type: 3}
   m_Name: Card Database
   m_EditorClassIdentifier: 
-  startingHand: 000000000100000002000000030000000400000005000000060000000700000008000000
+  startingHand: 00000000
   cards:
   - cardType: 0
     spellConfig: {fileID: 11400000, guid: d3b6aacf01660468183c77072648219e, type: 2}
