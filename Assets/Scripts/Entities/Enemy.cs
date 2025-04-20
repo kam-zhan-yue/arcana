@@ -66,7 +66,6 @@ public abstract class Enemy : MonoBehaviour
     private static readonly int Dead = Animator.StringToHash("Dead");
 
     public bool IsVulnerable => !IsDead && _movementState != MovementStatus.Spawning;
-    private bool _attackAnimation = false;
     private bool _startup = false;
     private float _startupTimer = 0f;
     private float _startupTime = 0f;
