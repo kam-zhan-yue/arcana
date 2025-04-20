@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 public abstract class Spell : MonoBehaviour
@@ -16,14 +17,17 @@ public abstract class Spell : MonoBehaviour
     private Vector3 _rotationDelta;
     private Camera _mainCamera;
     private bool _oneTimeUse;
+    private TMP_Text _nameText;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
+        _nameText = GetComponentInChildren<TMP_Text>();
     }
     
     public void Init(SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup, UISettings uiSettings)
     {
+        _nameText.SetText(config.name);
         _cardPopupItem = cardPopupItem;
         _cardPopupItem.BeginDrag += OnBeginDrag;
         _cardPopupItem.EndDrag += OnEndDrag;
@@ -121,7 +125,7 @@ public abstract class Spell : MonoBehaviour
     }
 
     private void OnPointerEnter(CardPopupItem cardPopupItem)
-    {
+    { 
         interactingTime = 0f;
         OnStartInteracting();
     }

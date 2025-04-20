@@ -8,4 +8,6 @@ public class GameDatabase : ScriptableObject
     public EnemyDatabase enemyDatabase;
     [InlineEditor]
     public CardDatabase cardDatabase;
+
+    [InlineEditor] public UISettings uiSettings;
 }

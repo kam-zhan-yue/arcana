@@ -6,8 +6,7 @@ public class EnemyMage : Enemy, IProjectileEnemy
 {
     [SerializeField] private Transform staff;
     [SerializeField] private Transform launchPoint;
-    private static readonly int RangedAttack = Animator.StringToHash("RangedAttack");
-    private static readonly int AimStart = Animator.StringToHash("AimStart");
+    private static readonly int MagicAttack = Animator.StringToHash("MagicAttack");
     private float _startupTime;
     private ProjectileEnemy _spellPrefab;
     private float _spellSpeed;
@@ -24,7 +23,6 @@ public class EnemyMage : Enemy, IProjectileEnemy
     {
         base.OnInit(data);
         staff.gameObject.SetActiveFast(true);
-        animator.SetTrigger(AimStart);
         EnemyMageConfig config = data.config as EnemyMageConfig;
         if (config == null)
             throw new InvalidCastException("Config must be of type EnemyMageConfig");
@@ -44,7 +42,7 @@ public class EnemyMage : Enemy, IProjectileEnemy
         {
             _startupTimer += Time.deltaTime;
             if (_startupTimer >= _startupTime)
-                _startup = true;
+                _startup = false;
             return;
         }
         
@@ -54,7 +52,7 @@ public class EnemyMage : Enemy, IProjectileEnemy
     protected override void Attack()
     {
         Debug.Log("Enemy Mage Attack");
-        animator.SetTrigger(RangedAttack);
+        animator.SetTrigger(MagicAttack);
         Player player = GetPlayer();
 
         ProjectileEnemy projectile = Instantiate(_spellPrefab);

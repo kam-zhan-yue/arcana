@@ -57,4 +57,9 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         OnCardAdded += listener;
     }
+
+    public void ClearHand()
+    {
+        throw new NotImplementedException();
+    }
 }

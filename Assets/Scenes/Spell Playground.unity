@@ -168,6 +168,7 @@ MonoBehaviour:
   - type: 1
     playableDirector: {fileID: 0}
     encounter:
+      cards: 00000000000000000000000000000000
       steps:
       - type: 0
         delayTime: 0
@@ -184,6 +185,33 @@ MonoBehaviour:
         - enemyConfig: {fileID: 11400000, guid: 281dee7daef334e09bf4dda8f73c27a9, type: 2}
           spawnPoint: {fileID: 228672449}
           spawnFromGround: 1
+        enemiesToActivate: []
+      - type: 3
+        delayTime: 0
+        spawnData: []
+        enemiesToActivate: []
+      enemies: []
+  - type: 1
+    playableDirector: {fileID: 0}
+    encounter:
+      cards: 030000000600000007000000
+      steps:
+      - type: 0
+        delayTime: 0
+        spawnData:
+        - enemyConfig: {fileID: 11400000, guid: eef543554c788449d88aa02e3caed951, type: 2}
+          spawnPoint: {fileID: 946564232}
+          spawnFromGround: 1
+        - enemyConfig: {fileID: 11400000, guid: eef543554c788449d88aa02e3caed951, type: 2}
+          spawnPoint: {fileID: 1317633419}
+          spawnFromGround: 1
+        - enemyConfig: {fileID: 11400000, guid: eef543554c788449d88aa02e3caed951, type: 2}
+          spawnPoint: {fileID: 1669008356}
+          spawnFromGround: 1
+        enemiesToActivate: []
+      - type: 3
+        delayTime: 0
+        spawnData: []
         enemiesToActivate: []
       enemies: []
 --- !u!1 &228672448

@@ -8,15 +8,21 @@ using UnityEngine;
 [Serializable]
 public class Encounter
 {
+    [SerializeField] private CardType[] cards = Array.Empty<CardType>();
     [SerializeField] private List<EncounterStep> steps = new();
     [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
 
     public async UniTask Play()
     {
+        for (int i = 0; i < cards.Length; ++i)
+        {
+            ServiceLocator.Instance.Get<IGameManager>().AddCard(cards[i]);
+        }
         for (int i = 0; i < steps.Count; ++i)
         {
             await steps[i].Play(this);
         }
+        // ServiceLocator.Instance.Get<IGameManager>().ClearHand();
     }
     
     public void Resolve()

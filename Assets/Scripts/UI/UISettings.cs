@@ -22,6 +22,9 @@ public class EffectSetting
 [CreateAssetMenu(menuName = "ScriptableObjects/UI Settings", fileName = "UI Settings")]
 public class UISettings : ScriptableObject
 {
+    [Header("UI Parameters")] public Color activateDisabled;
+    public Color activateEnabled;
+    
     [Header("Follow Parameters")] 
     [SerializeField] public float followSpeed = 25f;
 

@@ -1552,7 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a845b031137404e9ecf14f38151bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startStep: 1
+  startStep: 0
   steps:
   - type: 0
     playableDirector: {fileID: 1489833768}

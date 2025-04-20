@@ -1,3 +1,4 @@
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,19 +6,21 @@ public class ActivationZone : MonoBehaviour
 {
     private RectTransform _rectTransform;
     private Image _image;
-    private Material _materialInstance;
-    private static readonly int Activate = Shader.PropertyToID("_Can_Activate");
     public bool CanActivate { get; private set; }
 
     private Camera _uiCamera;
+    private UISettings _uiSettings;
 
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
-        _materialInstance = Instantiate(_image.material);
-        _image.material = _materialInstance;
         _uiCamera = Camera.main;
+    }
+
+    private void Start()
+    {
+        _uiSettings = ServiceLocator.Instance.Get<IGameManager>().GetGameDatabase().uiSettings;
     }
 
     private void Update()
@@ -35,6 +38,7 @@ public class ActivationZone : MonoBehaviour
         {
             CanActivate = false;
         }
-        _materialInstance.SetFloat(Activate, CanActivate ? 1f : 0f);
+
+        _image.color = CanActivate ? _uiSettings.activateEnabled : _uiSettings.activateDisabled;
     }
 }

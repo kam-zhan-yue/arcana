@@ -11,4 +11,5 @@ public interface IGameManager : IGameService
     public GameDatabase GetGameDatabase();
     public void AddCard(CardType cardType);
     public void OnRegisterAddCard(Action<CardType> listener);
+    public void ClearHand();
 }
