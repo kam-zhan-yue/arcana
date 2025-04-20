@@ -12,7 +12,5 @@ public class EnemyDummy : Enemy
 
     protected override void Attack()
     {
-        Player player = ServiceLocator.Instance.Get<IGameManager>().GetPlayer();
-        player.Damage();
     }
 }

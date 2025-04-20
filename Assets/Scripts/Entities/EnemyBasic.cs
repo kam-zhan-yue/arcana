@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyBasic : Enemy
 {
-    private static readonly int AttackTrigger = Animator.StringToHash("Attack");
+    private static readonly int AttackTrigger = Animator.StringToHash("MeleeAttack");
 
     protected override void OnInit(EnemyData data)
     {
