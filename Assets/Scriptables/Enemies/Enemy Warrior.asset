@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Enemy Warrior
   m_EditorClassIdentifier: 
   prefab: {fileID: 5877194727976235826, guid: b78c0c4c0c3c3475ba6fe8a7cc2cef48, type: 3}
-  moveSpeed: 10
-  maxHealth: 100
-  attackRange: 2
-  timeBetweenAttacks: 1
+  moveSpeed: 2
+  maxHealth: 300
+  attackRange: 3
+  timeBetweenAttacks: 1.5
+  attackAnimationTime: 1
+  startupTime: 1

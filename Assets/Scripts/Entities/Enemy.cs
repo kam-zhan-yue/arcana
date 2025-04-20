@@ -283,12 +283,24 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Mutate(GameObject mutation)
+    {
+        Instantiate(mutation);
+        Vector3 newPosition = transform.position;
+        newPosition.y += height;
+        mutation.transform.SetPositionAndRotation(newPosition, transform.rotation);
+        Die(true);
+    }
+
+    private void Die(bool immediatelyDestroy = false)
     {
         ResetVelocity();
         animator.SetTrigger(Dead);
         OnRelease?.Invoke(this);
-        DieAsync().Forget();
+        if(immediatelyDestroy)
+            Destroy(gameObject);
+        else
+            DieAsync().Forget();
     }
 
     private async UniTask DieAsync()

@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8413920488183056382, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
       propertyPath: m_Name
-      value: SpellBase Variant
+      value: WaterBucket
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -129,9 +129,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a89e6dfa239f4c359d1f589f23f0dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: af1764148154749d0a07a57324a4da66, type: 2}
-  followSpeed: 25
-  rotationAmount: 1
-  rotationSpeed: 100
-  maxRotation: 60
-  wetTime: 5

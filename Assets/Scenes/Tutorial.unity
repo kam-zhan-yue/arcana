@@ -1557,11 +1557,13 @@ MonoBehaviour:
   - type: 0
     playableDirector: {fileID: 1489833768}
     encounter:
+      cards: 
       steps: []
       enemies: []
   - type: 1
     playableDirector: {fileID: 0}
     encounter:
+      cards: 
       steps:
       - type: 0
         delayTime: 0
@@ -1582,11 +1584,13 @@ MonoBehaviour:
   - type: 0
     playableDirector: {fileID: 1489833768}
     encounter:
+      cards: 
       steps: []
       enemies: []
   - type: 1
     playableDirector: {fileID: 0}
     encounter:
+      cards: 
       steps:
       - type: 0
         delayTime: 0
@@ -1613,11 +1617,13 @@ MonoBehaviour:
   - type: 0
     playableDirector: {fileID: 1489833768}
     encounter:
+      cards: 
       steps: []
       enemies: []
   - type: 2
     playableDirector: {fileID: 0}
     encounter:
+      cards: 
       steps: []
       enemies: []
 --- !u!1001 &555798525

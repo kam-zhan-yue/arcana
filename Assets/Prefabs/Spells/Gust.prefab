@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8413920488183056382, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
       propertyPath: m_Name
-      value: SpellBase Variant
+      value: Gust
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -117,4 +117,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dab224b107f545448c9e4b758740cb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 0}

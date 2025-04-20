@@ -168,7 +168,7 @@ MonoBehaviour:
   - type: 1
     playableDirector: {fileID: 0}
     encounter:
-      cards: 000000000000000000000000
+      cards: 080000000000000000000000
       steps:
       - type: 0
         delayTime: 0

@@ -291,22 +291,24 @@ MonoBehaviour:
   - type: 0
     playableDirector: {fileID: 2711500963105868941}
     encounter:
+      cards: 
       steps: []
       enemies: []
   - type: 1
     playableDirector: {fileID: 0}
     encounter:
+      cards: 
       steps:
       - type: 1
         delayTime: 0
         spawnData: []
         enemiesToActivate:
         - enemy: {fileID: 6049232873337235529}
-          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+          spawnFromGround: 0
         - enemy: {fileID: 3934156874993812859}
-          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+          spawnFromGround: 0
         - enemy: {fileID: 2498609900620014356}
-          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+          spawnFromGround: 0
       - type: 3
         delayTime: 0
         spawnData: []
@@ -315,24 +317,27 @@ MonoBehaviour:
   - type: 0
     playableDirector: {fileID: 2711500963105868941}
     encounter:
+      cards: 
       steps: []
       enemies: []
   - type: 1
     playableDirector: {fileID: 0}
     encounter:
+      cards: 
       steps:
       - type: 1
         delayTime: 0
         spawnData:
-        - spawnPoint: {fileID: 0}
-          enemyConfig: {fileID: 0}
+        - enemyConfig: {fileID: 0}
+          spawnPoint: {fileID: 0}
+          spawnFromGround: 0
         enemiesToActivate:
         - enemy: {fileID: 2187246455174666644}
-          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+          spawnFromGround: 0
         - enemy: {fileID: 4820562351924437112}
-          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+          spawnFromGround: 0
         - enemy: {fileID: 9068161421665467270}
-          config: {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}
+          spawnFromGround: 0
       enemies: []
 --- !u!1001 &751407410531342690
 PrefabInstance:

@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8413920488183056382, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
       propertyPath: m_Name
-      value: SpellBase Variant
+      value: Duplicate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

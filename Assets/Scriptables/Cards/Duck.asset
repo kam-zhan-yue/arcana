@@ -16,3 +16,4 @@ MonoBehaviour:
   damage: 0
   type: 0
   oneTimeUse: 1
+  duckPrefab: {fileID: 480688665289677273, guid: 48cc6192444904f06aca7cdef404bbe0, type: 3}
