@@ -20,7 +20,7 @@ public class ActivationZone : MonoBehaviour
 
     private void Start()
     {
-        _uiSettings = ServiceLocator.Instance.Get<IGameManager>().GetGameDatabase().uiSettings;
+        _uiSettings = ServiceLocator.Instance.Get<IGameManager>().GetGame().Database.uiSettings;
     }
 
     private void Update()

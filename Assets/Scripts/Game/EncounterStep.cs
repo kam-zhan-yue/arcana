@@ -81,9 +81,7 @@ public struct EncounterStep
 
     private EnemyDatabase GetEnemyDatabase()
     {
-        GameDatabase gameDatabase = ServiceLocator.Instance.Get<IGameManager>().GetGameDatabase();
-        EnemyDatabase enemyDatabase = gameDatabase.enemyDatabase;
-        return enemyDatabase;
+        return ServiceLocator.Instance.Get<IGameManager>().GetGame().Database.enemyDatabase;
     }
     
     [ShowIf("type", EncounterStepType.Spawn)]

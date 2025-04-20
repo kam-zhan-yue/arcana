@@ -10,4 +10,5 @@ public class GameDatabase : ScriptableObject
     public CardDatabase cardDatabase;
 
     [InlineEditor] public UISettings uiSettings;
+    [InlineEditor] public GameSettings settings;
 }

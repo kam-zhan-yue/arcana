@@ -19,10 +19,14 @@ public class Game
     public List<Enemy> Enemies => _enemies;
     public List<CardType> CardHistory => _cardHistory;
     public Action<CardType> OnCardAdded;
+    private GameDatabase _database;
+    public GameDatabase Database => _database;
 
-    public Game(Player player)
+    public Game(Player player, GameDatabase database)
     {
         _player = player;
+        _database = database;
+        _player.Init(this);
     }
 
     public void UseCard(CardType cardType)
@@ -43,5 +47,10 @@ public class Game
     public void RemoveActiveEnemy(Enemy enemy)
     {
         _enemies.Remove(enemy);
+    }
+
+    public void EndGame()
+    {
+        
     }
 }

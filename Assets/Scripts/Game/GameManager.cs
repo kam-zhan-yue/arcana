@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour, IGameManager
     private void Awake()
     {
         ServiceLocator.Instance.Register<IGameManager>(this);
-        Player  player = FindAnyObjectByType<Player>();
-        _game = new Game(player);
+        Player player = FindAnyObjectByType<Player>();
+        _game = new Game(player, gameDatabase);
     }
     
     public GameDatabase GetGameDatabase()
