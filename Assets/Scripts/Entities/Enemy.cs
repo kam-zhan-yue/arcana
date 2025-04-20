@@ -144,30 +144,15 @@ public abstract class Enemy : MonoBehaviour
             animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
         }
         
-        
         switch (_movementState)
         {
             case MovementStatus.None:
                 if (CanMove())
-                {
-                    Move();
-                    if (DistanceToPlayer() <= attackRange)
-                    {
-                        ResetVelocity();
-                        _movementState = MovementStatus.Attacking;
-                    }
-                }
+                    MoveUpdate();
                 break;
             case MovementStatus.Attacking:
                 if (CanMove())
-                {
-                    _attackTimer += Time.deltaTime;
-                    if (_attackTimer >= timeBetweenAttacks)
-                    {
-                        _attackTimer = 0f;
-                        Attack();
-                    }
-                }
+                    AttackUpdate();
                 break;
             case MovementStatus.Knockback:
                 _knockbackTimer -= Time.deltaTime;
@@ -177,6 +162,26 @@ public abstract class Enemy : MonoBehaviour
                     _movementState = MovementStatus.None;
                 }
                 break;
+        }
+    }
+
+    protected virtual void MoveUpdate()
+    {
+        Move();
+        if (DistanceToPlayer() <= attackRange)
+        {
+            ResetVelocity();
+            _movementState = MovementStatus.Attacking;
+        }
+    }
+
+    protected virtual void AttackUpdate()
+    {
+        _attackTimer += Time.deltaTime;
+        if (_attackTimer >= timeBetweenAttacks)
+        {
+            _attackTimer = 0f;
+            Attack();
         }
     }
 
