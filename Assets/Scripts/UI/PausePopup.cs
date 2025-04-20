@@ -1,13 +1,19 @@
 using Kuroneko.UIDelivery;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class PausePopup : Popup
 {
-    private bool _paused;
+    private Game _game;
     
     protected override void InitPopup()
     {
-        
+        HidePopup();
+    }
+    
+    private void Start()
+    {
+        _game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
     }
 
     private void Update()
@@ -20,11 +26,15 @@ public class PausePopup : Popup
 
     private void TogglePause()
     {
-        _paused = !_paused;
-        Time.timeScale = _paused ? 0f : 1f;
-        if (_paused)
-            ShowPopup();
-        else
+        if (isShowing && _game.IsPaused)
+        {
             HidePopup();
+            _game.Unpause();
+        }
+        else if (_game.CanPause && !_game.IsPaused)
+        {
+            ShowPopup();
+            _game.Pause();
+        }
     }
 }

@@ -1,6 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEngine;
+
+public enum GameState
+{
+    Playing,
+    Paused,
+    Over,
+}
 
 [Serializable]
 public class Game
@@ -22,6 +30,11 @@ public class Game
     public GameDatabase Database => _database;
     public Action<CardType> OnCardAdded;
     public Action OnEndGame;
+
+    private GameState _state = GameState.Playing;
+
+    public bool CanPause => _state == GameState.Playing;
+    public bool IsPaused => _state == GameState.Paused;
 
     public Game(Player player, GameDatabase database)
     {
@@ -52,6 +65,19 @@ public class Game
 
     public void EndGame()
     {
+        _state = GameState.Over;
         OnEndGame?.Invoke();
+    }
+
+    public void Pause()
+    {
+        _state = GameState.Paused;
+        Time.timeScale = 0f;
+    }
+
+    public void Unpause()
+    {
+        _state = GameState.Playing;
+        Time.timeScale = 1f;
     }
 }
