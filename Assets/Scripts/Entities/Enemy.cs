@@ -152,7 +152,10 @@ public abstract class Enemy : MonoBehaviour
                 {
                     Move();
                     if (DistanceToPlayer() <= attackRange)
+                    {
+                        ResetVelocity();
                         _movementState = MovementStatus.Attacking;
+                    }
                 }
                 break;
             case MovementStatus.Attacking:
@@ -170,12 +173,17 @@ public abstract class Enemy : MonoBehaviour
                 _knockbackTimer -= Time.deltaTime;
                 if (_knockbackTimer <= 0f)
                 {
-                    rb.linearVelocity = Vector3.zero;
-                    rb.angularVelocity = Vector3.zero;
+                    ResetVelocity();
                     _movementState = MovementStatus.None;
                 }
                 break;
         }
+    }
+
+    private void ResetVelocity()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     private bool CanMove()
@@ -192,8 +200,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void Knockback(Vector3 knockbackForce, float knockbackTime)
     {
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        ResetVelocity();
         _movementState = MovementStatus.Knockback;
         rb.AddForce(knockbackForce, ForceMode.Impulse);
         _knockbackTimer = knockbackTime;
