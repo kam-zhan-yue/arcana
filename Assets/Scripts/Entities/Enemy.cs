@@ -89,6 +89,14 @@ public abstract class Enemy : MonoBehaviour
 
     public void Init(EnemyData data)
     {
+        foreach (Renderer rend in _renderers)
+        {
+            List<Material> materials = new List<Material>();
+            rend.GetMaterials(materials);
+            materials.Add(data.outlineShader);
+            materials.Add(data.pulseShader);
+            rend.SetMaterials(materials);
+        }
         if (data.spawnFromGround)
         {
             SpawnFromGround(data).Forget();
@@ -116,14 +124,6 @@ public abstract class Enemy : MonoBehaviour
         timeBetweenAttacks = data.config.timeBetweenAttacks;
         _maxHealth = data.config.maxHealth;
         _health = _maxHealth;
-        foreach (Renderer rend in _renderers)
-        {
-            List<Material> materials = new List<Material>();
-            rend.GetMaterials(materials);
-            materials.Add(data.outlineShader);
-            materials.Add(data.pulseShader);
-            rend.SetMaterials(materials);
-        }
         FacePlayer();
         _inited = true;
     }
@@ -140,6 +140,7 @@ public abstract class Enemy : MonoBehaviour
         }
         else
         {
+            animator.speed = 1f;
             animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
         }
         
