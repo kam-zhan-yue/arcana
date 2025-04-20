@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public abstract class Spell : MonoBehaviour
@@ -108,7 +109,15 @@ public abstract class Spell : MonoBehaviour
         if (_oneTimeUse)
         {
             Debug.Log("Use up card");
+            cardPopup.RemoveCard(_cardPopupItem);
+            RemoveAsync().Forget();
         }
+    }
+
+    private async UniTask RemoveAsync()
+    {
+        await UniTask.WaitForSeconds(0.5f);
+        Destroy(gameObject);
     }
 
     private void OnPointerEnter(CardPopupItem cardPopupItem)

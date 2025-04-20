@@ -25,4 +25,9 @@ public class CardPopup : Popup
     {
         cardPanelPopup.DisableActivationZone();
     }
+
+    public void RemoveCard(CardPopupItem cardPopupItem)
+    {
+        cardContainer.RemoveCard(cardPopupItem);
+    }
 }

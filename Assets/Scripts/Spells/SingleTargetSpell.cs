@@ -13,7 +13,7 @@ public abstract class SingleTargetSpell : Spell
     protected override List<Enemy> GetTargets()
     {
         Enemy currentTarget = GetCurrentTarget();
-        if (currentTarget && CanAffect(currentTarget))
+        if (currentTarget && currentTarget.IsVulnerable && CanAffect(currentTarget))
             return new List<Enemy> { currentTarget };
         return new();
     }

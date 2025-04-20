@@ -52,9 +52,10 @@ public class CardContainer : MonoBehaviour
         _cards.Add(cardPopupItem);
     }
 
-    private void RemoveCard()
+    public void RemoveCard(CardPopupItem cardPopupItem)
     {
-        
+        _cards.Remove(cardPopupItem);
+        Destroy(cardPopupItem.transform.parent.gameObject);
     }
 
 
