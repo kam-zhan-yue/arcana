@@ -12,6 +12,7 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
     private float _knockbackForce;
     private float _knockbackTime; 
     private Projectile _fireballPrefab;
+    private ParticleSystem _explosionEffect;
 
     protected override void InitConfig(SpellConfig config)
     {
@@ -26,6 +27,7 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
         _knockbackForce = fireballConfig.knockbackForce;
         _knockbackTime = fireballConfig.knockbackTime;
         _fireballPrefab = fireballConfig.projectilePrefab;
+        _explosionEffect = fireballConfig.explosionEffect;
     }
 
     protected override bool CanAffect(Enemy enemy)
@@ -61,6 +63,11 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
         enemy.ApplyStatus(burn);
         enemy.Damage(fireballDamage);
         
+        // Spawn the explosion effect
+        ParticleSystem explosion = Instantiate(_explosionEffect);
+        explosion.transform.position = enemy.GetCenter();
+        explosion.Play(true);
+
         // Destroy the fireball projectile
         Destroy(projectile.gameObject);
     }

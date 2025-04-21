@@ -23,3 +23,4 @@ MonoBehaviour:
   knockbackForce: 2
   knockbackTime: 0.2
   projectilePrefab: {fileID: 667547049008858918, guid: a0edc385dc4a4437abffddb4fcde740d, type: 3}
+  explosionEffect: {fileID: 2326268496209449129, guid: d6bf104c06021495497512633acd9a67, type: 3}
