@@ -13,4 +13,5 @@ public class SnowballSpellConfig : SpellConfig
     public float knockbackForce = 20f;
     public float knockbackTime = 0.2f;
     public Projectile projectilePrefab;
+    public ParticleSystem explosionEffect;
 }

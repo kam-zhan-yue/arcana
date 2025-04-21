@@ -18,6 +18,7 @@ MonoBehaviour:
   oneTimeUse: 1
   freezeTime: 3
   launchSpeed: 5
-  knockbackForce: 20
+  knockbackForce: 0.2
   knockbackTime: 0.2
   projectilePrefab: {fileID: 667547049008858918, guid: 49f788fdca3224af7928b97e95bb1d92, type: 3}
+  explosionEffect: {fileID: 2804385802139376695, guid: adcc37df6412c4b2290a6cd4cf272751, type: 3}
