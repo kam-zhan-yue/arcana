@@ -33,6 +33,14 @@ public class StatusSetting
     public Vector3 offset;
 }
 
+[Serializable]
+public class TypeSetting
+{
+    public DamageType type;
+    [ColorUsage(true, true)]
+    public Color flashColour;
+}
+
 [CreateAssetMenu(menuName = "ScriptableObjects/Game Settings", fileName = "Game Settings")]
 public class GameSettings : ScriptableObject
 {
@@ -40,10 +48,16 @@ public class GameSettings : ScriptableObject
     
     [TableList] public LevelSettings[] levels = Array.Empty<LevelSettings>();
 
+    [TableList]
     public List<StatusSetting> statusParticles = new();
+
+    [TableList]
+    public List<TypeSetting> typeSettings = new();
     
     [Header("Pulse")] public float pulseTime = 1f;
     public AnimationCurve pulseCurve;
+    [ColorUsage(true, true)] public Color frozenColour;
+    public float frozenAlpha;
     
     public int GetNextScene()
     {
@@ -84,6 +98,17 @@ public class GameSettings : ScriptableObject
         }
 
         throw new KeyNotFoundException($"Could not find particles for {status}");
+    }
+
+    public TypeSetting GetSettingByType(DamageType type)
+    {
+        foreach (TypeSetting typeSetting in typeSettings)
+        {
+            if (typeSetting.type == type)
+                return typeSetting;
+        }
+
+        return null;
     }
 
     [Button]

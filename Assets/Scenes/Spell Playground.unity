@@ -168,12 +168,12 @@ MonoBehaviour:
   - type: 1
     playableDirector: {fileID: 0}
     encounter:
-      cards: 0200000000000000
+      cards: 020000000000000005000000
       steps:
       - type: 0
         delayTime: 0
         spawnData:
-        - enemyConfig: {fileID: 11400000, guid: 19bc755abaa2b428d801ba4a5e59902a, type: 2}
+        - enemyConfig: {fileID: 11400000, guid: a3d28671afab14f85b83a1a00302ea30, type: 2}
           spawnPoint: {fileID: 703587500}
           spawnFromGround: 0
         enemiesToActivate: []

@@ -73,6 +73,13 @@ public abstract class Enemy : MonoBehaviour
     private float _startupTime = 0f;
     private static readonly int IsFrozen = Shader.PropertyToID("_IsFrozen");
 
+    private float _pulseTimer = 0f;
+    private float _pulseTime = 0f;
+    private Color _pulseColour;
+    private Color _frozenColour;
+    private float _frozenAlpha;
+    private AnimationCurve _pulseCurve;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -114,10 +121,14 @@ public abstract class Enemy : MonoBehaviour
             rend.GetMaterials(materials);
             materials.Add(data.outlineShader);
             materials.Add(data.pulseShader);
-            materials.Add(data.frozenShader);
             rend.SetMaterials(materials);
         }
         FacePlayer();
+        GameSettings gameSettings = ServiceLocator.Instance.Get<IGameManager>().GetGame().Database.settings;
+        _frozenColour = gameSettings.frozenColour;
+        _frozenAlpha = gameSettings.frozenAlpha;
+        _pulseCurve = gameSettings.pulseCurve;
+        
         if (data.spawnFromGround)
         {
             SpawnFromGround(data).Forget();
@@ -150,6 +161,7 @@ public abstract class Enemy : MonoBehaviour
         _startupTimer = 0f;
         _startup = true;
         _inited = true;
+        DisablePulse();
     }
 
     private void Update()
@@ -158,16 +170,15 @@ public abstract class Enemy : MonoBehaviour
             return;
         
         UpdateStatus();
+        UpdatePulse();
         if (!IsDead && Status == Status.Frozen)
         {
             animator.speed = 0f;
-            SetFrozen(true);
         }
         else
         {
             animator.speed = 1f;
             animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
-            SetFrozen(false);
         }
 
         if (_startup)
@@ -279,6 +290,16 @@ public abstract class Enemy : MonoBehaviour
         if (IsDead) return;
         _health -= damage.Amount;
         OnDamage?.Invoke(damage);
+        
+        GameSettings settings = ServiceLocator.Instance.Get<IGameManager>().GetGame().Database.settings;
+        TypeSetting typeSetting = settings.GetSettingByType(damage.Type);
+        if (typeSetting != null)
+        {
+            _pulseTimer = 0f;
+            _pulseTime = settings.pulseTime;
+            _pulseColour = typeSetting.flashColour;
+        }
+        
         if (IsDead)
         {
             Die();
@@ -306,6 +327,7 @@ public abstract class Enemy : MonoBehaviour
         if (_statusEffect != null)
             _statusEffect.Complete(this);
         DisableOutline();
+        DisablePulse();
         ResetVelocity();
         animator.SetTrigger(Dead);
         OnRelease?.Invoke(this);
@@ -331,7 +353,28 @@ public abstract class Enemy : MonoBehaviour
             if (_statusEffect.completed)
             {
                 SetStatus(Status.None);
+                _statusEffect = null;
             }
+
+        }
+    }
+
+    private void UpdatePulse()
+    {
+        if (_pulseTimer <= _pulseTime)
+        {
+            _pulseTimer += Time.deltaTime;
+            float value = Mathf.Clamp01(_pulseTimer / _pulseTime);
+            float pulseAmount = _pulseCurve.Evaluate(value);
+            SetPulseMaterial(_pulseColour, pulseAmount);
+        }
+        else if (_statusEffect != null && _statusEffect.status == Status.Frozen)
+        {
+            SetPulseMaterial(_frozenColour, _frozenAlpha);
+        }
+        else
+        {
+            DisablePulse();
         }
     }
     
@@ -340,6 +383,8 @@ public abstract class Enemy : MonoBehaviour
         bool applied = statusEffect.Apply(this);
         if (applied)
         {
+
+            _pulseTimer = 0;
             // Complete the previous status effect if it was set
             _statusEffect?.Complete(this);
             _statusEffect = statusEffect;
@@ -371,23 +416,17 @@ public abstract class Enemy : MonoBehaviour
         SetOutline(Color.clear, 0f);
     }
 
-    public void SetPulse(Color colour, float amount)
+    private void SetPulseMaterial(Color colour, float amount)
     {
         _pulsePropertyBlock.SetColor(PulseColour, colour);
         _pulsePropertyBlock.SetFloat(PulseAmount, amount);
         foreach (Renderer rend in _renderers)
             rend.SetPropertyBlock(_pulsePropertyBlock, PULSE_MATERIAL_INDEX);
-    }
-
-    public void SetFrozen(bool frozen)
-    {
-        _frozenPropertyBlock.SetInt(IsFrozen, frozen ? 1: 0);
-        foreach (Renderer rend in _renderers)
-            rend.SetPropertyBlock(_frozenPropertyBlock, FROZEN_MATERIAL_INDEX);
+        Debug.Log($"Pulse Material is {colour}, {amount}");
     }
 
     public void DisablePulse()
     {
-        SetPulse(Color.clear, 0f);
+        SetPulseMaterial(Color.clear, 0f);
     }
 }

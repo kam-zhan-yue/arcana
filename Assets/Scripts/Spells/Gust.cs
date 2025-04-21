@@ -34,6 +34,10 @@ public class Gust : Spell
             effect.Refresh();
             Debug.Log($"Applying {effect} to {enemy}");
             enemy.ApplyStatus(effect);
+            
+            // Deal 0 damage to apply the pulse effect
+            Damage spellDamage = new Damage(0f, Map[effect.status], DamageEffect.None);
+            enemy.Damage(spellDamage);
         }
     }
 

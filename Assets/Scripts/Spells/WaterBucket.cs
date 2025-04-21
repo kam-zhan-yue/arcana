@@ -43,6 +43,9 @@ public class WaterBucket : SingleTargetSpell, IProjectileSpell
     {
         Drench drench = new(Status.Wet, _wetTime);
         enemy.ApplyStatus(drench);
+
+        Damage spellDamage = new Damage(damage, DamageType.Water, DamageEffect.None);
+        enemy.Damage(spellDamage);
         
         // Spawn the explosion effect
         ParticleSystem explosion = Instantiate(_splashEffect);

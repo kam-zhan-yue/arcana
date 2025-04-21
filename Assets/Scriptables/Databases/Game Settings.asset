@@ -30,9 +30,18 @@ MonoBehaviour:
     particles: {fileID: 1044454610364367861, guid: b44d292e0674748c8b45bfb9be96c596, type: 3}
     offset: {x: 0, y: 0, z: 0}
   - status: 3
-    flashColour: {r: 0, g: 0.20091225, b: 1.754717, a: 1}
+    flashColour: {r: 0, g: 0.40182447, b: 3.5094337, a: 1}
     particles: {fileID: 5383312251164084560, guid: 79579d670db9f4b3a91d82e2711f62a5, type: 3}
     offset: {x: 0, y: 2, z: 0}
+  typeSettings:
+  - type: 1
+    flashColour: {r: 1.3396226, g: 0, b: 0, a: 1}
+  - type: 2
+    flashColour: {r: 1.6603774, g: 1.4780614, b: 0, a: 1}
+  - type: 3
+    flashColour: {r: 1.254717, g: 2, b: 1.7581168, a: 1}
+  - type: 4
+    flashColour: {r: 0, g: 1.0627146, b: 3.471698, a: 1}
   pulseTime: 0.2
   pulseCurve:
     serializedVersion: 2
@@ -47,8 +56,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.18746161
-      value: 0.65422213
+      time: 0.15917182
+      value: 0.20466769
       inSlope: 2.979243
       outSlope: 2.979243
       tangentMode: 0
@@ -57,7 +66,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.5
-      value: 1
+      value: 0.501873
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -65,8 +74,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.85723364
-      value: 0.5910369
+      time: 0.9264475
+      value: 0.14616692
       inSlope: -2.9987845
       outSlope: -2.9987845
       tangentMode: 0
@@ -85,3 +94,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  frozenColour: {r: 0, g: 1.2138864, b: 1.2264152, a: 1}
+  frozenAlpha: 0.5
