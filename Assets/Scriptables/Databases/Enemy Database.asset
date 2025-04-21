@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineShader: {fileID: 2100000, guid: 14fb5d56150474ec08b24c58b67bbc04, type: 2}
   pulseShader: {fileID: 2100000, guid: 1d7b19b188389437ea325a642de40664, type: 2}
-  frozenShader: {fileID: 2100000, guid: 1d5d8882584674226945a8249afb4754, type: 2}
+  lightIntensity: 1
+  lightTweenDuration: 23
   timeToSpawn: 3.567
   configs:
   - {fileID: 11400000, guid: 1de3d033ff88742848d303e1cc13cd2e, type: 2}

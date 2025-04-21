@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
@@ -79,12 +80,18 @@ public abstract class Enemy : MonoBehaviour
     private Color _frozenColour;
     private float _frozenAlpha;
     private AnimationCurve _pulseCurve;
+    private Light _light;
+    private float _lightIntensity;
+    private float _lightTweenDuration;
+    private Tween _lightTween;
+
 
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
         _renderers = GetComponentsInChildren<Renderer>();
         animator = GetComponentInChildren<Animator>();
+        _light = GetComponentInChildren<Light>();
         _outlinePropertyBlock = new MaterialPropertyBlock();
         _pulsePropertyBlock = new MaterialPropertyBlock();
         _frozenPropertyBlock = new MaterialPropertyBlock();
@@ -124,10 +131,14 @@ public abstract class Enemy : MonoBehaviour
             rend.SetMaterials(materials);
         }
         FacePlayer();
-        GameSettings gameSettings = ServiceLocator.Instance.Get<IGameManager>().GetGame().Database.settings;
+        GameDatabase database = ServiceLocator.Instance.Get<IGameManager>().GetGame().Database;
+        GameSettings gameSettings = database.settings;
         _frozenColour = gameSettings.frozenColour;
         _frozenAlpha = gameSettings.frozenAlpha;
         _pulseCurve = gameSettings.pulseCurve;
+        _lightIntensity = database.enemyDatabase.lightIntensity;
+        _lightTweenDuration = database.enemyDatabase.lightTweenDuration;
+        EnableLight();
         
         if (data.spawnFromGround)
         {
@@ -160,8 +171,10 @@ public abstract class Enemy : MonoBehaviour
         _startupTime = data.config.startupTime;
         _startupTimer = 0f;
         _startup = true;
-        _inited = true;
+        
         DisablePulse();
+        
+        _inited = true;
     }
 
     private void Update()
@@ -328,6 +341,7 @@ public abstract class Enemy : MonoBehaviour
             _statusEffect.Complete(this);
         DisableOutline();
         DisablePulse();
+        DisableLight();
         ResetVelocity();
         animator.SetTrigger(Dead);
         OnRelease?.Invoke(this);
@@ -425,8 +439,27 @@ public abstract class Enemy : MonoBehaviour
         Debug.Log($"Pulse Material is {colour}, {amount}");
     }
 
-    public void DisablePulse()
+    public void EnableLight()
+    {
+        _lightTween?.Kill(); // Cancel any existing tween
+        _light.enabled = true;
+        _lightTween = DOTween.To(() => _light.intensity, x => _light.intensity = x, _lightIntensity, _lightTweenDuration);
+    }
+
+    public void DisableLight()
+    {
+        _lightTween?.Kill(); // Cancel any existing tween
+        _lightTween = DOTween.To(() => _light.intensity, x => _light.intensity = x, 0f, _lightTweenDuration)
+            .OnComplete(() => _light.enabled = false);
+    }
+    
+    private void DisablePulse()
     {
         SetPulseMaterial(Color.clear, 0f);
+    }
+    
+    private void OnDestroy()
+    {
+        _lightTween?.Kill();
     }
 }

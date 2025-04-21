@@ -8,7 +8,8 @@ public class EnemyDatabase : ScriptableObject
 {
     public Material outlineShader;
     public Material pulseShader;
-    public float lightIntensity;
+    public float lightIntensity = 1f;
+    public float lightTweenDuration = 2f;
     public float timeToSpawn = 3f;
     [InlineEditor]
     public List<EnemyConfig> configs = new();
