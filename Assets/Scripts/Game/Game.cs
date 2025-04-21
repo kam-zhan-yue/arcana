@@ -36,6 +36,8 @@ public class Game
     public bool CanPause => _state == GameState.Playing;
     public bool IsPaused => _state == GameState.Paused;
     private GameFlow _flow;
+    public GameFlow Flow => _flow;
+    public Action OnMainMenu;
 
     public Game(Player player, GameFlow flow, GameDatabase database)
     {
@@ -86,5 +88,10 @@ public class Game
     {
         _state = GameState.Playing;
         Time.timeScale = 1f;
+    }
+
+    public void ShowMainMenu()
+    {
+        OnMainMenu?.Invoke();
     }
 }

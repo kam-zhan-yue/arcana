@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kuroneko.UtilityDelivery;
 using Sirenix.OdinInspector;
@@ -12,7 +13,7 @@ public class Encounter
     [InlineProperty, SerializeField] private List<EncounterStep> steps = new();
     [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
 
-    public async UniTask Play()
+    public async UniTask Play(CancellationToken token)
     {
         Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
         for (int i = 0; i < cards.Length; ++i)
@@ -21,7 +22,7 @@ public class Encounter
         }
         for (int i = 0; i < steps.Count; ++i)
         {
-            await steps[i].Play(this);
+            await steps[i].Play(this, token);
         }
     }
     

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kuroneko.UtilityDelivery;
 using Sirenix.OdinInspector;using UnityEngine;
@@ -43,13 +44,13 @@ public struct EncounterStep
     [ShowIf("type", EncounterStepType.Activate), TableList] [SerializeField]
     public List<EnemyActivateData> enemiesToActivate;
     
-    public async UniTask Play(Encounter encounter)
+    public async UniTask Play(Encounter encounter, CancellationToken token)
     {
         await UniTask.NextFrame();
         switch (type)
         {
             case EncounterStepType.Delay:
-                await UniTask.WaitForSeconds(delayTime);
+                await UniTask.WaitForSeconds(delayTime, cancellationToken: token);
                 break;
             case EncounterStepType.Activate:
                 Debug.Log("Activating");
@@ -74,7 +75,7 @@ public struct EncounterStep
                 }
                 break;
             case EncounterStepType.Wait:
-                await UniTask.WaitUntil(() => encounter.enemies.Count == 0);
+                await UniTask.WaitUntil(() => encounter.enemies.Count == 0, cancellationToken: token);
                 break;
         }
     }

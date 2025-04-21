@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -18,10 +19,12 @@ public class GameFlow : MonoBehaviour
     
     [SerializeField] private List<GameStep> steps = new();
 
+    public int StartStep => startStep;
+
     public void PlayFlow()
     {
         Resolve();
-        PlayFlowAsync().Forget();
+        PlayFlowAsync(this.GetCancellationTokenOnDestroy()).Forget();
     }
 
     private void Resolve()
@@ -38,12 +41,12 @@ public class GameFlow : MonoBehaviour
         }
     }
 
-    private async UniTask PlayFlowAsync()
+    private async UniTask PlayFlowAsync(CancellationToken token)
     {
         for (int i = startStep; i < steps.Count; ++i)
         {
             _currentStep = i;
-            await steps[i].Play();
+            await steps[i].Play(token);
             Debug.Log("Next Step!");
         }
     }

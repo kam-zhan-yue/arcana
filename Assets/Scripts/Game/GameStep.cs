@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kuroneko.UtilityDelivery;
 using Sirenix.OdinInspector;
@@ -28,18 +29,18 @@ public class GameStep
     [SerializeField] private Encounter encounter;
 
     public string GroupTitle => type.ToString();
-    public async UniTask Play()
+    public async UniTask Play(CancellationToken token)
     {
         switch (type)
         {
             case GameStepType.Level:
                 Debug.Log("Playing Playable Director");
                 playableDirector.Play();
-                await UniTask.WaitUntil(() => playableDirector.state != PlayState.Playing);
+                await UniTask.WaitUntil(() => playableDirector.state != PlayState.Playing, cancellationToken: token);
                 break;
             case GameStepType.Encounter:
                 Debug.Log("Playing Encounter");
-                await encounter.Play();
+                await encounter.Play(token);
                 break;
             case GameStepType.End:
                 Debug.Log("End Level");

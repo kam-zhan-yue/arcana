@@ -436,7 +436,6 @@ public abstract class Enemy : MonoBehaviour
         _pulsePropertyBlock.SetFloat(PulseAmount, amount);
         foreach (Renderer rend in _renderers)
             rend.SetPropertyBlock(_pulsePropertyBlock, PULSE_MATERIAL_INDEX);
-        Debug.Log($"Pulse Material is {colour}, {amount}");
     }
 
     public void EnableLight()
