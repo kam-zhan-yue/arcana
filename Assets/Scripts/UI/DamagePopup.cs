@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kuroneko.UIDelivery;
 using Sirenix.OdinInspector;
@@ -33,9 +34,10 @@ public class DamagePopup : Popup
 
     private async UniTask AddDamageAsync(Damage damage)
     {
+        CancellationToken cancellationToken = this.GetCancellationTokenOnDestroy();
         DamagePopupItem popupItem = Instantiate(sampleDamagePopupItem, damageHolder);
         popupItem.Init(damage);
-        await UniTask.WaitForSeconds(2f);
+        await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: cancellationToken);
         Destroy(popupItem.gameObject);
     }
 }

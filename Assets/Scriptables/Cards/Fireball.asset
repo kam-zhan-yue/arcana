@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 1
   oneTimeUse: 1
   burnTime: 5
-  burnDamage: 10
+  burnDamage: 5
   burnTick: 1
   launchSpeed: 5
   knockbackForce: 2

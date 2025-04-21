@@ -18,7 +18,13 @@ public class GameFlow : MonoBehaviour
     
     [SerializeField] private List<GameStep> steps = new();
 
-    private void Awake()
+    public void PlayFlow()
+    {
+        Resolve();
+        PlayFlowAsync().Forget();
+    }
+
+    private void Resolve()
     {
         if (startStep > steps.Count)
         {
@@ -32,12 +38,7 @@ public class GameFlow : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        PlayFlow().Forget();
-    }
-
-    private async UniTask PlayFlow()
+    private async UniTask PlayFlowAsync()
     {
         for (int i = startStep; i < steps.Count; ++i)
         {

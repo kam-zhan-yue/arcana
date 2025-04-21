@@ -2,7 +2,6 @@ using System;
 using Kuroneko.UIDelivery;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameOverPopup : Popup
 {
@@ -36,7 +35,6 @@ public class GameOverPopup : Popup
     private void RestartButtonClicked()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnDestroy()

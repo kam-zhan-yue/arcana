@@ -35,12 +35,19 @@ public class Game
 
     public bool CanPause => _state == GameState.Playing;
     public bool IsPaused => _state == GameState.Paused;
+    private GameFlow _flow;
 
-    public Game(Player player, GameDatabase database)
+    public Game(Player player, GameFlow flow, GameDatabase database)
     {
         _player = player;
+        _flow = flow;
         _database = database;
         _player.Init(this);
+    }
+
+    public void Start()
+    {
+        _flow.PlayFlow();
     }
 
     public void UseCard(CardType cardType)

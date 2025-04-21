@@ -18,15 +18,16 @@ public enum GameStepType
 [Serializable]
 public class GameStep
 {
-    [HideLabel]
+    [FoldoutGroup("$GroupTitle"), HideLabel]
     public GameStepType type;
-    
-    [HideLabel, ShowIf("type", GameStepType.Level)]
+
+    [FoldoutGroup("$GroupTitle"), HideLabel, ShowIf("type", GameStepType.Level)]
     [SerializeField] private PlayableDirector playableDirector;
 
-    [HideLabel, ShowIf("type", GameStepType.Encounter)]
+    [FoldoutGroup("$GroupTitle"), HideLabel, ShowIf("type", GameStepType.Encounter)]
     [SerializeField] private Encounter encounter;
 
+    public string GroupTitle => type.ToString();
     public async UniTask Play()
     {
         switch (type)

@@ -15,12 +15,13 @@ public class GameManager : MonoBehaviour, IGameManager
     {
         ServiceLocator.Instance.Register<IGameManager>(this);
         Player player = FindAnyObjectByType<Player>();
-        _game = new Game(player, gameDatabase);
+        GameFlow flow = FindAnyObjectByType<GameFlow>();
+        _game = new Game(player, flow, gameDatabase);
     }
-    
-    public GameDatabase GetGameDatabase()
+
+    private void Start()
     {
-        return gameDatabase;
+        _game.Start();
     }
     
     public Game GetGame()
