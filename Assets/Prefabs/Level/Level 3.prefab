@@ -597,7 +597,7 @@ MonoBehaviour:
   - type: 1
     playableDirector: {fileID: 0}
     encounter:
-      cards: 0200000006000000
+      cards: 020000000400000006000000
       steps:
       - type: 0
         delayTime: 0
@@ -3802,7 +3802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7680835525085268311, guid: c41d01bebf7764a479199f37d7207bdd, type: 3}
       propertyPath: m_Name
-      value: Level 1 Variant
+      value: Level 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
