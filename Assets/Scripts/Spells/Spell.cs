@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Kuroneko.UtilityDelivery;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Spell : MonoBehaviour
 {
@@ -20,11 +21,15 @@ public abstract class Spell : MonoBehaviour
     private bool _oneTimeUse;
     private CardType _cardType;
     private RectTransform _rect;
+    private Image _image;
+    private Color _originalColour;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
         _rect = GetComponent<RectTransform>();
+        _image = GetComponentInChildren<Image>();
+        _originalColour = _image.color;
     }
     
     public void Init(CardType cardType, SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup, UISettings uiSettings)
@@ -95,8 +100,14 @@ public abstract class Spell : MonoBehaviour
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
     {
-        if(CanApply())
+        if (CanApply())
+        {
             ApplySpell();
+        }
+        else
+        {
+            _image.color = _originalColour;
+        }
         OnStopInteracting();
     }
 
@@ -149,7 +160,9 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void OnStartDragging()
     {
-        
+        Color baseColour = _image.color;
+        baseColour.a = settings.dragAlpha;
+        _image.color = baseColour;
     }
 
     protected virtual void OnStartInteracting()
