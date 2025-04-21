@@ -4,4 +4,8 @@ using UnityEngine;
 public class WaterBucketSpellConfig : SpellConfig
 {
     public float wetTime = 5f;
+    public Projectile projectile;
+    public ParticleSystem splashEffect;
+    public float knockbackForce;
+    public float launchSpeed;
 }

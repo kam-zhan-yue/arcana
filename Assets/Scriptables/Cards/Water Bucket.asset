@@ -17,3 +17,7 @@ MonoBehaviour:
   type: 4
   oneTimeUse: 1
   wetTime: 20
+  projectile: {fileID: 667547049008858918, guid: 8016ea271c3624671989f086c249ac36, type: 3}
+  splashEffect: {fileID: 2326268496209449129, guid: 2ce53f5937e884e39b36193233993743, type: 3}
+  knockbackForce: 0.1
+  launchSpeed: 3

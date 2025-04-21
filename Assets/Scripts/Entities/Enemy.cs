@@ -303,6 +303,8 @@ public abstract class Enemy : MonoBehaviour
 
     private void Die(bool immediatelyDestroy = false)
     {
+        if (_statusEffect != null)
+            _statusEffect.Complete(this);
         DisableOutline();
         ResetVelocity();
         animator.SetTrigger(Dead);

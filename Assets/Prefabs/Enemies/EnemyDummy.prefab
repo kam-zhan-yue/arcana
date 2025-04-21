@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e30f0f55f1cd493c8ff50688d299771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 1.5
+  height: 1.3
 --- !u!4 &8511467965585868357 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8513478873763655641, guid: 841c5b2ed1d5b4a92b022147b8e66067, type: 3}

@@ -10,7 +10,6 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
     private float _burnTick;
     private float _launchSpeed;
     private float _knockbackForce;
-    private float _knockbackTime; 
     private Projectile _fireballPrefab;
     private ParticleSystem _explosionEffect;
 
@@ -25,7 +24,6 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
         _burnTick = fireballConfig.burnTick;
         _launchSpeed = fireballConfig.launchSpeed;
         _knockbackForce = fireballConfig.knockbackForce;
-        _knockbackTime = fireballConfig.knockbackTime;
         _fireballPrefab = fireballConfig.projectilePrefab;
         _explosionEffect = fireballConfig.explosionEffect;
     }

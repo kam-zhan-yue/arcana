@@ -14,7 +14,7 @@ public class CardContainer : MonoBehaviour
     private readonly List<CardPopupItem> _cards = new List<CardPopupItem>();
     private CardPopupItem _selectedCardPopupItem = null;
 
-    private void Start()
+    private void Awake()
     {
         Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
         game.OnCardAdded += AddCard;

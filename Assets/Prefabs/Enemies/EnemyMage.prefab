@@ -777,6 +777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a21f90a24d21468a8e4fa3da31e5513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 0.5
+  height: 1.3
   staff: {fileID: 59798394673039473}
   launchPoint: {fileID: 2534998218936804019}
