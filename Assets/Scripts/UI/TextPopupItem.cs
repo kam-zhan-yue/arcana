@@ -27,7 +27,7 @@ public class TextPopupItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ServiceLocator.Instance.Get<IAudioService>().Play("Sw");
+        // ServiceLocator.Instance.Get<IAudioService>().Play("Sw");
         _text.color = hoverColour;
     }
 

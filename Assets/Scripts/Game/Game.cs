@@ -38,6 +38,7 @@ public class Game
     private GameFlow _flow;
     public GameFlow Flow => _flow;
     public Action OnMainMenu;
+    public Action OnGameStart;
 
     public Game(Player player, GameFlow flow, GameDatabase database)
     {
@@ -50,6 +51,7 @@ public class Game
     public void Start()
     {
         _flow.PlayFlow();
+        OnGameStart?.Invoke();
     }
 
     public void UseCard(CardType cardType)

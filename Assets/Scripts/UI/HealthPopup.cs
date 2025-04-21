@@ -12,9 +12,13 @@ public class HealthPopup : Popup
 
     private List<Image> _items = new();
     private Player _player;
+    private Game _game;
     
     protected override void InitPopup()
     {
+        HidePopup();
+        _game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
+        _game.OnGameStart += ShowPopup;
     }
 
     private void Start()
@@ -42,5 +46,6 @@ public class HealthPopup : Popup
     private void OnDestroy()
     {
         _player.OnHealthChanged -= OnHealthChanged;
+        _game.OnGameStart -= ShowPopup;
     }
 }

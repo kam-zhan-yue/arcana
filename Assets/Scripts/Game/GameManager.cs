@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IGameManager
 {
@@ -21,11 +22,19 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private void Start()
     {
-        _game.Start();
+        if (_game.Flow.StartStep == 0 && _game.Database.settings.levels[0].buildIndex == SceneManager.GetActiveScene().buildIndex)
+            _game.ShowMainMenu();
+        else
+            StartGame();
     }
     
     public Game GetGame()
     {
         return _game;
+    }
+
+    public void StartGame()
+    {
+        _game.Start();
     }
 }
