@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FIreball
+  m_Name: Fireball Trail Additive
   m_Shader: {fileID: -6465566751694194690, guid: 9591e59f4a58249a6bf951b2ee69fed8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 23f4e30a8c2094ec1a22dc4d757d2c63, type: 3}
+        m_Texture: {fileID: 2800000, guid: effeedf07b3c54ba384e056cbec7a7b6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -104,7 +104,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _MainTexPower: 2
+    - _MainTexPower: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -124,9 +124,9 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Colour: {r: 3.9999998, g: 3.9999998, b: 3.9999998, a: 0.3921569}
+    - _Colour: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainTexSpeed: {r: 0, g: 0.5, b: 0, a: 0}
+    - _MainTexSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MainTexTiling: {r: 1, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
