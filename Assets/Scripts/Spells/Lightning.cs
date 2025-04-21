@@ -23,6 +23,6 @@ public class Lightning : MultiTargetSpell
 
     protected override bool CanAffect(Enemy enemy)
     {
-        return true;
+        return enemy.Status == Status.Wet;
     }
 }
