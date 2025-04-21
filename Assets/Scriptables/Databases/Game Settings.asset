@@ -20,6 +20,18 @@ MonoBehaviour:
   - active: 1
     name: Level 1
     buildIndex: 1
+  - active: 1
+    name: Level 2
+    buildIndex: 2
+  - active: 1
+    name: Level 3
+    buildIndex: 3
+  - active: 1
+    name: Level 4
+    buildIndex: 4
+  - active: 1
+    name: Level 5
+    buildIndex: 5
   statusParticles:
   - status: 1
     flashColour: {r: 0.8018868, g: 1.7039955, b: 2, a: 1}
