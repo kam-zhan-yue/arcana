@@ -16,3 +16,5 @@ MonoBehaviour:
   damage: 200
   type: 2
   oneTimeUse: 1
+  knockbackForce: 0.5
+  lightingEffect: {fileID: 1918306063340077117, guid: 5899ab216094f457cb98f75ff5565d51, type: 3}
