@@ -25,7 +25,7 @@ public struct EnemyActivateData
 public struct EnemySpawnData
 {
     public EnemyConfig enemyConfig;
-    public Transform spawnPoint;
+    public SpawnPoint spawnPoint;
     public bool spawnFromGround;
 }
 
@@ -65,7 +65,7 @@ public struct EncounterStep
             case EncounterStepType.Spawn:
                 for (int i = 0; i < spawnData.Count; ++i)
                 {
-                    Enemy enemy = Object.Instantiate(spawnData[i].enemyConfig.prefab, spawnData[i].spawnPoint);
+                    Enemy enemy = Object.Instantiate(spawnData[i].enemyConfig.prefab, spawnData[i].spawnPoint.transform);
                     EnemyDatabase enemyDatabase = GetEnemyDatabase();
                     EnemyData data = enemyDatabase.GetDataByConfig(spawnData[i].enemyConfig);
                     data.spawnFromGround = spawnData[i].spawnFromGround;

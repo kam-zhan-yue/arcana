@@ -56,7 +56,9 @@ public class Gust : Spell
             if (enemy.Status != Status.None)
             {
                 queue.Enqueue((enemy, enemy.StatusEffect));
-                targets.Add((enemy, enemy.StatusEffect));
+
+                StatusEffect clonedEffect = enemy.StatusEffect.Clone();
+                targets.Add((enemy, clonedEffect));
                 visited.Add(enemy);
             }
         }

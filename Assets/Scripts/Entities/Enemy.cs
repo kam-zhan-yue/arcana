@@ -153,7 +153,7 @@ public abstract class Enemy : MonoBehaviour
             return;
         
         UpdateStatus();
-        if (Status == Status.Frozen)
+        if (!IsDead && Status == Status.Frozen)
         {
             animator.speed = 0f;
         }
@@ -296,6 +296,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void Die(bool immediatelyDestroy = false)
     {
+        DisableOutline();
         ResetVelocity();
         animator.SetTrigger(Dead);
         OnRelease?.Invoke(this);

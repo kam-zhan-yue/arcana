@@ -8,8 +8,8 @@ using UnityEngine;
 [Serializable]
 public class Encounter
 {
-    [SerializeField] private CardType[] cards = Array.Empty<CardType>();
-    [SerializeField] private List<EncounterStep> steps = new();
+    [InlineProperty, SerializeField] private CardType[] cards = Array.Empty<CardType>();
+    [InlineProperty, SerializeField] private List<EncounterStep> steps = new();
     [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
 
     public async UniTask Play()
