@@ -39,6 +39,7 @@ public class Gust : Spell
             Damage spellDamage = new Damage(0f, Map[effect.status], DamageEffect.None);
             enemy.Damage(spellDamage);
         }
+        base.Use();
     }
 
     protected override void OnStartDragging()
