@@ -18,58 +18,7 @@ MonoBehaviour:
   rotationAmount: 0.5
   rotationSpeed: 10
   maxRotation: 50
-  outlineSize: 0.05
-  selectColour: {r: 0, g: 1.4980392, b: 0.025313742, a: 1}
-  idleColour: {r: 1.4980392, g: 0, b: 0.007843138, a: 1}
-  pulseTime: 2
-  pulseCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.30691528
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  typeSettings:
-  - type: 0
-    colour: {r: 1.0377358, g: 1.0377358, b: 1.0377358, a: 1}
-  - type: 1
-    colour: {r: 1.2830188, g: 0, b: 0, a: 1}
-  - type: 2
-    colour: {r: 0.8773585, g: 0.75223535, b: 0.26900145, a: 1}
-  - type: 3
-    colour: {r: 0.514151, g: 0.6914202, b: 1, a: 1}
-  - type: 4
-    colour: {r: 0.22427908, g: 0.83764565, b: 1.3584906, a: 0}
-  effectSettings:
-  - effect: 0
-    colour: {r: 2.8301888, g: 2.8301888, b: 2.8301888, a: 1}
-  - effect: 1
-    colour: {r: 3.4339623, g: 1.4416162, b: 1.4416162, a: 1}
-  - effect: 2
-    colour: {r: 4, g: 1.2264152, b: 3.9105613, a: 1}
+  dragAlpha: 0.4
+  outlineSize: 0.02
+  selectColour: {r: 0, g: 1.0592737, b: 0.017899519, a: 1}
+  idleColour: {r: 1.0592737, g: 0, b: 0.0055459356, a: 1}
