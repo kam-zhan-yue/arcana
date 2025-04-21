@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,12 +23,22 @@ public class LevelSettings
     }
 }
 
+[Serializable]
+public class StatusParticle
+{
+    public Status status;
+    public ParticleSystem particles;
+    public Vector3 offset;
+}
+
 [CreateAssetMenu(menuName = "ScriptableObjects/Game Settings", fileName = "Game Settings")]
 public class GameSettings : ScriptableObject
 {
     public int playerHealth;
     
-    [TableList] public LevelSettings[] levels = Array.Empty<LevelSettings>(); 
+    [TableList] public LevelSettings[] levels = Array.Empty<LevelSettings>();
+
+    public List<StatusParticle> statusParticles = new();
     
     public int GetNextScene()
     {
@@ -57,6 +68,17 @@ public class GameSettings : ScriptableObject
         }
 
         return -1;
+    }
+
+    public StatusParticle GetParticleByStatus(Status status)
+    {
+        foreach (StatusParticle statusParticle in statusParticles)
+        {
+            if (statusParticle.status == status)
+                return statusParticle;
+        }
+
+        throw new KeyNotFoundException($"Could not find particles for {status}");
     }
 
     [Button]

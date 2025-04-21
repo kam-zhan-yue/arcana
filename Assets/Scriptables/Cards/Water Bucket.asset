@@ -16,4 +16,4 @@ MonoBehaviour:
   damage: 0
   type: 4
   oneTimeUse: 1
-  wetTime: 5
+  wetTime: 20

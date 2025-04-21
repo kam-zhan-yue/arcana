@@ -20,3 +20,13 @@ MonoBehaviour:
   - active: 1
     name: Level 1
     buildIndex: 1
+  statusParticles:
+  - status: 1
+    particles: {fileID: 409317682244806374, guid: 60563062b768748d2af09974621395aa, type: 3}
+    offset: {x: 0, y: 2, z: 0}
+  - status: 2
+    particles: {fileID: 1044454610364367861, guid: b44d292e0674748c8b45bfb9be96c596, type: 3}
+    offset: {x: 0, y: 0, z: 0}
+  - status: 3
+    particles: {fileID: 5383312251164084560, guid: 79579d670db9f4b3a91d82e2711f62a5, type: 3}
+    offset: {x: 0, y: 2, z: 0}
