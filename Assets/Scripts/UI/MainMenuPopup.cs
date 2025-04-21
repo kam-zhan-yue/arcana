@@ -20,6 +20,7 @@ public class MainMenuPopup : Popup
         {
             _started = true;
             ServiceLocator.Instance.Get<IGameManager>().StartGame();
+            HidePopup();
         }
     }
     

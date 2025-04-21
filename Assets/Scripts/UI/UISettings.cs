@@ -22,4 +22,5 @@ public class UISettings : ScriptableObject
     [ColorUsage(true, true)]
     public Color selectColour;
     [ColorUsage(true, true)] public Color idleColour;
+    public float cardFadeTime = 0.2f;
 }

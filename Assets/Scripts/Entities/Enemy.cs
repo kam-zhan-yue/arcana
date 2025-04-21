@@ -438,14 +438,14 @@ public abstract class Enemy : MonoBehaviour
             rend.SetPropertyBlock(_pulsePropertyBlock, PULSE_MATERIAL_INDEX);
     }
 
-    public void EnableLight()
+    private void EnableLight()
     {
         _lightTween?.Kill(); // Cancel any existing tween
         _light.enabled = true;
         _lightTween = DOTween.To(() => _light.intensity, x => _light.intensity = x, _lightIntensity, _lightTweenDuration);
     }
 
-    public void DisableLight()
+    private void DisableLight()
     {
         _lightTween?.Kill(); // Cancel any existing tween
         _lightTween = DOTween.To(() => _light.intensity, x => _light.intensity = x, 0f, _lightTweenDuration)

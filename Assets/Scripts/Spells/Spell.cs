@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Kuroneko.UtilityDelivery;
 using TMPro;
 using UnityEngine;
@@ -143,7 +144,9 @@ public abstract class Spell : MonoBehaviour
 
     private async UniTask RemoveAsync()
     {
-        await UniTask.WaitForSeconds(0.5f);
+        // Fade out the image over 0.5 seconds
+        _image.DOFade(0f, settings.cardFadeTime);
+        await UniTask.WaitForSeconds(settings.cardFadeTime);
         Destroy(gameObject);
     }
 
