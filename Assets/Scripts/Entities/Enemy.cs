@@ -27,6 +27,7 @@ public abstract class Enemy : MonoBehaviour
     
     private const int OUTLINE_MATERIAL_INDEX = 1;
     private const int PULSE_MATERIAL_INDEX = 2;
+    private const int FROZEN_MATERIAL_INDEX = 3;
     protected float moveSpeed = 1f;
     
     // Components
@@ -44,6 +45,7 @@ public abstract class Enemy : MonoBehaviour
     private float _knockbackTimer = 0.0f;
     private MaterialPropertyBlock _outlinePropertyBlock;
     private MaterialPropertyBlock _pulsePropertyBlock;
+    private MaterialPropertyBlock _frozenPropertyBlock;
     private float _attackAnimationTime;
     private AttackState _attackState = AttackState.None;
     
@@ -69,14 +71,16 @@ public abstract class Enemy : MonoBehaviour
     private bool _startup = false;
     private float _startupTimer = 0f;
     private float _startupTime = 0f;
+    private static readonly int IsFrozen = Shader.PropertyToID("_IsFrozen");
 
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
         _renderers = GetComponentsInChildren<Renderer>();
         animator = GetComponentInChildren<Animator>();
-        _outlinePropertyBlock = new();
-        _pulsePropertyBlock = new();
+        _outlinePropertyBlock = new MaterialPropertyBlock();
+        _pulsePropertyBlock = new MaterialPropertyBlock();
+        _frozenPropertyBlock = new MaterialPropertyBlock();
     }
 
     public Vector3 GetCenter()
@@ -110,6 +114,7 @@ public abstract class Enemy : MonoBehaviour
             rend.GetMaterials(materials);
             materials.Add(data.outlineShader);
             materials.Add(data.pulseShader);
+            materials.Add(data.frozenShader);
             rend.SetMaterials(materials);
         }
         FacePlayer();
@@ -156,11 +161,13 @@ public abstract class Enemy : MonoBehaviour
         if (!IsDead && Status == Status.Frozen)
         {
             animator.speed = 0f;
+            SetFrozen(true);
         }
         else
         {
             animator.speed = 1f;
             animator.SetFloat(WalkSpeed, Rigidbody.linearVelocity.magnitude);
+            SetFrozen(false);
         }
 
         if (_startup)
@@ -368,6 +375,13 @@ public abstract class Enemy : MonoBehaviour
         _pulsePropertyBlock.SetFloat(PulseAmount, amount);
         foreach (Renderer rend in _renderers)
             rend.SetPropertyBlock(_pulsePropertyBlock, PULSE_MATERIAL_INDEX);
+    }
+
+    public void SetFrozen(bool frozen)
+    {
+        _frozenPropertyBlock.SetInt(IsFrozen, frozen ? 1: 0);
+        foreach (Renderer rend in _renderers)
+            rend.SetPropertyBlock(_frozenPropertyBlock, FROZEN_MATERIAL_INDEX);
     }
 
     public void DisablePulse()

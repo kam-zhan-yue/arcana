@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class EnemyData
 {
-    public EnemyConfig config;
-    public Material outlineShader;
-    public Material pulseShader;
+    public readonly EnemyConfig config;
+    public readonly Material outlineShader;
+    public readonly Material pulseShader;
+    public readonly Material frozenShader;
     public bool spawnFromGround;
-    public float timeToSpawn;
+    public readonly float timeToSpawn;
 
-    public EnemyData(EnemyConfig enemyConfig, Material outline, Material pulse, float spawnTime)
+    public EnemyData(EnemyConfig enemyConfig, Material outline, Material pulse, Material frozen, float spawnTime)
     {
         config = enemyConfig;
         outlineShader = outline;
         pulseShader = pulse;
+        frozenShader = frozen;
         timeToSpawn = spawnTime;
     }
 }
