@@ -89,17 +89,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7789487846723024378, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
-      propertyPath: m_Color.b
-      value: 0.4292453
-      objectReference: {fileID: 0}
-    - target: {fileID: 7789487846723024378, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
-      propertyPath: m_Color.g
-      value: 0.98030394
-      objectReference: {fileID: 0}
-    - target: {fileID: 7789487846723024378, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9b011c2635cba4b7192d665477007f58, type: 3}
     - target: {fileID: 8413920488183056382, guid: 5a15e2f8dcfc2491ab273bf4307884db, type: 3}
       propertyPath: m_Name
       value: Lightning

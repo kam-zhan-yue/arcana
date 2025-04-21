@@ -18,21 +18,18 @@ public abstract class Spell : MonoBehaviour
     private Vector3 _rotationDelta;
     private Camera _mainCamera;
     private bool _oneTimeUse;
-    private TMP_Text _nameText;
     private CardType _cardType;
     private RectTransform _rect;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
-        _nameText = GetComponentInChildren<TMP_Text>();
         _rect = GetComponent<RectTransform>();
     }
     
     public void Init(CardType cardType, SpellConfig config, CardPopupItem cardPopupItem, CardPopup popup, UISettings uiSettings)
     {
         _cardType = cardType;
-        _nameText.SetText(config.name);
         _cardPopupItem = cardPopupItem;
         _cardPopupItem.BeginDrag += OnBeginDrag;
         _cardPopupItem.EndDrag += OnEndDrag;
