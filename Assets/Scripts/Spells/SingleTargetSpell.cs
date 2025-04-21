@@ -22,12 +22,10 @@ public abstract class SingleTargetSpell : Spell
     {
         base.OnInteracting();
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetGame().Enemies;
-        TypeSetting typeSetting = settings.GetSettingForType(type);
-        
         for (int i = 0; i < enemies.Count; ++i)
         {
             if(CanAffect(enemies[i]) && enemies[i].IsVulnerable)
-                enemies[i].SetOutline(typeSetting.colour, settings.outlineSize);
+                enemies[i].SetOutline(settings.idleColour, settings.outlineSize);
         }
 
         Enemy targetedEnemy = GetCurrentTarget();

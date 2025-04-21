@@ -89,7 +89,7 @@ public class Gust : Spell
         {
             Color color = cardPopup.CanActivate
                 ? settings.selectColour
-                : settings.GetSettingForType(Map[effect.status]).colour;
+                : settings.idleColour;
             enemy.SetOutline(color, settings.outlineSize);
         }
     }

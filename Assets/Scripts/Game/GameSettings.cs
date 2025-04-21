@@ -24,9 +24,11 @@ public class LevelSettings
 }
 
 [Serializable]
-public class StatusParticle
+public class StatusSetting
 {
     public Status status;
+    [ColorUsage(true, true)]
+    public Color flashColour;
     public ParticleSystem particles;
     public Vector3 offset;
 }
@@ -38,7 +40,10 @@ public class GameSettings : ScriptableObject
     
     [TableList] public LevelSettings[] levels = Array.Empty<LevelSettings>();
 
-    public List<StatusParticle> statusParticles = new();
+    public List<StatusSetting> statusParticles = new();
+    
+    [Header("Pulse")] public float pulseTime = 1f;
+    public AnimationCurve pulseCurve;
     
     public int GetNextScene()
     {
@@ -70,9 +75,9 @@ public class GameSettings : ScriptableObject
         return -1;
     }
 
-    public StatusParticle GetParticleByStatus(Status status)
+    public StatusSetting GetParticleByStatus(Status status)
     {
-        foreach (StatusParticle statusParticle in statusParticles)
+        foreach (StatusSetting statusParticle in statusParticles)
         {
             if (statusParticle.status == status)
                 return statusParticle;

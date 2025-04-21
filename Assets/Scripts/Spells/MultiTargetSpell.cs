@@ -31,10 +31,9 @@ public abstract class MultiTargetSpell : ActivationSpell
     {
         base.OnInteracting();
         List<Enemy> enemies = GetFilteredTargets();
-        TypeSetting typeSetting = settings.GetSettingForType(type);
         for (int i = 0; i < enemies.Count; ++i)
         {
-            enemies[i].SetOutline(cardPopup.CanActivate ? settings.selectColour : typeSetting.colour, settings.outlineSize);
+            enemies[i].SetOutline(cardPopup.CanActivate ? settings.selectColour : settings.idleColour, settings.outlineSize);
         }
     }
 }

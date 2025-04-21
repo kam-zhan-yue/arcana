@@ -46,10 +46,10 @@ public abstract class StatusEffect
 
     private void SpawnParticles(Enemy enemy)
     {
-        StatusParticle particles = ServiceLocator.Instance.Get<IGameManager>().GetGame().Database.settings
+        StatusSetting settings = ServiceLocator.Instance.Get<IGameManager>().GetGame().Database.settings
             .GetParticleByStatus(status); 
-        _particles = Object.Instantiate(particles.particles, enemy.transform);
-        _particles.transform.localPosition = particles.offset;
+        _particles = Object.Instantiate(settings.particles, enemy.transform);
+        _particles.transform.localPosition = settings.offset;
         _particles.Play();
     }
 
