@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b798e7ab8fef94885bf64f46d2f12a67, type: 3}
+  m_Name: Audio Database
+  m_EditorClassIdentifier: 
+  sounds:
+  - id: SFX_BURN
+    config: {fileID: 11400000, guid: 206e98fa4adb348aeb0aed93b856e3fb, type: 2}
+  - id: SFX_CARD_DRAW
+    config: {fileID: 11400000, guid: 9031d7238f7164c878cc4fe5875c2276, type: 2}
+  - id: SFX_DUCK
+    config: {fileID: 11400000, guid: b0c2995c7f8ac43c1869226151b0cb73, type: 2}
+  - id: SFX_SPELL
+    config: {fileID: 11400000, guid: 44813a421e5334ab486ca5ff72cd2333, type: 2}
+  - id: SFX_FIREBALL_CAST
+    config: {fileID: 11400000, guid: a69f3fd4d1a564544b14df6c1f6be589, type: 2}
+  - id: SFX_FIREBALL_IMPACT
+    config: {fileID: 11400000, guid: 92cee79564b014ce89ee2ef242b85041, type: 2}
+  - id: SFX_DAMAGE
+    config: {fileID: 11400000, guid: ae7f90d04a1634d6db3832b59b5344fe, type: 2}
+  - id: SFX_SNOWBALL_CAST
+    config: {fileID: 11400000, guid: 7e64c404255a34260bfae5d82e089d8b, type: 2}
+  - id: SFX_SNOWBALL_IMPACT
+    config: {fileID: 11400000, guid: fcce490462a5d4112b2e73b801e0e323, type: 2}
+  - id: SFX_DUPLICATE
+    config: {fileID: 11400000, guid: 03e6d49234f2546b3a18c0feb164b453, type: 2}
+  - id: SFX_THUNDER
+    config: {fileID: 11400000, guid: 5c06c4b54474d4a51b77139e56ee0caf, type: 2}
+  - id: SFX_WATER_CAST
+    config: {fileID: 11400000, guid: 0ccf2234cce08411f84a181a84c9d920, type: 2}
+  - id: SFX_WATER_IMPACT
+    config: {fileID: 11400000, guid: 98df0e0ca8b5b449b8de399cc035b6bb, type: 2}
+  - id: SFX_PROPAGATE
+    config: {fileID: 11400000, guid: 03e6d49234f2546b3a18c0feb164b453, type: 2}
