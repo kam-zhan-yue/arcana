@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc376e512ab96434fb0804c0b0ffde0c, type: 3}
   m_Name: Lightning
   m_EditorClassIdentifier: 
+  title: <color=#FFE86E>Tonitrua</color>
+  description: Casts a rain of powerful lightning bolts on an enemy. Only affects
+    <color=#2FA4FF>wet enemies.
   prefab: {fileID: 123768908358427399, guid: 477b920cc0ac049089d0681e775ddb05, type: 3}
   damage: 200
   type: 2

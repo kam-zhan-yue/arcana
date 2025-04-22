@@ -12,7 +12,7 @@ public class TooltipPopup : Popup
 
     private RectTransform _rect;
     private Camera _uiCamera;
-    private bool _canShow;
+    private bool _canShow = true;
     
     protected override void InitPopup()
     {

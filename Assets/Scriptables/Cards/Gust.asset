@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c10e871bd934ebab5f2259ed8e0169, type: 3}
   m_Name: Gust
   m_EditorClassIdentifier: 
-  title: Propagate
-  description: Propagate the spell
+  title: <color=#D2AAFF>Propagate</color>
+  description: Refreshes and spreads afflicted status effects (<color=#FF456C>burn</color>,
+    <color=#2FA4FF>wet</color>, <color=#B4DEFF>frozen</color>) onto nearby enemies.
   prefab: {fileID: 3059518989340127666, guid: 7f01bc94f0b364b05b86f510157c42b9, type: 3}
   damage: 0
   type: 5

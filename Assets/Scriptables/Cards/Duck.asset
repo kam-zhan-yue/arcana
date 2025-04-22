@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7cce6f4571e4d6995e75361d2ed468, type: 3}
   m_Name: Duck
   m_EditorClassIdentifier: 
+  title: <color=#FBA520>Anatis</color>
+  description: Turns anything into a duck.
   prefab: {fileID: 6626334350394029259, guid: 8ce19dab0592743538ffe04c7a98b39a, type: 3}
   damage: 0
   type: 0

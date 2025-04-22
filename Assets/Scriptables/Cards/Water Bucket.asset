@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee97fa7cc81b44dcbd9ba673da5653f, type: 3}
   m_Name: Water Bucket
   m_EditorClassIdentifier: 
+  title: <color=#2FA4FF>Augamenti</color>
+  description: Hurls a non-damging water sphere at a single enemy. Inflicts <color=#2FA4FF>wet</color>.
   prefab: {fileID: 4551054513585895188, guid: cdaaebeacce7a47049ada729da440bf6, type: 3}
   damage: 0
   type: 4
