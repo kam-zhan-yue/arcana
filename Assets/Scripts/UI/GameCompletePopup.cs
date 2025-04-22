@@ -6,6 +6,7 @@ public class GameCompletePopup : Popup
 {
     [SerializeField] private GameSettings settings;
     private bool _restarted = false;
+    
     protected override void InitPopup()
     {
     }

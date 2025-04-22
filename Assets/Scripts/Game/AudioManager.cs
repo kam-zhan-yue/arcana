@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayStartBGM()
     {
+        _playingMain = false;
         Stop("BGM_MAIN");
         Play("BGM_START");
     }
