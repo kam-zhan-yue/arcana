@@ -51,6 +51,9 @@ public class CardContainer : MonoBehaviour
         Spell spellPrefab = card.spellConfig.prefab;
         Spell spell = Instantiate(spellPrefab, visualCardContainer.transform);
         spell.Init(cardType, card.spellConfig, cardPopupItem, _cardPopup, uiSettings);
+        
+        cardPopupItem.spell = spell;
+        
         _cards.Add(cardPopupItem);
     }
 
@@ -63,10 +66,6 @@ public class CardContainer : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < _cards.Count; ++i)
-        {
-            Debug.Log($"{_cards[i].name} {_cards[i].GetNormalizedPosition()}");
-        }
         if (_selectedCardPopupItem == null)
             return;
         Transform sharedParent = _selectedCardPopupItem.Rect.parent;
@@ -101,6 +100,12 @@ public class CardContainer : MonoBehaviour
         Transform tempParent = _selectedCardPopupItem.transform.parent;
         _selectedCardPopupItem.transform.SetParent(_cards[index].transform.parent);
         _cards[index].transform.SetParent(tempParent);
+        
+        //Updated Visual Indexes
+        foreach (CardPopupItem card in _cards)
+        {
+            card.spell.UpdateIndex();
+        }
     }
 
     private void OnBeginDrag(CardPopupItem cardPopupItem)

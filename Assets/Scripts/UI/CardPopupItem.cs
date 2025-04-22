@@ -24,6 +24,7 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     private RectTransform _rect;
     public RectTransform Rect => _rect;
+    public Spell spell;
 
     private void Awake()
     {
@@ -87,15 +88,15 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         }
     }
 
-    public int GetSiblingIndex()
-    {
-        return transform.parent.parent.childCount - 1;
-    }
-
     public float GetNormalizedPosition()
     {
-        return ((float)GetParentIndex()).Remap(0, (float)(transform.parent.parent.childCount - 1), 0,
-            1);
+        if (transform.parent.parent.childCount == 0)
+            return 0;
+        if (transform.parent.parent.childCount == 1)
+            return 0.5f;
+        float parentIndex = (float)GetParentIndex();
+        float remap = parentIndex.Remap(0f, transform.parent.parent.childCount - 1, 0f, 1f);
+        return remap;
     }
 
     public void OnPointerUp(PointerEventData eventData)

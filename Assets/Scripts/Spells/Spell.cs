@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Kuroneko.UtilityDelivery;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class Spell : MonoBehaviour
 {
+    private const int SHOW_SORT = 100;
     protected UISettings settings;
     // [SerializeField] private float tiltSpeed = 20f;
 
@@ -24,6 +24,7 @@ public abstract class Spell : MonoBehaviour
     private RectTransform _rect;
     private Image _image;
     private Color _originalColour;
+    private Canvas _canvas;
 
     private float _curveYOffset;
     private float _curveRotationOffset;
@@ -32,6 +33,7 @@ public abstract class Spell : MonoBehaviour
     {
         _mainCamera = Camera.main;
         _rect = GetComponent<RectTransform>();
+        // _canvas = GetComponent<Canvas>();
         _image = GetComponentInChildren<Image>();
         _originalColour = _image.color;
     }
@@ -71,10 +73,10 @@ public abstract class Spell : MonoBehaviour
 
     private void HandPositioning()
     {
-        _curveYOffset = (settings.positionCurve.Evaluate(_cardPopupItem.GetNormalizedPosition()) *
+        float normalizedPosition = _cardPopupItem.GetNormalizedPosition();
+        _curveYOffset = (settings.positionCurve.Evaluate(normalizedPosition) *
                          settings.positionInfluence);
-        _curveYOffset = _cardPopupItem.GetSiblingIndex() < 5 ? 0 : _curveYOffset;
-        _curveRotationOffset = settings.rotationCurve.Evaluate(_cardPopupItem.GetNormalizedPosition()) * settings.rotationInfluence;
+        _curveRotationOffset = settings.rotationCurve.Evaluate(normalizedPosition) * settings.rotationInfluence;
     }
 
     private void Follow()
@@ -90,6 +92,7 @@ public abstract class Spell : MonoBehaviour
         Vector3 movementRotation = (_cardPopupItem.State == CardState.Dragging ? _movementDelta : movementVector) * settings.rotationAmount;
         _rotationDelta = Vector3.Lerp(_rotationDelta, movementRotation, settings.rotationSpeed * Time.deltaTime);
         float rotationOffset = _cardPopupItem.State == CardState.Dragging ? 0f : _curveRotationOffset;
+        Debug.Log(rotationOffset);
         _rect.eulerAngles = new Vector3(_rect.eulerAngles.x, _rect.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -settings.maxRotation, settings.maxRotation) + rotationOffset);
     }
 
@@ -106,6 +109,11 @@ public abstract class Spell : MonoBehaviour
         }
 
         return targetedEnemy;
+    }
+
+    public void UpdateIndex()
+    {
+        transform.SetSiblingIndex(_cardPopupItem.transform.parent.GetSiblingIndex());
     }
 
     private void OnBeginDrag(CardPopupItem cardPopupItem)
@@ -188,6 +196,7 @@ public abstract class Spell : MonoBehaviour
     {
         cardPopup.TooltipPopup.Init(_cardType);
         interactingTime = 0f;
+        // _canvas.sortingOrder = SHOW_SORT;
     }
 
     protected virtual void OnInteracting()
@@ -197,6 +206,7 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void OnStopInteracting()
     {
+        // _canvas.sortingOrder = _cardPopupItem.GetParentIndex();
         cardPopup.TooltipPopup.Hide();
         interactingTime = 0f;
         DisableOutline();
