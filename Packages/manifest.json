@@ -4,6 +4,7 @@
     "com.kamzhanyue.audio-delivery": "https://github.com/kam-zhan-yue/audio-delivery.git",
     "com.kamzhanyue.ui-delivery": "https://github.com/kam-zhan-yue/ui-delivery.git",
     "com.kamzhanyue.utility-delivery": "https://github.com/kam-zhan-yue/utility-delivery.git",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.6",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.ide.rider": "3.0.31",
