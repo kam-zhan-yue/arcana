@@ -1,7 +1,5 @@
 using Kuroneko.AudioDelivery;
-using Kuroneko.UtilityDelivery;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -32,6 +30,7 @@ public class AudioManager : MonoBehaviour
         if (_playingMain)
             return;
         _playingMain = true;
+        Stop("BGM_MAIN");
         Stop("BGM_START");
         Play("BGM_MAIN");
     }

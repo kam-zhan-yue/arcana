@@ -1,8 +1,10 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using Kuroneko.UIDelivery;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -34,10 +36,13 @@ public class DamagePopup : Popup
 
     private async UniTask AddDamageAsync(Damage damage)
     {
-        CancellationToken cancellationToken = this.GetCancellationTokenOnDestroy();
-        DamagePopupItem popupItem = Instantiate(sampleDamagePopupItem, damageHolder);
-        popupItem.Init(damage);
-        await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: cancellationToken);
-        Destroy(popupItem.gameObject);
+        if (gameObject.activeSelf)
+        {
+            CancellationToken cancellationToken = this.GetCancellationTokenOnDestroy();
+            DamagePopupItem popupItem = Instantiate(sampleDamagePopupItem, damageHolder);
+            popupItem.Init(damage);
+            await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: cancellationToken);
+            Destroy(popupItem.gameObject);
+        }
     }
 }

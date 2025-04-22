@@ -28,7 +28,7 @@ public class Encounter
         for (int i = 0; i < cards.Length; ++i)
         {
             game.AddCard(cards[i]);
-            await UniTask.WaitForSeconds(0.2f, cancellationToken: token);
+            await UniTask.WaitForSeconds(0.1f, cancellationToken: token);
         }
     }
     

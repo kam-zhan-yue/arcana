@@ -41,6 +41,7 @@ public class EnemyMage : Enemy, IProjectileEnemy
     {
         Debug.Log("Enemy Mage Attack");
         Player player = GetPlayer();
+        AudioManager.instance.Play("SFX_ENEMY_SPELL");
 
         ProjectileEnemy projectile = Instantiate(_spellPrefab);
         projectile.Init(this, player, launchPoint, _spellSpeed);

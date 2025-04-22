@@ -33,10 +33,10 @@ MonoBehaviour:
     config: {fileID: 11400000, guid: fcce490462a5d4112b2e73b801e0e323, type: 2}
   - id: SFX_DUPLICATE
     config: {fileID: 11400000, guid: 03e6d49234f2546b3a18c0feb164b453, type: 2}
-  - id: SFX_THUNDER
+  - id: SFX_LIGHTNING
     config: {fileID: 11400000, guid: 5c06c4b54474d4a51b77139e56ee0caf, type: 2}
   - id: SFX_WATER_CAST
-    config: {fileID: 11400000, guid: 0ccf2234cce08411f84a181a84c9d920, type: 2}
+    config: {fileID: 11400000, guid: 03e6d49234f2546b3a18c0feb164b453, type: 2}
   - id: SFX_WATER_IMPACT
     config: {fileID: 11400000, guid: 98df0e0ca8b5b449b8de399cc035b6bb, type: 2}
   - id: SFX_PROPAGATE
@@ -45,3 +45,9 @@ MonoBehaviour:
     config: {fileID: 11400000, guid: efffd31b4b0f24a2fbc72cc943442ccd, type: 2}
   - id: BGM_MAIN
     config: {fileID: 11400000, guid: 13c3ac87acd82408bb04aa9e91310007, type: 2}
+  - id: SFX_ENEMY_SPELL
+    config: {fileID: 11400000, guid: 44813a421e5334ab486ca5ff72cd2333, type: 2}
+  - id: SFX_ENEMY_ARROW
+    config: {fileID: 11400000, guid: 05e22978c92f0431c8a0289804a4647a, type: 2}
+  - id: SFX_BURN
+    config: {fileID: 11400000, guid: 206e98fa4adb348aeb0aed93b856e3fb, type: 2}

@@ -42,7 +42,7 @@ public class EnemyArcher : Enemy, IProjectileEnemy
     {
         Debug.Log("Enemy Archer Attack");
         Player player = GetPlayer();
-
+        AudioManager.instance.Play("SFX_ENEMY_ARROW");
         ProjectileEnemy projectile = Instantiate(_arrowPrefab);
         projectile.Init(this, player, crossbow.launchPoint, _arrowSpeed);
     }

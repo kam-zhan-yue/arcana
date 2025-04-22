@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        AudioManager.instance.Play("SFX_DAMAGE");
         ChangeHealth(-1);
     }
 

@@ -60,6 +60,7 @@ public class Burn : StatusEffect
 
     private void ApplyBurn(Enemy enemy)
     {
+        AudioManager.instance.Play("SFX_BURN");
         Damage burnDamage = new(_burnDamage, DamageType.Fire, DamageEffect.None);
         enemy.Damage(burnDamage);
     }
