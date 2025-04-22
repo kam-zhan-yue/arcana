@@ -25,6 +25,9 @@ public abstract class Spell : MonoBehaviour
     private Image _image;
     private Color _originalColour;
 
+    private float _curveYOffset;
+    private float _curveRotationOffset;
+    
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -56,6 +59,7 @@ public abstract class Spell : MonoBehaviour
     private void Update()
     {
         if (!_cardPopupItem) return;
+        HandPositioning();
         Follow();
         Rotate();
 
@@ -65,9 +69,18 @@ public abstract class Spell : MonoBehaviour
         }
     }
 
+    private void HandPositioning()
+    {
+        _curveYOffset = (settings.positionCurve.Evaluate(_cardPopupItem.GetNormalizedPosition()) *
+                         settings.positionInfluence);
+        _curveYOffset = _cardPopupItem.GetSiblingIndex() < 5 ? 0 : _curveYOffset;
+        _curveRotationOffset = settings.rotationCurve.Evaluate(_cardPopupItem.GetNormalizedPosition()) * settings.rotationInfluence;
+    }
+
     private void Follow()
     {
-        _rect.position = Vector3.Lerp(_rect.position, _cardPopupItem.Rect.position, settings.followSpeed * Time.deltaTime);
+        Vector3 verticalOffset = Vector2.up * (_cardPopupItem.State == CardState.Dragging ? 0 : _curveYOffset);
+        _rect.position = Vector3.Lerp(_rect.position, _cardPopupItem.Rect.position + verticalOffset, settings.followSpeed * Time.deltaTime);
     }
 
     private void Rotate()
@@ -76,7 +89,8 @@ public abstract class Spell : MonoBehaviour
         _movementDelta = Vector3.Lerp(_movementDelta, movementVector, 25 * Time.deltaTime);
         Vector3 movementRotation = (_cardPopupItem.State == CardState.Dragging ? _movementDelta : movementVector) * settings.rotationAmount;
         _rotationDelta = Vector3.Lerp(_rotationDelta, movementRotation, settings.rotationSpeed * Time.deltaTime);
-        _rect.eulerAngles = new Vector3(_rect.eulerAngles.x, _rect.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -settings.maxRotation, settings.maxRotation));
+        float rotationOffset = _cardPopupItem.State == CardState.Dragging ? 0f : _curveRotationOffset;
+        _rect.eulerAngles = new Vector3(_rect.eulerAngles.x, _rect.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -settings.maxRotation, settings.maxRotation) + rotationOffset);
     }
 
     protected Enemy GetCurrentTarget()

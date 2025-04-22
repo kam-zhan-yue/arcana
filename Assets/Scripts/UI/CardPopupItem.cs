@@ -87,6 +87,17 @@ public class CardPopupItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         }
     }
 
+    public int GetSiblingIndex()
+    {
+        return transform.parent.parent.childCount - 1;
+    }
+
+    public float GetNormalizedPosition()
+    {
+        return ((float)GetParentIndex()).Remap(0, (float)(transform.parent.parent.childCount - 1), 0,
+            1);
+    }
+
     public void OnPointerUp(PointerEventData eventData)
     {
     }

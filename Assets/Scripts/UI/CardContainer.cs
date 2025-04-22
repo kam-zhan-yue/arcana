@@ -63,6 +63,10 @@ public class CardContainer : MonoBehaviour
 
     private void Update()
     {
+        for (int i = 0; i < _cards.Count; ++i)
+        {
+            Debug.Log($"{_cards[i].name} {_cards[i].GetNormalizedPosition()}");
+        }
         if (_selectedCardPopupItem == null)
             return;
         Transform sharedParent = _selectedCardPopupItem.Rect.parent;

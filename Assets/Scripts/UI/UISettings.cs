@@ -14,6 +14,10 @@ public class UISettings : ScriptableObject
     [SerializeField] public float rotationAmount = 1f;
     [SerializeField] public float rotationSpeed = 100f;
     [SerializeField] public float maxRotation = 60f;
+    public AnimationCurve positionCurve;
+    public float positionInfluence;
+    [SerializeField] public AnimationCurve rotationCurve;
+    [SerializeField] public float rotationInfluence;
 
     [Header("Visual Parameters")] [SerializeField]
     public float dragAlpha = 0.4f;
@@ -25,5 +29,5 @@ public class UISettings : ScriptableObject
     [ColorUsage(true, true)] public Color idleColour;
     public float cardFadeTime = 0.2f;
 
-    [FormerlySerializedAs("offset")] [Header("Tooltip")] public Vector3 tooltipOffset;
+    [Header("Tooltip")] public Vector3 tooltipOffset;
 }
