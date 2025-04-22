@@ -1203,6 +1203,58 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[1].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[3].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[5].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[7].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[0].playableDirector
+      value: 
+      objectReference: {fileID: 5436397938540401340}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[2].playableDirector
+      value: 
+      objectReference: {fileID: 5436397938540401340}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[4].playableDirector
+      value: 
+      objectReference: {fileID: 5436397938540401340}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[6].playableDirector
+      value: 
+      objectReference: {fileID: 5436397938540401340}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[0].encounter.cards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[1].encounter.cards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[1].encounter.steps.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075369143954497746, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+      propertyPath: steps.Array.data[3].encounter.cards.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2112778448716890830, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -3454,6 +3506,11 @@ Transform:
 --- !u!4 &5436397938540401339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1903408404254087191, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
+  m_PrefabInstance: {fileID: 5436397938540401336}
+  m_PrefabAsset: {fileID: 0}
+--- !u!320 &5436397938540401340 stripped
+PlayableDirector:
+  m_CorrespondingSourceObject: {fileID: 783239076462641326, guid: e6056a4c74212472c839c3410ef0687a, type: 3}
   m_PrefabInstance: {fileID: 5436397938540401336}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6949607963948395336

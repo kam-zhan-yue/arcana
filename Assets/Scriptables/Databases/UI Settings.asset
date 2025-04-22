@@ -97,7 +97,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   rotationInfluence: 25
   dragAlpha: 0.4
-  hoverScale: 1.4
+  hoverScale: 1.2
   hoverScaleDuration: 0.1
   hoverPunchAngle: 50
   outlineSize: 0.05
