@@ -57,3 +57,7 @@ MonoBehaviour:
     config: {fileID: 11400000, guid: bff385075404d4b7ea3c4d17a2b396d3, type: 2}
   - id: SFX_ENEMY_SPAWN
     config: {fileID: 11400000, guid: 4275b8b40aff842cb82231eba3f3f6fb, type: 2}
+  - id: SFX_FREEZE_CAST
+    config: {fileID: 11400000, guid: b4a496b242bd649d5999400a3ccab309, type: 2}
+  - id: SFX_FLAME_CAST
+    config: {fileID: 11400000, guid: 92cee79564b014ce89ee2ef242b85041, type: 2}

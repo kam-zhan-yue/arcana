@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff6c0a261d294e69a73b14f6bdb9748, type: 3}
   m_Name: Freeze
   m_EditorClassIdentifier: 
-  title: Freeze
-  description: Brrrr
+  title: <color=#B4DEFF>Tempestas Nix</color>
+  description: Applies <color=#B4DEFF>frozen</color> to all enemies.
   prefab: {fileID: 5240892185207594317, guid: 46df98c7469e14afc978a6c45d218bda, type: 3}
   damage: 0
   type: 3

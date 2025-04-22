@@ -8,4 +8,5 @@ public class FlameWaveSpellConfig : SpellConfig
     public float burnDamage = 10f;
     public float burnTick = 1f;
     public float knockbackForce = 1f;
+    public ParticleSystem explosionEffect;
 }

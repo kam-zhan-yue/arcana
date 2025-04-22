@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class FlameWave : MultiTargetSpell
 {
@@ -6,6 +7,7 @@ public class FlameWave : MultiTargetSpell
     private float _burnDamage;
     private float _burnTick;
     private float _knockbackForce;
+    private ParticleSystem _explosionEffect;
     
     protected override void InitConfig(SpellConfig config)
     {
@@ -17,6 +19,7 @@ public class FlameWave : MultiTargetSpell
         _burnDamage = spellConfig.burnDamage;
         _burnTick = spellConfig.burnTick;
         _knockbackForce = spellConfig.knockbackForce;
+        _explosionEffect = spellConfig.explosionEffect;
     }
 
     protected override bool CanAffect(Enemy enemy)
@@ -34,7 +37,19 @@ public class FlameWave : MultiTargetSpell
 
         Burn burn = new(Status.Burned, _burnTime, _burnDamage, _burnTick);
         Damage spellDamage = new (damage, DamageType.Fire, effect, _knockbackForce);
-        enemy.ApplyStatus(burn);
         enemy.Damage(spellDamage);
+        enemy.ApplyStatus(burn);
+        
+        
+        // Spawn the explosion effect
+        ParticleSystem explosion = Instantiate(_explosionEffect);
+        explosion.transform.position = enemy.GetCenter();
+        explosion.Play(true);
+    }
+
+    protected override void Use()
+    {
+        base.Use();
+        AudioManager.instance.Play("SFX_FLAME_CAST");
     }
 }

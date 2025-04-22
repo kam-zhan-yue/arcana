@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177c983eac4df4981bbb0f34a9de7dcb, type: 3}
   m_Name: Flame Wave
   m_EditorClassIdentifier: 
+  title: <color=#FF456C>Tempestas Ignis</color>
+  description: Applies a low damage flame to all enemies that applies <color=#FF456C>burn</color>.
+    Deals double damage to <color=#B4DEFF>frozen</color> enemies.
   prefab: {fileID: 6360907674387263254, guid: b259027c942824dc8a7a30c0d8cc6b8c, type: 3}
-  damage: 20
+  damage: 50
   type: 1
   oneTimeUse: 1
   burnTime: 10
   burnDamage: 10
   burnTick: 1
+  knockbackForce: 1
+  explosionEffect: {fileID: 2326268496209449129, guid: d6bf104c06021495497512633acd9a67, type: 3}
