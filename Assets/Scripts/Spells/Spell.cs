@@ -188,6 +188,8 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void OnStartDragging()
     {
+        _scaleTween?.Kill();
+        transform.localScale = Vector3.one;
         Color baseColour = _image.color;
         baseColour.a = settings.dragAlpha;
         _image.color = baseColour;
