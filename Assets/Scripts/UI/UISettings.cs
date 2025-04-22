@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/UI Settings", fileName = "UI Settings")]
 public class UISettings : ScriptableObject
@@ -23,4 +24,6 @@ public class UISettings : ScriptableObject
     public Color selectColour;
     [ColorUsage(true, true)] public Color idleColour;
     public float cardFadeTime = 0.2f;
+
+    [FormerlySerializedAs("offset")] [Header("Tooltip")] public Vector3 tooltipOffset;
 }

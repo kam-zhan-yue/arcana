@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ca813ab00274a5a8489935ca5bd0d0, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  title: Fireball
+  description: Boom boom
   prefab: {fileID: 7069891739309875284, guid: 022a4d5e9f46c46709f27503a9874fec, type: 3}
   damage: 100
   type: 1

@@ -19,6 +19,8 @@ MonoBehaviour:
   rotationSpeed: 10
   maxRotation: 50
   dragAlpha: 0.4
-  outlineSize: 0.02
+  outlineSize: 0.05
   selectColour: {r: 0, g: 1.0592737, b: 0.017899519, a: 1}
   idleColour: {r: 1.0592737, g: 0, b: 0.0055459356, a: 1}
+  cardFadeTime: 0.2
+  tooltipOffset: {x: 0, y: 0.23, z: 0}

@@ -45,6 +45,7 @@ public class CardContainer : MonoBehaviour
         CardPopupItem cardPopupItem = Instantiate(cardPopupItemPrefab, transform.GetChild(transform.childCount - 1));
         cardPopupItem.BeginDrag += OnBeginDrag;
         cardPopupItem.EndDrag += OnEndDrag;
+        cardPopupItem.gameObject.name = card.spellConfig.title;
         
         // Also, create a new visual card for the card
         Spell spellPrefab = card.spellConfig.prefab;

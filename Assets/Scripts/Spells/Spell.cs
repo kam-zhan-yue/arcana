@@ -96,11 +96,14 @@ public abstract class Spell : MonoBehaviour
 
     private void OnBeginDrag(CardPopupItem cardPopupItem)
     {
+        cardPopup.TooltipPopup.Hide();
+        cardPopup.TooltipPopup.Disable();
         OnStartDragging();
     }
     
     private void OnEndDrag(CardPopupItem cardPopupItem)
     {
+        cardPopup.TooltipPopup.Enable();
         if (CanApply())
         {
             ApplySpell();
@@ -151,8 +154,7 @@ public abstract class Spell : MonoBehaviour
     }
 
     private void OnPointerEnter(CardPopupItem cardPopupItem)
-    { 
-        interactingTime = 0f;
+    {
         OnStartInteracting();
     }
     
@@ -170,6 +172,7 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void OnStartInteracting()
     {
+        cardPopup.TooltipPopup.Init(_cardType);
         interactingTime = 0f;
     }
 
@@ -180,6 +183,7 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void OnStopInteracting()
     {
+        cardPopup.TooltipPopup.Hide();
         interactingTime = 0f;
         DisableOutline();
     }

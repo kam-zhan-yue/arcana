@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CardPopup : Popup
 {
+    [SerializeField] private TooltipPopup tooltipPopup;
     [SerializeField] private CardPanelPopup cardPanelPopup;
     [SerializeField] private CardContainer cardContainer;
     [SerializeField] private VisualCardContainer visualCardContainer;
 
     public bool CanActivate => cardPanelPopup.CanActivate;
+    public TooltipPopup TooltipPopup => tooltipPopup;
     
     protected override void InitPopup()
     {

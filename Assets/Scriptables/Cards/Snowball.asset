@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6cca79e9ab4040bf8c1e44ba1cc236d, type: 3}
   m_Name: Snowball
   m_EditorClassIdentifier: 
+  title: Snowball
+  description: Hurl a snowball at a single target.
   prefab: {fileID: 1439968018523612372, guid: 5e27692715a644f68b218e760f2e2599, type: 3}
   damage: 50
   type: 3
