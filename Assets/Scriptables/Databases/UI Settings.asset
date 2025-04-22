@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b690c5940993d4b38bf5f463819f60c5, type: 3}
   m_Name: UI Settings
   m_EditorClassIdentifier: 
-  activateDisabled: {r: 1, g: 0.8901961, b: 0.53333336, a: 0.39215687}
-  activateRestricted: {r: 1, g: 0.5330188, b: 0.5330188, a: 0.39215687}
-  activateEnabled: {r: 0.67058825, g: 0.9529412, b: 0.79607844, a: 0.39215687}
+  activateDisabled: {r: 1, g: 0.8901961, b: 0.53333336, a: 0.19607843}
+  activateRestricted: {r: 1, g: 0.5330188, b: 0.5330188, a: 0.19607843}
+  activateEnabled: {r: 0.67058825, g: 0.9529412, b: 0.79607844, a: 0.19607843}
   followSpeed: 25
   rotationAmount: 0.5
   rotationSpeed: 10
@@ -104,4 +104,4 @@ MonoBehaviour:
   selectColour: {r: 0, g: 1.0592737, b: 0.017899519, a: 1}
   idleColour: {r: 1.0592737, g: 0, b: 0.0055459356, a: 1}
   cardFadeTime: 0.2
-  tooltipOffset: {x: 0, y: 0.2, z: 0}
+  tooltipOffset: {x: 0, y: 0.15, z: 0}

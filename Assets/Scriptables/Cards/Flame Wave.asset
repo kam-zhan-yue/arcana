@@ -19,8 +19,8 @@ MonoBehaviour:
   damage: 50
   type: 1
   oneTimeUse: 1
-  burnTime: 10
+  burnTime: 5
   burnDamage: 10
-  burnTick: 1
+  burnTick: 0.5
   knockbackForce: 1
   explosionEffect: {fileID: 2326268496209449129, guid: d6bf104c06021495497512633acd9a67, type: 3}

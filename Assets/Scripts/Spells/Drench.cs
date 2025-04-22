@@ -6,7 +6,7 @@ public class Drench : StatusEffect
 
     public static bool CanAffect(Enemy enemy)
     {
-        return enemy.Status != Status.Frozen;
+        return true;
     }
 
     public override StatusEffect Clone()
