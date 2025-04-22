@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 public class UISettings : ScriptableObject
 {
     [Header("UI Parameters")] public Color activateDisabled;
+    public Color activateRestricted;
     public Color activateEnabled;
     
     [Header("Follow Parameters")] 

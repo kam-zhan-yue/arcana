@@ -11,21 +11,12 @@ public class CardPopup : Popup
 
     public bool CanActivate => cardPanelPopup.CanActivate;
     public TooltipPopup TooltipPopup => tooltipPopup;
+    public CardPanelPopup CardPanelPopup => cardPanelPopup;
     
     protected override void InitPopup()
     {
-        DisableActivationZone();
-        cardContainer.Init(this);
-    }
-
-    public void EnableActivationZone()
-    {
-        cardPanelPopup.EnableActivationZone();
-    }
-
-    public void DisableActivationZone()
-    {
         cardPanelPopup.DisableActivationZone();
+        cardContainer.Init(this);
     }
 
     public void RemoveCard(CardPopupItem cardPopupItem)

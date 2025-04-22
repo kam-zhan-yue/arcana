@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: <color=#FF456C>Bombarda</color>
   description: Detonates a scorching fireball at a single enemy. Does not affect
-    <color=#2FA4FF>wet</color> enemies. Inflicts <color=#FF456C>burn</color>.
+    <color=#2FA4FF>wet</color> enemies. Inflicts <color=#FF456C>burn</color>. Deals
+    double damage to <color=#B4DEFF>frozen</color> enemies.
   prefab: {fileID: 7069891739309875284, guid: 022a4d5e9f46c46709f27503a9874fec, type: 3}
   damage: 100
   type: 1

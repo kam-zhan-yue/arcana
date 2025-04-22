@@ -152,6 +152,7 @@ public abstract class Enemy : MonoBehaviour
 
     private async UniTask SpawnFromGround(EnemyData data)
     {
+        AudioManager.instance.Play("SFX_ENEMY_SPAWN");
         _movementState = MovementStatus.Spawning;
         animator.SetTrigger(SpawnGround);
         await UniTask.WaitForSeconds(data.timeToSpawn);
@@ -353,6 +354,7 @@ public abstract class Enemy : MonoBehaviour
 
     private async UniTask DieAsync()
     {
+        AudioManager.instance.Play("SFX_ENEMY_DEAD");
         await UniTask.WaitForSeconds(2f);
         Destroy(gameObject);
     }

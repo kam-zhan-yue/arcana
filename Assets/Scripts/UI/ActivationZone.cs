@@ -10,6 +10,7 @@ public class ActivationZone : MonoBehaviour
 
     private Camera _uiCamera;
     private UISettings _uiSettings;
+    public bool _restrict = false;
 
     private void Awake()
     {
@@ -39,6 +40,22 @@ public class ActivationZone : MonoBehaviour
             CanActivate = false;
         }
 
-        _image.color = CanActivate ? _uiSettings.activateEnabled : _uiSettings.activateDisabled;
+        if (CanActivate && !_restrict)
+        {
+            _image.color = _uiSettings.activateEnabled;
+        }
+        else if (CanActivate && _restrict)
+        {
+            _image.color = _uiSettings.activateRestricted;
+        }
+        else
+        {
+            _image.color = _uiSettings.activateDisabled;
+        }
+    }
+
+    public void SetRestricted(bool restricted)
+    {
+        _restrict = restricted;
     }
 }

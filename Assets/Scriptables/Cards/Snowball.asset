@@ -18,7 +18,7 @@ MonoBehaviour:
   damage: 50
   type: 3
   oneTimeUse: 1
-  freezeTime: 3
+  freezeTime: 5
   launchSpeed: 5
   knockbackForce: 0.2
   knockbackTime: 0.2

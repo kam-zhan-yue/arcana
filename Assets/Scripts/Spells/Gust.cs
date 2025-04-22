@@ -51,7 +51,7 @@ public class Gust : Spell
     protected override void OnStartDragging()
     {
         base.OnStartDragging();
-        cardPopup.EnableActivationZone();
+        cardPopup.CardPanelPopup.EnableActivationZone();
     }
 
     private List<(Enemy enemy, StatusEffect effect)> GetActiveTargets()
@@ -73,6 +73,10 @@ public class Gust : Spell
                 visited.Add(enemy);
             }
         }
+
+        // If there are no targets with status effects, then don't bother
+        if (targets.Count == 0)
+            return targets;
         
         // Spread the status to the nearest unvisited enemy
         while (queue.Count > 0)
@@ -96,6 +100,7 @@ public class Gust : Spell
     {
         base.OnInteracting();
         var targets = GetActiveTargets();
+        cardPopup.CardPanelPopup.ActivationZone.SetRestricted(targets.Count == 0);
         foreach ((Enemy enemy, StatusEffect effect) in targets)
         {
             Color color = cardPopup.CanActivate
@@ -108,7 +113,7 @@ public class Gust : Spell
     protected override void OnStopInteracting()
     {
         base.OnStopInteracting();
-        cardPopup.DisableActivationZone();
+        cardPopup.CardPanelPopup.DisableActivationZone();
         List<Enemy> enemies = ServiceLocator.Instance.Get<IGameManager>().GetGame().Enemies;
         for (int i = 0; i < enemies.Count; ++i)
         {

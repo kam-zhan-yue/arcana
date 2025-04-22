@@ -197,6 +197,7 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void OnStartInteracting()
     {
+        AudioManager.instance.Play("SFX_BUTTON");
         cardPopup.TooltipPopup.Init(_cardType);
         interactingTime = 0f;
         _scaleTween?.Kill();

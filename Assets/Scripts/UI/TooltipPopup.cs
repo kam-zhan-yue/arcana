@@ -23,10 +23,13 @@ public class TooltipPopup : Popup
 
     private void Update()
     {
-        Vector3 screenMousePos = Input.mousePosition;
-        screenMousePos.z = _uiCamera.WorldToScreenPoint(_rect.position).z;
-        Vector3 worldMousePos = _uiCamera.ScreenToWorldPoint(screenMousePos);
-        _rect.position = worldMousePos + settings.tooltipOffset;
+        if (isShowing)
+        {
+            Vector3 screenMousePos = Input.mousePosition;
+            screenMousePos.z = _uiCamera.WorldToScreenPoint(_rect.position).z;
+            Vector3 worldMousePos = _uiCamera.ScreenToWorldPoint(screenMousePos);
+            transform.position = worldMousePos + settings.tooltipOffset;
+        }
     }
 
     public void Init(CardType type)

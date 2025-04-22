@@ -31,7 +31,7 @@ public class DamagePopup : Popup
 
     private void OnDamage(Damage damage)
     {
-        AddDamageAsync(damage).Forget();
+        // AddDamageAsync(damage).Forget();
     }
 
     private async UniTask AddDamageAsync(Damage damage)

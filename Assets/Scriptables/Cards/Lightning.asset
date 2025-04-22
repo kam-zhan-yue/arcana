@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Casts a rain of powerful lightning bolts on an enemy. Only affects
     <color=#2FA4FF>wet enemies.
   prefab: {fileID: 123768908358427399, guid: 477b920cc0ac049089d0681e775ddb05, type: 3}
-  damage: 200
+  damage: 300
   type: 2
   oneTimeUse: 1
   knockbackForce: 0.5

@@ -8,7 +8,7 @@ public class Frozen : StatusEffect
 
     public static bool CanAffect(Enemy enemy)
     {
-        return enemy.Status != Status.Burned;
+        return true;
     }
 
 

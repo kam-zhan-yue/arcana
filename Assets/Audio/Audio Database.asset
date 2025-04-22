@@ -51,3 +51,9 @@ MonoBehaviour:
     config: {fileID: 11400000, guid: 05e22978c92f0431c8a0289804a4647a, type: 2}
   - id: SFX_BURN
     config: {fileID: 11400000, guid: 206e98fa4adb348aeb0aed93b856e3fb, type: 2}
+  - id: SFX_ENEMY_DEAD
+    config: {fileID: 11400000, guid: 90eff3c0c46b8448c9fe9f654da0b77a, type: 2}
+  - id: SFX_BUTTON
+    config: {fileID: 11400000, guid: bff385075404d4b7ea3c4d17a2b396d3, type: 2}
+  - id: SFX_ENEMY_SPAWN
+    config: {fileID: 11400000, guid: 4275b8b40aff842cb82231eba3f3f6fb, type: 2}

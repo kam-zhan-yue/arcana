@@ -31,6 +31,7 @@ public abstract class MultiTargetSpell : ActivationSpell
     {
         base.OnInteracting();
         List<Enemy> enemies = GetFilteredTargets();
+        cardPopup.CardPanelPopup.ActivationZone.SetRestricted(enemies.Count == 0);
         for (int i = 0; i < enemies.Count; ++i)
         {
             enemies[i].SetOutline(cardPopup.CanActivate ? settings.selectColour : settings.idleColour, settings.outlineSize);
