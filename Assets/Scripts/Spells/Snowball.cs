@@ -40,6 +40,7 @@ public class Snowball : SingleTargetSpell, IProjectileSpell
         // Init the fireball
         Projectile projectile = Instantiate(_snowballPrefab);
         projectile.Init(this, spellTarget, _launchSpeed);
+        AudioManager.instance.Play("SFX_SNOWBALL_CAST");
     }
 
     public void ApplyEnemy(Enemy enemy, Projectile projectile)
@@ -58,5 +59,6 @@ public class Snowball : SingleTargetSpell, IProjectileSpell
         
         // Destroy the fireball projectile
         Destroy(projectile.gameObject);
+        AudioManager.instance.Play("SFX_SNOWBALL_IMPACT");
     }
 }

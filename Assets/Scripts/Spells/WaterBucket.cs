@@ -37,6 +37,7 @@ public class WaterBucket : SingleTargetSpell, IProjectileSpell
     {
         Projectile projectile = Instantiate(_projectile);
         projectile.Init(this, spellTarget, _launchSpeed);
+        AudioManager.instance.Play("SFX_WATER_CAST");
     }
     
     public void ApplyEnemy(Enemy enemy, Projectile projectile)
@@ -54,5 +55,6 @@ public class WaterBucket : SingleTargetSpell, IProjectileSpell
 
         // Destroy the projectile
         Destroy(projectile.gameObject);
+        AudioManager.instance.Play("SFX_WATER_IMPACT");
     }
 }

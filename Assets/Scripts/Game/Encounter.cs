@@ -15,14 +15,20 @@ public class Encounter
 
     public async UniTask Play(CancellationToken token)
     {
+        await AddCardsAsync(token);
+        for (int i = 0; i < steps.Count; ++i)
+        {
+            await steps[i].Play(this, token);
+        }
+    }
+
+    private async UniTask AddCardsAsync(CancellationToken token)
+    {
         Game game = ServiceLocator.Instance.Get<IGameManager>().GetGame();
         for (int i = 0; i < cards.Length; ++i)
         {
             game.AddCard(cards[i]);
-        }
-        for (int i = 0; i < steps.Count; ++i)
-        {
-            await steps[i].Play(this, token);
+            await UniTask.WaitForSeconds(0.2f, cancellationToken: token);
         }
     }
     

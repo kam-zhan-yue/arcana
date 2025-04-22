@@ -44,6 +44,7 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
         // Init the fireball
         Projectile projectile = Instantiate(_fireballPrefab);
         projectile.Init(this, spellTarget, _launchSpeed);
+        AudioManager.instance.Play("SFX_FIREBALL_CAST");
     }
 
     public void ApplyEnemy(Enemy enemy, Projectile projectile)
@@ -68,5 +69,6 @@ public class Fireball : SingleTargetSpell, IProjectileSpell
 
         // Destroy the fireball projectile
         Destroy(projectile.gameObject);
+        AudioManager.instance.Play("SFX_FIREBALL_IMPACT");
     }
 }

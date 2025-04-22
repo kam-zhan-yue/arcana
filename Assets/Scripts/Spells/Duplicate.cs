@@ -27,5 +27,6 @@ public class Duplicate : ActivationSpell
         game.AddCard(cardHistory[^1]);
         game.AddCard(cardHistory[^1]);
         base.Use();
+        AudioManager.instance.Play("SFX_DUPLICATE");
     }
 }

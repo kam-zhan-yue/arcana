@@ -13,7 +13,13 @@ public class Duck : SingleTargetSpell
             throw new InvalidCastException("Config must be of type DuckSpellConfig");
         _duckPrefab = spellConfig.duckPrefab;
     }
-    
+
+    protected override void Use()
+    {
+        base.Use();
+        AudioManager.instance.Play("SFX_DUCK");
+    }
+
     protected override void Apply(Enemy spellTarget)
     {
         spellTarget.Mutate(_duckPrefab);

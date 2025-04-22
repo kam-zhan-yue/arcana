@@ -50,6 +50,7 @@ public class Game
 
     public void Start()
     {
+        AudioManager.instance.PlayMainBGM();
         _flow.PlayFlow();
         OnGameStart?.Invoke();
     }
@@ -61,6 +62,7 @@ public class Game
 
     public void AddCard(CardType cardType)
     {
+        AudioManager.instance.Play("SFX_CARD_DRAW");
         OnCardAdded?.Invoke(cardType);
     }
     
@@ -94,6 +96,7 @@ public class Game
 
     public void ShowMainMenu()
     {
+        AudioManager.instance.PlayStartBGM();
         OnMainMenu?.Invoke();
     }
 }

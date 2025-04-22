@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [NonSerialized, ShowInInspector, ReadOnly]
     private Game _game;
-    
+
     private void Awake()
     {
         ServiceLocator.Instance.Register<IGameManager>(this);

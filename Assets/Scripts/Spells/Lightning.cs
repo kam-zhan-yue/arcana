@@ -28,6 +28,12 @@ public class Lightning : MultiTargetSpell
         SpawnParticles(enemy);
     }
 
+    protected override void Use()
+    {
+        base.Use();
+        AudioManager.instance.Play("SFX_LIGHTNING");
+    }
+
     private void SpawnParticles(Enemy enemy)
     {
         ParticleSystem lightning = Instantiate(_lightningEffect);

@@ -39,7 +39,13 @@ public class Gust : Spell
             Damage spellDamage = new Damage(0f, Map[effect.status], DamageEffect.None);
             enemy.Damage(spellDamage);
         }
+        Use();
+    }
+
+    protected override void Use()
+    {
         base.Use();
+        AudioManager.instance.Play("SFX_PROPAGATE");
     }
 
     protected override void OnStartDragging()
