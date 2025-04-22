@@ -96,6 +96,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   rotationInfluence: 25
   dragAlpha: 0.4
+  hoverScale: 1.4
+  hoverScaleDuration: 0.1
+  hoverPunchAngle: 50
   outlineSize: 0.05
   selectColour: {r: 0, g: 1.0592737, b: 0.017899519, a: 1}
   idleColour: {r: 1.0592737, g: 0, b: 0.0055459356, a: 1}

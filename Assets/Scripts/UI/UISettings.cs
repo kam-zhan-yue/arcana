@@ -21,6 +21,10 @@ public class UISettings : ScriptableObject
 
     [Header("Visual Parameters")] [SerializeField]
     public float dragAlpha = 0.4f;
+
+    [Header("Animations")] public float hoverScale = 1.1f;
+    public float hoverScaleDuration = 0.1f;
+    public float hoverPunchAngle = 10f;
     
     [Header("Outline")]
     public float outlineSize = 0.5f;

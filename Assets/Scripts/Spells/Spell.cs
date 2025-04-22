@@ -28,6 +28,8 @@ public abstract class Spell : MonoBehaviour
 
     private float _curveYOffset;
     private float _curveRotationOffset;
+    private Tween _scaleTween;
+    private Tween _shakeTween;
     
     private void Awake()
     {
@@ -92,7 +94,6 @@ public abstract class Spell : MonoBehaviour
         Vector3 movementRotation = (_cardPopupItem.State == CardState.Dragging ? _movementDelta : movementVector) * settings.rotationAmount;
         _rotationDelta = Vector3.Lerp(_rotationDelta, movementRotation, settings.rotationSpeed * Time.deltaTime);
         float rotationOffset = _cardPopupItem.State == CardState.Dragging ? 0f : _curveRotationOffset;
-        Debug.Log(rotationOffset);
         _rect.eulerAngles = new Vector3(_rect.eulerAngles.x, _rect.eulerAngles.y, Mathf.Clamp(_rotationDelta.x, -settings.maxRotation, settings.maxRotation) + rotationOffset);
     }
 
@@ -196,7 +197,10 @@ public abstract class Spell : MonoBehaviour
     {
         cardPopup.TooltipPopup.Init(_cardType);
         interactingTime = 0f;
-        // _canvas.sortingOrder = SHOW_SORT;
+        _scaleTween?.Kill();
+        _scaleTween = transform.DOScale(Vector3.one * settings.hoverScale, settings.hoverScaleDuration).SetEase(Ease.OutBack);
+        _shakeTween?.Kill();
+        _shakeTween = transform.GetChild(0).DOPunchRotation(Vector3.forward * (settings.hoverPunchAngle/2), settings.hoverScaleDuration, 20, 1).SetId(2);
     }
 
     protected virtual void OnInteracting()
@@ -206,6 +210,8 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void OnStopInteracting()
     {
+        _scaleTween?.Kill();
+        _scaleTween = transform.DOScale(Vector3.one, settings.hoverScaleDuration).SetEase(Ease.InBack);
         // _canvas.sortingOrder = _cardPopupItem.GetParentIndex();
         cardPopup.TooltipPopup.Hide();
         interactingTime = 0f;
